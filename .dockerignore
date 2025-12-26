@@ -1,0 +1,166 @@
+# Environment / Secrets
+
+.env
+*~
+.directory
+*.pem
+
+
+# Git
+
+.git
+.gitignore
+.gitattributes
+.gitmodules
+
+
+# IDE / Editor
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Eclipse
+.classpath
+.project
+.apt_generated
+.factorypath
+.settings
+.springBeans
+.sts4-cache
+.settings/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+bin/
+plugin/bin/
+api/bin/
+
+# VS Code
+.vscode/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+
+# OS-specific
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+.Trash-*
+.fuse_hidden*
+.nfs*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+
+# Java / JVM / Maven / Gradle
+
+# Compiled class files
+*.class
+
+# Maven / Gradle build folders and artifacts
+target/
+build/
+builds/
+.gradle
+run/
+*.war
+*.nar
+*.ear
+*.jar
+*.zip
+*.tar.gz
+*.rar
+
+# Maven wrapper and metadata
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+.flattened-pom.xml
+
+# BlueJ files
+*.ctxt
+
+# JVM crash logs
+hs_err_pid*
+
+# Temporary / scratch files
+*.class.tmp
+*.classcache
+*.log.*
+*.bak
+*.swp
+
+
+# Node / JavaScript / Next.js / Yarn
+
+# Node
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js
+/.next/
+/out/
+
+# Production build
+/build
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Testing
+/coverage
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts

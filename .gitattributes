@@ -1,0 +1,60 @@
+# Automatically detect text files
+* text=auto eol=lf encoding=UTF-8
+
+# Common configuration and markup files
+*.xml        text eol=lf encoding=UTF-8
+*.properties text eol=lf encoding=UTF-8
+*.json       text eol=lf encoding=UTF-8
+*.yml        text eol=lf encoding=UTF-8
+*.yaml       text eol=lf encoding=UTF-8
+*.md         text eol=lf encoding=UTF-8
+*.gradle     text eol=lf encoding=UTF-8
+*.gradle.kts text eol=lf encoding=UTF-8
+
+# Java & Kotlin source files
+*.java text eol=lf encoding=UTF-8
+*.kt   text eol=lf encoding=UTF-8
+
+# TypeScript & JavaScript
+*.ts  text eol=lf encoding=UTF-8
+*.tsx text eol=lf encoding=UTF-8
+*.js  text eol=lf encoding=UTF-8
+*.jsx text eol=lf encoding=UTF-8
+
+# HTML / CSS
+*.html text eol=lf encoding=UTF-8
+*.css  text eol=lf encoding=UTF-8
+*.scss text eol=lf encoding=UTF-8
+
+# Windows batch scripts
+*.bat text eol=crlf
+
+# Binary files
+*.jar    binary
+*.war    binary
+*.ear    binary
+*.zip    binary
+*.tar.gz binary
+*.rar    binary
+
+# Image files
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+
+# Video files
+*.webm binary
+*.mp4  binary
+*.avi  binary
+
+# Audio files
+*.mp3 binary
+*.wav binary
+
+# Font files
+*.ttf   binary
+*.otf   binary
+*.woff  binary
+*.woff2 binary
