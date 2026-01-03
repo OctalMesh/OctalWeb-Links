@@ -14,7 +14,7 @@
 
 # Policies, contribution, and licensing
 CODE_OF_CONDUCT*.md @OctalMesh/core
-CONTRIBUTING*.md @OctalMesh/core
-LICENSE*.md @OctalMesh/core
-SECURITY*.md @OctalMesh/core
-SUPPORT*.md @OctalMesh/core
+CONTRIBUTING*.md    @OctalMesh/core
+LICENSE*.md         @OctalMesh/core
+SECURITY*.md        @OctalMesh/core
+SUPPORT*.md         @OctalMesh/core
