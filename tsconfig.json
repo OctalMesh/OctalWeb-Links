@@ -1,0 +1,15 @@
+{
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "strict": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
+    "noEmit": true
+  }
+}

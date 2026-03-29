@@ -21,6 +21,11 @@
 *.js  text eol=lf encoding=UTF-8
 *.jsx text eol=lf encoding=UTF-8
 
+# Go source files
+*.go   text eol=lf encoding=UTF-8
+go.mod text eol=lf encoding=UTF-8
+go.sum text eol=lf encoding=UTF-8 -diff
+
 # HTML / CSS
 *.html text eol=lf encoding=UTF-8
 *.css  text eol=lf encoding=UTF-8

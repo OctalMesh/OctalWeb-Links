@@ -1,0 +1,11 @@
+role: squadron
+id: links
+binary: owl
+
+reactor:
+  provider: tilt
+  context: ./
+
+  blueprints:
+    - env: dev
+      path: ./infra/dev/Tiltfile

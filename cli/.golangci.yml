@@ -1,0 +1,79 @@
+# golangci-lint configuration for the Links module CLI (owl).
+#
+# Reference:  https://golangci-lint.run/usage/configuration/
+# Style:      https://google.github.io/styleguide/go/
+# Idioms:     https://go.dev/doc/effective_go
+#
+# Install tools once (any machine / CI):
+#   go install golang.org/x/tools/cmd/goimports@latest
+#   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+#
+# Usage from this directory:
+#   goimports -w ./...           # format + organise imports  (replaces gofmt)
+#   golangci-lint run            # lint - check only
+#   golangci-lint run --fix      # lint - apply machine-fixable suggestions
+
+run:
+  timeout: 3m
+
+linters:
+  disable-all: true
+  enable:
+    # ── Formatting ────────────────────────────────────────────────────────────
+    - goimports # gofmt + import grouping; the Google-recommended formatter
+
+    # ── Correctness ───────────────────────────────────────────────────────────
+    - govet # go vet: reports suspicious constructs
+    - staticcheck # SA* / S* / QF*  (supersedes gosimple + stylecheck)
+    - errcheck # every error return value must be handled
+    - ineffassign # detects assignments to variables never read afterwards
+
+    # ── Style & Clarity ───────────────────────────────────────────────────────
+    - revive # comprehensive style checks (community successor to golint)
+    - godot # exported declaration comments must end with a period
+    - nolintlint # ensures //nolint directives are accurate and not unused
+
+linters-settings:
+  goimports:
+    # Keep OctalMesh packages in their own import group.
+    # Resulting order in every file: stdlib │ third-party │ github.com/OctalMesh/...
+    local-prefixes: github.com/OctalMesh
+
+  revive:
+    enable-all-rules: false
+    rules:
+      - name: exported # exported symbols must have doc comments
+        arguments:
+          - "disableStutteringCheck" # allow e.g. type LinksConfig struct
+      - name: error-strings # errors must not be capitalised or end with punctuation
+      - name: increment-decrement # prefer i++ over i += 1
+      - name: var-naming # idiomatic Go naming (e.g. id not iD)
+      - name: package-comments # every package must have a doc comment
+      - name: early-return # favour early returns to reduce nesting
+      - name: redefines-builtin-id # do not shadow len, cap, error, etc.
+      - name: unused-parameter # flag unused function parameters
+
+  staticcheck:
+    checks:
+      - "all"
+      - "-ST1000" # each *file* does not need its own package comment - one is enough
+      - "-ST1020" # exported func/type comment format - already covered by godot
+
+  godot:
+    scope: declarations # only exported declaration comments
+    period: true # must end with a period
+
+issues:
+  exclude-dirs:
+    - vendor
+
+  exclude-rules:
+    # Relax rules inside test files.
+    - path: _test\.go
+      linters:
+        - errcheck
+        - godot
+
+  # Show every issue, not just the first N per linter.
+  max-issues-per-linter: 0
+  max-same-issues: 0

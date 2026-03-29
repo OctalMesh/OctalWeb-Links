@@ -1,0 +1,29 @@
+name: octal-links-dev
+
+services:
+  links-web:
+    image: octalmesh/links-web:dev
+    container_name: octal-links-web-dev
+    build:
+      context: ../../..
+      dockerfile: infra/dev/docker/Dockerfile
+    env_file:
+      - ../.env.example
+    environment:
+      CHOKIDAR_USEPOLLING: "1"
+      LINKS_WEB_PORT: "${LINKS_WEB_PORT:-5174}"
+    ports:
+      - "${LINKS_WEB_PORT:-5174}:${LINKS_WEB_PORT:-5174}"
+    volumes:
+      - ../../../:/app
+      - links-web-node-modules:/app/node_modules
+    command: npm run dev -- --host 0.0.0.0 --port ${LINKS_WEB_PORT:-5174}
+    networks:
+      - octalmesh-links-dev
+
+networks:
+  octalmesh-links-dev:
+    name: octalmesh-links-dev
+
+volumes:
+  links-web-node-modules:
