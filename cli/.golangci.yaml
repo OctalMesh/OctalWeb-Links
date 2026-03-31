@@ -1,0 +1,87 @@
+# .golangci.yaml - OctalMesh Commodore code-quality standard
+# Enforced on every commit; golangci-lint v1.64+
+run:
+  timeout: 3m
+
+linters:
+  disable-all: true
+  enable:
+    # Correctness
+    - errcheck        # unhandled function return values
+    - govet           # go vet checks (printf format, struct alignment, etc.)
+    - staticcheck     # advanced static analysis (SA*, S1*, ST1*, QF*)
+    - gosimple        # simplification hints (S1*)
+    - ineffassign     # assignments whose result is never used
+    - unused          # unused code (functions, types, variables, constants)
+    - forcetypeassert # type assertions must be guarded with the two-value form
+    - nilerr          # returning nil when err != nil in scope
+    - makezero        # append to a make()-initialised slice with non-zero length
+    - unconvert       # unnecessary explicit type conversions
+    - predeclared     # identifiers that shadow built-in names
+
+    # Formatting and style
+    - gofmt           # standard Go formatting
+    - gci             # canonical import-group ordering
+    - whitespace      # superfluous blank lines inside blocks
+    - godot           # every declaration comment must end with a period
+    - misspell        # typos in source comments
+
+    # Error handling
+    - wrapcheck       # errors from external packages must be wrapped with context
+
+    # Security
+    - gosec           # OWASP-aligned security checks
+
+    # Code quality
+    - revive          # configurable style linter (superset of golint)
+    - gocritic        # additional diagnostic checks
+
+linters-settings:
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/OctalMesh/Commodore)
+    skip-generated: false
+
+  gocritic:
+    # Only enable checks that find real bugs; leave style to revive.
+    enabled-tags:
+      - diagnostic
+
+  revive:
+    rules:
+      - name: var-naming            # Go naming conventions (CamelCase, initialisms)
+      - name: error-return          # error must be the last return value
+      - name: blank-imports         # no blank (side-effect-only) imports
+      - name: indent-error-flow     # no needless else after early return
+      - name: unreachable-code      # no statements after unconditional return
+
+  godot:
+    scope: declarations   # only check exported declaration comments
+    period: true
+
+  gosec:
+    excludes:
+      - G204  # subprocess launched with variable - expected: we delegate to tilt/go/git
+      - G304  # file path from variable  - expected: we read user-specified .commodore
+
+  misspell:
+    locale: US
+
+issues:
+  exclude-rules:
+    # Intentional pattern: git errors are already printed to stdout by git itself,
+    # the cobra command returns nil to signal "handled gracefully, not an error".
+    - path: internal/commands/modules\.go
+      linters: [ nilerr ]
+
+    # Thin cobra handler layer - errors surface directly to the user via app.Run();
+    # adding fmt.Errorf wrappers here would duplicate the message with no benefit.
+    - path: internal/commands/
+      linters: [ wrapcheck ]
+    - path: internal/roles/
+      linters: [ wrapcheck ]
+
+  max-issues-per-linter: 0
+  max-same-issues: 0

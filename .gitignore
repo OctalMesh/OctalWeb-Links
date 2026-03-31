@@ -1,4 +1,15 @@
 # ============================================================================ #
+#                            Build / Dist / Output                             #
+# ============================================================================ #
+
+build/
+builds/
+dist/
+dev-dist/
+out/
+logs/
+
+# ============================================================================ #
 #                              Environment / Misc                              #
 # ============================================================================ #
 
@@ -19,7 +30,6 @@
 
 # IntelliJ
 .idea/
-out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -98,18 +108,6 @@ node_modules/
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
-# Next.js
-.next/
-
-# TanStack
-.tanstack/
-routeTree.gen.ts
-
-# Build
-build/
-dist/
-dev-dist/
 
 # Debug logs
 npm-debug.log*
