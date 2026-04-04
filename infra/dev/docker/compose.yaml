@@ -1,29 +1,45 @@
-name: octal-links-dev
+name: "octalweb-links-dev"
+
+# Common defaults for services.
+# Reused via "<<: *defaults" to avoid duplication.
+x-defaults: &defaults
+  restart: "no"
+  init: true
+  stop_grace_period: "5s"
+  env_file:
+    - "../.env"
+  networks:
+    - "octalnet-links-dev"
 
 services:
-  links-web:
-    image: octalmesh/links-web:dev
-    container_name: octal-links-web-dev
+  # ========================================================================== #
+  #                                Applications                                #
+  # ========================================================================== #
+
+  owl-app-web:
+    <<: *defaults
+    container_name: "owl-app-web"
     build:
-      context: ../../..
-      dockerfile: infra/dev/docker/Dockerfile
-    env_file:
-      - ../.env.example
-    environment:
-      CHOKIDAR_USEPOLLING: "1"
-      LINKS_WEB_PORT: "${LINKS_WEB_PORT:-5174}"
+      context: "../../.."
+      dockerfile: "infra/dev/docker/Dockerfile"
     ports:
       - "${LINKS_WEB_PORT:-5174}:${LINKS_WEB_PORT:-5174}"
     volumes:
-      - ../../../:/app
-      - links-web-node-modules:/app/node_modules
-    command: npm run dev -- --host 0.0.0.0 --port ${LINKS_WEB_PORT:-5174}
-    networks:
-      - octalmesh-links-dev
+      - "../../../:/app"
+      - "owl-node-modules:/app/node_modules"
+    healthcheck:
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${LINKS_WEB_PORT:-5174}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+      start_interval: 2s
 
+# Dedicated isolated networks
 networks:
-  octalmesh-links-dev:
-    name: octalmesh-links-dev
+  octalnet-links-dev:
+    name: "octalnet-links-dev"
 
+# Dedicated volumes for caching
 volumes:
-  links-web-node-modules:
+  owl-node-modules:
