@@ -524,10 +524,12 @@ ij_shell_use_unix_line_separator = true
 
 [{*.go,go.mod}]
 
-# gofmt mandates tabs - never override to spaces.
+# Indentation & Spacing
+
 indent_style = tab
 indent_size  = 4
 tab_width    = 4
 
 # IntelliJ / GoLand
+
 ij_go_import_sorting = goimports

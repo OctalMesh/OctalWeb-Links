@@ -19,6 +19,7 @@ services:
   owl-app-web:
     <<: *defaults
     container_name: "owl-app-web"
+    image: "octalmesh/owl-app-web"
     build:
       context: "../../.."
       dockerfile: "infra/dev/docker/Dockerfile"

@@ -9,10 +9,7 @@ reactor:
 
   blueprints:
     - env:  dev
-      path: ./infra/dev/Tiltfile
+      path: ./infra/dev/tilt/Tiltfile
 
     - env:  staging
-      path: ./infra/staging/Tiltfile
-
-    - env:  prod
-      path: ./infra/prod/Tiltfile
+      path: ./infra/staging/tilt/Tiltfile
