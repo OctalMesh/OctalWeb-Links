@@ -1,7 +1,6 @@
 import * as jsModule from "@eslint/js";
 import * as eslintConfigPrettierModule from "eslint-config-prettier";
 import * as reactHooksModule from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
 import * as globalsModule from "globals";
 import tseslint from "typescript-eslint";
@@ -15,34 +14,16 @@ const eslintConfigPrettier =
   (eslintConfigPrettierModule as { default?: unknown }).default ?? eslintConfigPrettierModule;
 
 export default defineConfig([
-  globalIgnores(["dist", "src/routeTree.gen.ts"]),
+  globalIgnores(["dist", ".astro"]),
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
+    extends: [js.configs.recommended, tseslint.configs.recommended, reactHooks.configs.flat.recommended],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
     },
     rules: {
-      "react-refresh/only-export-components": [
-        "error",
-        {
-          allowConstantExport: true,
-          allowExportNames: [
-            "useIsInView",
-            "buttonVariants",
-            "pathClassName",
-            "staticAnimations",
-            "useAnimateIconContext",
-            "getVariants",
-          ],
-        },
-      ],
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 

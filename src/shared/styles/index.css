@@ -1,0 +1,102 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@import "./fonts.css";
+@import "./theme.css";
+
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-brand: "OctalFont Titan", sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* Scrollbar styles */
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+::-webkit-scrollbar-track {
+  /* noinspection CssUnresolvedCustomProperty */
+  background-color: transparent; /* Generated color */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-clip: content-box;
+  /* noinspection CssUnresolvedCustomProperty */
+  background-color: hsl(var(--app-content1) / var(--app-content1-opacity, var(--tw-bg-opacity))); /* Generated color */
+}
+
+/* Animation styles */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.transition-opacity-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.transition-opacity-out {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  *, :after, :before {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    cursor: none !important;
+    transition: all 0.15s ease-out;
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in oklch, var(--ring), transparent 50%);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--foreground);
+    color: var(--background);
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}

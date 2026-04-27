@@ -29,7 +29,7 @@ services:
       - "../../../:/app"
       - "owl-node-modules:/app/node_modules"
     healthcheck:
-      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${LINKS_WEB_PORT:-5174}" ]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${LINKS_WEB_PORT:-5174}"]
       interval: 10s
       timeout: 5s
       retries: 5

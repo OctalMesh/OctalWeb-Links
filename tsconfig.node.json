@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.mts"]
+  "include": ["astro.config.mts", "tailwind.config.mts"]
 }

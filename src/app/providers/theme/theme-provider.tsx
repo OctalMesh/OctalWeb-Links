@@ -2,14 +2,14 @@
 
 import * as React from "react";
 
-import { ThemeProviderContext, type Theme, type ThemeProviderProps } from "@shared/model/theme";
 import {
   COLOR_SCHEME_QUERY,
   disableTransitionsTemporarily,
   getSystemTheme,
   isEditableTarget,
   isTheme,
-} from "@shared/lib/theme/theme-utils";
+} from "@features/theme-toggle/lib/theme-utils";
+import { type Theme, ThemeProviderContext, type ThemeProviderProps } from "@features/theme-toggle/model";
 
 export function ThemeProvider({
   children,
@@ -19,7 +19,11 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const [theme, setThemeState] = React.useState<Theme>(() => {
-    const storedTheme = localStorage.getItem(storageKey);
+    if (typeof window === "undefined") {
+      return defaultTheme;
+    }
+
+    const storedTheme = window.localStorage.getItem(storageKey);
     if (isTheme(storedTheme)) {
       return storedTheme;
     }
@@ -29,7 +33,7 @@ export function ThemeProvider({
 
   const setTheme = React.useCallback(
     (nextTheme: Theme) => {
-      localStorage.setItem(storageKey, nextTheme);
+      window.localStorage.setItem(storageKey, nextTheme);
       setThemeState(nextTheme);
     },
     [storageKey],
@@ -37,6 +41,10 @@ export function ThemeProvider({
 
   const applyTheme = React.useCallback(
     (nextTheme: Theme) => {
+      if (typeof window === "undefined") {
+        return;
+      }
+
       const root = document.documentElement;
       const resolvedTheme = nextTheme === "system" ? getSystemTheme() : nextTheme;
       const restoreTransitions = disableTransitionOnChange ? disableTransitionsTemporarily() : null;
@@ -71,6 +79,10 @@ export function ThemeProvider({
   }, [theme, applyTheme]);
 
   React.useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.repeat) {
         return;
@@ -98,7 +110,7 @@ export function ThemeProvider({
                 ? "light"
                 : "dark";
 
-        localStorage.setItem(storageKey, nextTheme);
+        window.localStorage.setItem(storageKey, nextTheme);
         return nextTheme;
       });
     };
@@ -111,8 +123,12 @@ export function ThemeProvider({
   }, [storageKey]);
 
   React.useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.storageArea !== localStorage) {
+      if (event.storageArea !== window.localStorage) {
         return;
       }
 

@@ -1,0 +1,47 @@
+---
+import "@shared/styles/index.css";
+import { siteConfig } from "@shared/config/site";
+import { AppProvider } from "../providers";
+
+const {
+  title = siteConfig.name,
+  description = siteConfig.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.author} />
+    <meta name="keywords" content="OctalMesh, OctalLinks, OctalSocials, Links, Socials" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={siteConfig.canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteConfig.canonical} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body class="flex flex-col font-sans antialiased">
+    <AppProvider client:load>
+      <slot />
+    </AppProvider>
+  </body>
+</html>
