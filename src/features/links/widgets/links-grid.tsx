@@ -1,6 +1,7 @@
 import type { JSXElementConstructor, ReactElement } from "react";
 
 import { LinkCard, LinkCategory } from "@features/links";
+
 import { socialCards, socialCategories } from "@entities/social";
 
 export function LinksGrid(): ReactElement {
@@ -9,7 +10,12 @@ export function LinksGrid(): ReactElement {
   return (
     <article className="flex flex-col justify-center gap-10 w-full">
       {socialCategories.map((category) => (
-        <LinkCategory key={category.id} className="text-center" id={category.id} props={category}>
+        <LinkCategory
+          key={category.id}
+          className="flex flex-col items-center justify-center text-center"
+          id={category.id}
+          props={category}
+        >
           {cards.get(category.id)}
         </LinkCategory>
       ))}

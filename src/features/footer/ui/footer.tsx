@@ -2,11 +2,10 @@
 
 import * as React from "react";
 
+import { LanguageSwitcher } from "@features/footer";
 import { LANGUAGES, LANGUAGE_STORAGE_KEY, getTranslation } from "@features/i18n";
 import type { Language } from "@features/i18n";
 import { ThemeTogglerButton } from "@features/theme-toggle/ui";
-
-import { LanguageSwitcher } from "@features/footer";
 
 type FooterProps = {
   language?: Language;

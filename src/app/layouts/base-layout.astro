@@ -10,7 +10,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -38,10 +38,20 @@ const {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <script is:inline>
+      document.documentElement.classList.replace("no-js", "js-enabled");
+    </script>
   </head>
   <body class="flex flex-col font-sans antialiased">
     <AppProvider client:load>
       <slot />
     </AppProvider>
+
+    <noscript>
+      <div class="fixed top-0 left-0 w-full bg-red-500/10 text-red-500 text-[10px] text-center z-[100] backdrop-blur-md py-1 font-mono uppercase tracking-widest">
+        Enhanced experience requires JavaScript
+      </div>
+    </noscript>
   </body>
 </html>

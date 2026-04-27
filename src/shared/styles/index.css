@@ -4,47 +4,6 @@
 @import "./fonts.css";
 @import "./theme.css";
 
-@theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-brand: "OctalFont Titan", sans-serif;
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-border: var(--border);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-}
-
-/* Scrollbar styles */
-
-::-webkit-scrollbar {
-  width: 0;
-}
-
-::-webkit-scrollbar-track {
-  /* noinspection CssUnresolvedCustomProperty */
-  background-color: transparent; /* Generated color */
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-clip: content-box;
-  /* noinspection CssUnresolvedCustomProperty */
-  background-color: hsl(var(--app-content1) / var(--app-content1-opacity, var(--tw-bg-opacity))); /* Generated color */
-}
-
-/* Animation styles */
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -63,25 +22,30 @@
   }
 }
 
-.transition-opacity-in {
-  animation: fadeIn 0.5s ease-in-out forwards;
-}
-
-.transition-opacity-out {
-  animation: fadeOut 0.5s ease-in-out forwards;
-}
-
-@media (prefers-reduced-motion:no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 @layer base {
-  *, :after, :before {
+  .js-enabled *,
+  .js-enabled ::before,
+  .js-enabled ::after {
+    cursor: none !important;
+  }
+
+  .no-js *,
+  .no-js ::before,
+  .no-js ::after {
+    cursor: auto !important;
+  }
+
+  .no-js a,
+  .no-js button,
+  .no-js [role="button"] {
+    cursor: pointer !important;
+  }
+
+  *,
+  ::before,
+  ::after {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    cursor: none !important;
     transition: all 0.15s ease-out;
   }
 
@@ -95,8 +59,39 @@
     color: var(--background);
   }
 
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-clip: content-box;
+    /* noinspection CssUnresolvedCustomProperty */
+    background-color: hsl(var(--app-content1) / var(--app-content1-opacity, var(--tw-bg-opacity))); /* Generated color */
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer utilities {
+  .transition-opacity-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+
+  .transition-opacity-out {
+    animation: fadeOut 0.5s ease-in-out forwards;
   }
 }
