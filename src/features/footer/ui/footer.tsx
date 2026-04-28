@@ -3,40 +3,70 @@
 import * as React from "react";
 
 import { LanguageSwitcher } from "@features/footer";
-import { LANGUAGES, LANGUAGE_STORAGE_KEY, getTranslation } from "@features/i18n";
-import type { Language } from "@features/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  LANGUAGE_STORAGE_KEY,
+  type Language,
+  getI18nConfig,
+  getTranslation,
+  resolvePreferredLanguage,
+} from "@features/i18n";
 import { ThemeTogglerButton } from "@features/theme-toggle/ui";
 
 type FooterProps = {
   language?: Language;
 };
 
-const isLanguage = (value: string | null): value is Language => value === "en" || value === "uk";
+function subscribeToLanguageChanges(onStoreChange: () => void) {
+  if (typeof window === "undefined") {
+    return () => undefined;
+  }
 
-export function Footer({ language: initialLanguage = "en" }: FooterProps) {
-  const [language, setLanguage] = React.useState<Language>(initialLanguage);
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["lang"],
+  });
+
+  window.addEventListener("storage", onStoreChange);
+
+  return () => {
+    observer.disconnect();
+    window.removeEventListener("storage", onStoreChange);
+  };
+}
+
+function getBrowserLanguageSnapshot() {
+  if (typeof window === "undefined") {
+    return DEFAULT_LANGUAGE;
+  }
+
+  const documentLanguage = document.documentElement.lang || DEFAULT_LANGUAGE;
+
+  return resolvePreferredLanguage(window.localStorage.getItem(LANGUAGE_STORAGE_KEY), [
+    documentLanguage,
+    ...window.navigator.languages,
+  ]);
+}
+
+export function Footer({ language: initialLanguage = DEFAULT_LANGUAGE }: FooterProps) {
+  const language = React.useSyncExternalStore(
+    subscribeToLanguageChanges,
+    getBrowserLanguageSnapshot,
+    () => initialLanguage,
+  );
   const year = new Date().getFullYear();
+  const i18nConfig = getI18nConfig();
   const t = (key: string) => getTranslation(key, language);
 
-  React.useEffect(() => {
+  const updateLanguage = React.useCallback((nextLanguage: string) => {
     if (typeof window === "undefined") {
       return;
     }
 
-    const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-    if (isLanguage(stored)) {
-      setLanguage(stored);
-    }
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
+    document.documentElement.lang = nextLanguage;
   }, []);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-    document.documentElement.lang = language;
-  }, [language]);
 
   return (
     <footer className="relative z-20 pb-10">
@@ -71,7 +101,7 @@ export function Footer({ language: initialLanguage = "en" }: FooterProps) {
             {/* Language Switcher */}
             <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-muted-foreground">{t("footer.language")}</span>
-              <LanguageSwitcher language={language} onChange={setLanguage} labels={LANGUAGES} />
+              <LanguageSwitcher language={language} onChange={updateLanguage} options={i18nConfig.languages} />
             </div>
           </div>
         </div>

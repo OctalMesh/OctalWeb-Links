@@ -1,15 +1,15 @@
-import type { JSXElementConstructor, ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { LinkCard, LinkCategory } from "@features/links";
-
-import { socialCards, socialCategories } from "@entities/social";
+import { projectConfig } from "@features/links/model";
+import type { LinkCardProps } from "@features/links/model";
 
 export function LinksGrid(): ReactElement {
-  const cards = initCards();
+  const cards = initCards(projectConfig.links);
 
   return (
     <article className="flex w-full flex-col justify-center gap-10">
-      {socialCategories.map((category) => (
+      {projectConfig.categories.map((category) => (
         <LinkCategory
           key={category.id}
           className="flex flex-col items-center justify-center text-center"
@@ -23,16 +23,18 @@ export function LinksGrid(): ReactElement {
   );
 }
 
-function initCards() {
-  const cardMap = new Map<string, ReactElement<JSXElementConstructor<any>>[]>();
+function initCards(links: LinkCardProps[]) {
+  const cardMap = new Map<string, ReactElement[]>();
 
-  socialCards.forEach((properties) => {
-    const category: string = properties.category || "";
-    const cards = cardMap.get(category) || [];
+  links
+    .filter((properties) => !properties.disabled)
+    .sort((left, right) => left.priority - right.priority)
+    .forEach((properties) => {
+      const cards = cardMap.get(properties.categoryId) || [];
 
-    cards.push(<LinkCard key={properties.linkKey} properties={properties} />);
-    cardMap.set(category, cards);
-  });
+      cards.push(<LinkCard key={properties.id} properties={properties} />);
+      cardMap.set(properties.categoryId, cards);
+    });
 
   return cardMap;
 }

@@ -1,0 +1,226 @@
+{
+  "categories": [
+    {
+      "id": "socials",
+      "title": {
+        "en": "Socials",
+        "uk": "Соцмережі"
+      },
+      "subtitle": {
+        "en": "Follow us on social media",
+        "uk": "Слідкуйте за нами в соцмережах"
+      }
+    },
+    {
+      "id": "contact",
+      "title": {
+        "en": "Contact us",
+        "uk": "Контакти"
+      },
+      "subtitle": {
+        "en": "Reach us through the following channels",
+        "uk": "Зв'яжіться з нами через такі канали"
+      }
+    }
+  ],
+  "links": [
+    {
+      "id": "tiktok",
+      "icon": "tiktok",
+      "categoryId": "socials",
+      "href": "https://tiktok.com/@octalmesh",
+      "title": {
+        "en": "TikTok",
+        "uk": "TikTok"
+      },
+      "description": {
+        "en": "Visit TikTok profile.",
+        "uk": "Відвідати профіль TikTok."
+      },
+      "priority": 10
+    },
+    {
+      "id": "instagram",
+      "icon": "instagram",
+      "categoryId": "socials",
+      "href": "https://instagram.com/octalmesh",
+      "title": {
+        "en": "Instagram",
+        "uk": "Instagram"
+      },
+      "description": {
+        "en": "Visit Instagram profile.",
+        "uk": "Відвідати профіль Instagram."
+      },
+      "priority": 20
+    },
+    {
+      "id": "telegram",
+      "icon": "telegram",
+      "categoryId": "socials",
+      "href": "https://t.me/octalmesh",
+      "title": {
+        "en": "Telegram",
+        "uk": "Telegram"
+      },
+      "description": {
+        "en": "Visit Telegram channel.",
+        "uk": "Відвідати Telegram-канал."
+      },
+      "priority": 30
+    },
+    {
+      "id": "youtube",
+      "icon": "youtube",
+      "categoryId": "socials",
+      "href": "https://youtube.com/@octalmesh",
+      "title": {
+        "en": "YouTube",
+        "uk": "YouTube"
+      },
+      "description": {
+        "en": "Visit YouTube channel.",
+        "uk": "Відвідати YouTube-канал."
+      },
+      "priority": 40
+    },
+    {
+      "id": "x",
+      "icon": "x",
+      "categoryId": "socials",
+      "href": "https://x.com/octalmesh",
+      "title": {
+        "en": "X (Twitter)",
+        "uk": "X (Twitter)"
+      },
+      "description": {
+        "en": "Visit X profile.",
+        "uk": "Відвідати профіль X."
+      },
+      "priority": 50
+    },
+    {
+      "id": "reddit",
+      "icon": "reddit",
+      "categoryId": "socials",
+      "href": "https://reddit.com/r/octalmesh/",
+      "title": {
+        "en": "Reddit",
+        "uk": "Reddit"
+      },
+      "description": {
+        "en": "Visit Reddit community.",
+        "uk": "Відвідати спільноту Reddit."
+      },
+      "priority": 60
+    },
+    {
+      "id": "linkedin",
+      "icon": "linkedin",
+      "categoryId": "socials",
+      "href": "https://linkedin.com/company/octalmesh",
+      "title": {
+        "en": "LinkedIn",
+        "uk": "LinkedIn"
+      },
+      "description": {
+        "en": "Visit LinkedIn profile.",
+        "uk": "Відвідати профіль LinkedIn."
+      },
+      "priority": 70
+    },
+    {
+      "id": "github",
+      "icon": "github",
+      "categoryId": "socials",
+      "href": "https://github.com/OctalMesh/",
+      "title": {
+        "en": "GitHub",
+        "uk": "GitHub"
+      },
+      "description": {
+        "en": "Visit GitHub organization.",
+        "uk": "Відвідати організацію GitHub."
+      },
+      "priority": 80
+    },
+    {
+      "id": "email",
+      "icon": "mail",
+      "categoryId": "contact",
+      "href": "mailto:contact@octalmesh.com",
+      "title": {
+        "en": "Mail",
+        "uk": "Пошта"
+      },
+      "description": {
+        "en": "Contact us directly via email.",
+        "uk": "Зв'яжіться з нами безпосередньо електронною поштою."
+      },
+      "priority": 100
+    },
+    {
+      "id": "telegram_manager",
+      "icon": "telegram",
+      "categoryId": "contact",
+      "href": "https://t.me/octalmesh_manager",
+      "title": {
+        "en": "Telegram",
+        "uk": "Telegram"
+      },
+      "description": {
+        "en": "Contact manager via Telegram.",
+        "uk": "Зв'яжіться з менеджером у Telegram."
+      },
+      "priority": 110
+    },
+    {
+      "id": "manager",
+      "icon": "telegram",
+      "categoryId": "contact",
+      "href": "https://t.me/octalmesh_manager",
+      "title": {
+        "en": "Manager",
+        "uk": "Менеджер"
+      },
+      "description": {
+        "en": "Contact manager.",
+        "uk": "Зв'яжіться з менеджером."
+      },
+      "disabled": true,
+      "priority": 120
+    },
+    {
+      "id": "twitch",
+      "icon": "twitch",
+      "categoryId": "socials",
+      "href": "https://twitch.tv/octalmesh",
+      "title": {
+        "en": "Twitch",
+        "uk": "Twitch"
+      },
+      "description": {
+        "en": "Visit Twitch channel.",
+        "uk": "Відвідати Twitch-канал."
+      },
+      "disabled": true,
+      "priority": 130
+    },
+    {
+      "id": "patreon",
+      "icon": "patreon",
+      "categoryId": "socials",
+      "href": "https://patreon.com/c/octalmesh",
+      "title": {
+        "en": "Patreon",
+        "uk": "Patreon"
+      },
+      "description": {
+        "en": "Support us on Patreon.",
+        "uk": "Підтримайте нас на Patreon."
+      },
+      "disabled": true,
+      "priority": 140
+    }
+  ]
+}

@@ -1,12 +1,9 @@
 import type { ReactElement, ReactNode } from "react";
 
-import styles from "@shared/styles/modules/scroll-animated.module.css";
+import { getContent, useLinkLanguage } from "@features/links/model";
+import type { LinkCategoryProps } from "@features/links/model";
 
-export type LinkCategoryProps = {
-  id: string;
-  title?: string;
-  subtitle?: string;
-};
+import styles from "@shared/styles/modules/scroll-animated.module.css";
 
 export function LinkCategory({
   props,
@@ -19,10 +16,12 @@ export function LinkCategory({
   className?: string | undefined;
   children: ReactNode;
 }): ReactElement {
+  const language = useLinkLanguage();
+
   return (
     <div className={className} id={id}>
-      {props.title && <h2 className={`${styles.scrollAnimated} mb-2 text-2xl font-bold`}>{props.title}</h2>}
-      {props.subtitle && <p className={`${styles.scrollAnimated} mb-8 text-lg text-neutral-500`}>{props.subtitle}</p>}
+      <h2 className={`${styles.scrollAnimated} mb-2 text-2xl font-bold`}>{getContent(props.title, language)}</h2>
+      <p className={`${styles.scrollAnimated} mb-8 text-lg text-neutral-500`}>{getContent(props.subtitle, language)}</p>
       <div className="flex w-full flex-wrap gap-4">{children}</div>
     </div>
   );

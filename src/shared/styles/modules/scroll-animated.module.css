@@ -1,6 +1,3 @@
-@import "../fonts.css";
-@import "../theme.css";
-
 @layer utilities {
   :global(.js-enabled) .scrollAnimated:not(.animate) {
     opacity: 0;

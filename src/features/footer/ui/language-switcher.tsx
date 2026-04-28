@@ -1,30 +1,49 @@
 "use client";
 
-import type { Language } from "@features/i18n";
+import type { LanguageOptionItem } from "@features/i18n";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@shared/ui/select";
 
 type LanguageSwitcherProps = {
-  language: Language;
-  onChange: (language: Language) => void;
-  labels: Record<Language, string>;
+  language: string;
+  onChange: (language: string) => void;
+  options: LanguageOptionItem[];
 };
 
-export function LanguageSwitcher({ language, onChange, labels }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ language, onChange, options }: LanguageSwitcherProps) {
   return (
-    <div className="flex items-center gap-2">
-      {(Object.entries(labels) as Array<[Language, string]>).map(([lang, label]) => (
-        <button
-          key={lang}
-          onClick={() => onChange(lang)}
-          className={`rounded-md px-3 py-1 text-sm transition-all duration-200 ${
-            language === lang
-              ? "bg-accent font-medium text-accent-foreground"
-              : "text-muted-foreground hover:bg-accent/20 hover:text-foreground"
-          }`}
-          title={label}
-        >
-          {lang.toUpperCase()}
-        </button>
-      ))}
-    </div>
+    <Select value={language} onValueChange={(value) => onChange(value ?? language)}>
+      <SelectTrigger size="sm" className="min-w-32">
+        <SelectValue>
+          {(value) => {
+            const selected =
+              options.find((option) => option.code === value) ?? options.find((option) => option.code === language);
+
+            return selected ? selected.label : value;
+          }}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent className="max-h-72">
+        <SelectGroup>
+          <SelectLabel>Languages</SelectLabel>
+          {options.map((option) => (
+            <SelectItem key={option.code} value={option.code} title={option.label}>
+              <span className="flex flex-col gap-0.5">
+                <span>{option.label}</span>
+                <span className="text-xs text-muted-foreground">{option.code.toUpperCase()}</span>
+              </span>
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 }

@@ -1,32 +1,22 @@
-import { type ImgHTMLAttributes, type ReactElement } from "react";
+import { type ReactElement } from "react";
 
 import clsx from "clsx";
 
-import { type SocialCategoryId, type SocialIconId, redirects } from "@entities/social";
+import { getContent, useLinkLanguage } from "@features/links/model";
+import type { LinkCardProps } from "@features/links/model";
 
 import styles from "@shared/styles/modules/scroll-animated.module.css";
-import { Icon } from "@shared/ui/icons";
 
-export type LinkCardProps = {
-  title: string;
-  icon: SocialIconId;
-  linkKey: string;
-  category?: SocialCategoryId;
-  disabled?: boolean;
-  background?: ImgHTMLAttributes<HTMLImageElement>;
-  iconSize?: number;
-};
+import { resolveIcon } from "./icon-resolver";
 
 export function LinkCard({ properties }: { properties: LinkCardProps }): ReactElement | null {
+  const language = useLinkLanguage();
+
   if (properties.disabled) {
     return null;
   }
 
-  const redirect = redirects[properties.linkKey];
-
-  if (!redirect) {
-    return null;
-  }
+  const title = getContent(properties.title, language);
 
   return (
     <a
@@ -37,7 +27,7 @@ export function LinkCard({ properties }: { properties: LinkCardProps }): ReactEl
         "flex-1 min-w-full sm:min-w-[18rem] md:min-w-88",
         "transition-all duration-300",
       )}
-      href={redirect.href}
+      href={properties.href}
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -61,24 +51,22 @@ export function LinkCard({ properties }: { properties: LinkCardProps }): ReactEl
             ])}
           >
             <div className="opacity-80 group-hover:opacity-100 transition-opacity">
-              <Icon id={properties.icon} size={properties.iconSize || 40} />
+              {resolveIcon(properties.icon, 40)}
             </div>
           </div>
         ) : null}
 
-        {properties.title ? (
-          <h3
-            className={clsx(
-              "z-10 text-sm font-light font-mono tracking-[0.2em]",
-              "transition-colors",
-              "sm:absolute sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:text-center",
-              "max-sm:ml-20 max-sm:content-center",
-            )}
-            style={{ color: "var(--fx-card-text)" }}
-          >
-            {properties.title}
-          </h3>
-        ) : null}
+        <h3
+          className={clsx(
+            "z-10 text-sm font-light font-mono tracking-[0.2em]",
+            "transition-colors",
+            "sm:absolute sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:text-center",
+            "max-sm:ml-20 max-sm:content-center",
+          )}
+          style={{ color: "var(--fx-card-text)" }}
+        >
+          {title}
+        </h3>
       </div>
     </a>
   );

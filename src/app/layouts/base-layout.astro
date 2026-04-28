@@ -1,5 +1,6 @@
 ---
 import "@shared/styles/index.css";
+import { DEFAULT_LANGUAGE } from "@features/i18n";
 import { siteConfig } from "@shared/config/site";
 import { AppProvider } from "../providers";
 
@@ -15,7 +16,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang={DEFAULT_LANGUAGE} class="no-js">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -49,7 +50,7 @@ const {
     </script>
   </head>
   <body class="flex flex-col font-sans antialiased">
-    <AppProvider client:load>
+    <AppProvider client:idle>
       <slot />
     </AppProvider>
 
