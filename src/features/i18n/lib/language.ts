@@ -1,5 +1,5 @@
+import { type Language, isLanguage } from "../model/types";
 import { i18nConfig } from "./i18n-config";
-import { isLanguage, type Language } from "../model/types";
 
 export const DEFAULT_LANGUAGE_FROM_CONFIG: Language = i18nConfig.defaultLanguage;
 
