@@ -1,8 +1,8 @@
 import * as jsModule from "@eslint/js";
-import * as eslintConfigPrettierModule from "eslint-config-prettier";
+import eslintConfigPrettierModule from "eslint-config-prettier";
 import * as reactHooksModule from "eslint-plugin-react-hooks";
 import { defineConfig, globalIgnores } from "eslint/config";
-import * as globalsModule from "globals";
+import globalsModule from "globals";
 import tseslint from "typescript-eslint";
 
 const js = ((jsModule as { default?: typeof jsModule }).default ?? jsModule) as typeof jsModule;

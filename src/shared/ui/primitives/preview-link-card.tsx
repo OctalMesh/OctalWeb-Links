@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { getStrictContext } from "@shared/lib/get-strict-context.tsx";
+import { getStrictContext } from "@shared/lib/get-strict-context";
 import {
   PreviewCardArrow as PreviewCardArrowPrimitive,
   type PreviewCardArrowProps as PreviewCardArrowPropsPrimitive,

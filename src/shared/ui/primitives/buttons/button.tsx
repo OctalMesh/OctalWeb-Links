@@ -2,19 +2,18 @@
 
 import { type HTMLMotionProps, motion } from "motion/react";
 
-import { Slot, type WithAsChild } from "@shared/ui/primitives/animate/slot";
+import { Slot } from "@shared/ui/primitives/animate/slot";
 
-type ButtonProps = WithAsChild<
-  HTMLMotionProps<"button"> & {
-    hoverScale?: number;
-    tapScale?: number;
-  }
->;
+const MotionSlot = motion(Slot);
 
-function Button({ hoverScale = 1.05, tapScale = 0.95, asChild = false, ...props }: ButtonProps) {
-  const Component = asChild ? Slot : motion.button;
+export type ButtonProps = HTMLMotionProps<"button"> & {
+  asChild?: boolean;
+  hoverScale?: number;
+  tapScale?: number;
+};
 
-  return <Component whileTap={{ scale: tapScale }} whileHover={{ scale: hoverScale }} {...props} />;
+export function Button({ hoverScale = 1.05, tapScale = 0.95, asChild = false, ...props }: ButtonProps) {
+  const Component = asChild ? MotionSlot : motion.button;
+
+  return <Component whileTap={{ scale: tapScale }} whileHover={{ scale: hoverScale }} {...(props as any)} />;
 }
-
-export { Button, type ButtonProps };

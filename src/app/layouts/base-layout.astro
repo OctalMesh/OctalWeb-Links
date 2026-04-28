@@ -3,6 +3,11 @@ import "@shared/styles/index.css";
 import { siteConfig } from "@shared/config/site";
 import { AppProvider } from "../providers";
 
+interface Props {
+  title?: string;
+  description?: string;
+}
+
 const {
   title = siteConfig.name,
   description = siteConfig.description,

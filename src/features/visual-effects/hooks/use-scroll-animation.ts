@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import styles from "@shared/styles/scroll-animated.module.css";
+import styles from "@shared/styles/modules/scroll-animated.module.css";
 
 /**
  * Function to animate the elements when they appear.

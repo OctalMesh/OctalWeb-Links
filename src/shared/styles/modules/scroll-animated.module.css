@@ -1,5 +1,5 @@
-@import "./fonts.css";
-@import "./theme.css";
+@import "../fonts.css";
+@import "../theme.css";
 
 @layer utilities {
   :global(.js-enabled) .scrollAnimated:not(.animate) {

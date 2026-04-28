@@ -2,14 +2,17 @@
 
 import * as React from "react";
 
-import { type HTMLMotionProps, isMotionComponent } from "motion/react";
+import { isMotionComponent } from "motion/react";
 
 import { cn } from "@shared/lib/utils";
 
 type AnyProps = Record<string, unknown>;
 
-type DOMMotionProps<T extends HTMLElement = HTMLElement> = Omit<HTMLMotionProps<keyof HTMLElementTagNameMap>, "ref"> & {
+type DOMMotionProps<T extends HTMLElement = HTMLElement> = {
+  className?: string;
+  style?: React.CSSProperties;
   ref?: React.Ref<T>;
+  [key: string]: unknown;
 };
 
 type WithAsChild<Base extends object> =
@@ -17,7 +20,6 @@ type WithAsChild<Base extends object> =
   | (Base & { asChild?: false | undefined });
 
 type SlotProps<T extends HTMLElement = HTMLElement> = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children?: any;
 } & DOMMotionProps<T>;
 

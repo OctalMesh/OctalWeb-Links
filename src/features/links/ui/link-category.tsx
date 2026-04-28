@@ -1,6 +1,6 @@
 import type { ReactElement, ReactNode } from "react";
 
-import styles from "@shared/styles/scroll-animated.module.css";
+import styles from "@shared/styles/modules/scroll-animated.module.css";
 
 export type LinkCategoryProps = {
   id: string;

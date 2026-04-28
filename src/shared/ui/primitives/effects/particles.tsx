@@ -42,11 +42,11 @@ function Particles({
     inViewMargin,
   });
 
-  const Component = asChild ? Slot : motion.div;
+  const Component = asChild ? Slot : (motion.div as any);
 
   return (
     <ParticlesProvider value={{ animate, isInView }}>
-      <Component ref={localRef} style={{ position: "relative", ...style }} {...props}>
+      <Component ref={localRef} style={{ position: "relative", ...style } as React.CSSProperties} {...props}>
         {children}
       </Component>
     </ParticlesProvider>
@@ -98,8 +98,8 @@ function ParticlesEffect({
       ? `calc(0% - ${sideOffset}px)`
       : `calc(100% + ${sideOffset}px)`;
 
-  const containerStyle: React.CSSProperties = {
-    position: "absolute",
+  const containerStyle = {
+    position: "absolute" as const,
     top,
     left,
     transform: "translate(-50%, -50%)",
@@ -119,7 +119,7 @@ function ParticlesEffect({
           return (
             <motion.div
               key={i}
-              style={{ ...containerStyle, ...style }}
+              style={{ ...containerStyle, ...style } as any}
               initial={{ scale: 0, opacity: 0 }}
               animate={{
                 x: `${x}px`,

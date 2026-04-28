@@ -4,8 +4,8 @@ import clsx from "clsx";
 
 import { type SocialCategoryId, type SocialIconId, redirects } from "@entities/social";
 
-import styles from "@shared/styles/scroll-animated.module.css";
-import { Icon } from "@shared/ui/icons.tsx";
+import styles from "@shared/styles/modules/scroll-animated.module.css";
+import { Icon } from "@shared/ui/icons";
 
 export type LinkCardProps = {
   title: string;

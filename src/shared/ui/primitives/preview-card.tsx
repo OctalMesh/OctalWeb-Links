@@ -13,8 +13,8 @@ import {
   useSpring,
 } from "motion/react";
 
-import { useControlledState } from "@shared/hooks/use-controlled-state.tsx";
-import { getStrictContext } from "@shared/lib/get-strict-context.tsx";
+import { useControlledState } from "@shared/hooks/use-controlled-state";
+import { getStrictContext } from "@shared/lib/get-strict-context";
 
 type PreviewCardContextType = {
   isOpen: boolean;
