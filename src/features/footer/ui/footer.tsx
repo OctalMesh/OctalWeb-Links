@@ -43,9 +43,9 @@ export function Footer({ language: initialLanguage = "en" }: FooterProps) {
       <div className="container mx-auto max-w-7xl px-6">
         <div
           className={
-            "flex flex-col gap-6 rounded-[2.5rem] border border-white/5 " +
-            "backdrop-blur-sm bg-neutral-200/2 px-6 py-8 transition-all duration-500 " +
-            "hover:border-white/15 hover:bg-white/5 " +
+            "flex flex-col gap-6 rounded-[2.5rem] border border-(--fx-card-border) " +
+            "bg-(--fx-card-bg) px-6 py-8 backdrop-blur-sm transition-all duration-500 " +
+            "hover:border-(--fx-card-border-hover) hover:bg-(--fx-card-bg-hover) " +
             "sm:flex-row sm:items-center sm:justify-between"
           }
         >

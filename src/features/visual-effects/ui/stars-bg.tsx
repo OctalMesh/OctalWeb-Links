@@ -38,7 +38,7 @@ function StarLayer({
   count = 1000,
   size = 1,
   transition = { repeat: Infinity, duration: 50, ease: "linear" },
-  starColor = "#fff",
+  starColor = "var(--fx-star)",
   className,
   ...props
 }: StarLayerProps) {
@@ -49,11 +49,11 @@ function StarLayer({
       data-slot="star-layer"
       animate={{ y: [0, -2000] }}
       transition={transition}
-      className={cn("absolute top-0 left-0 w-full h-[500rem]", className)}
+      className={cn("absolute top-0 left-0 h-2000 w-full", className)}
       {...props}
     >
       <div
-        className="absolute bg-transparent rounded-full"
+        className="absolute rounded-full bg-transparent"
         style={{
           width: `${size}px`,
           height: `${size}px`,
@@ -61,7 +61,7 @@ function StarLayer({
         }}
       />
       <div
-        className="absolute bg-transparent rounded-full top-[500rem]"
+        className="absolute top-2000 rounded-full bg-transparent"
         style={{
           width: `${size}px`,
           height: `${size}px`,
@@ -86,7 +86,7 @@ function StarsBackground({
   factor = 0.05,
   speed = 50,
   transition = { stiffness: 50, damping: 20 },
-  starColor = "#fff",
+  starColor = "var(--fx-star)",
   pointerEvents = true,
   ...props
 }: StarsBackgroundProps) {

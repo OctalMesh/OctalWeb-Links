@@ -9,7 +9,7 @@ export function VisualEffectsProvider({ children }: { children: React.ReactNode 
   return (
     <TransitionProvider>
       <StarsBackground className="w-full h-auto min-h-dvh">
-        <GridBackground className="h-screen bg-[radial-gradient(ellipse_at_center,transparent_0%,#09090b_100%)]" />
+        <GridBackground className="h-screen bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--fx-grid-vignette)_100%)]" />
         {children}
       </StarsBackground>
       <CustomCursor />

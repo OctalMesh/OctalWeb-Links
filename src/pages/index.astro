@@ -7,9 +7,9 @@ import styles from "@shared/styles/scroll-animated.module.css";
 <BaseLayout>
   <section class="container md:pt-16 max-md:pb-28 px-6 mx-auto max-w-7xl flex flex-col items-center justify-center gap-12 py-8 md:py-10">
     <section class={`${styles.scrollAnimated} flex flex-col max-w-lg text-center justify-center items-center content-center`}>
-      <div class="font-brand uppercase tracking-wider text-6xl text-zinc-100">OCTAL MESH</div>
+      <div class="font-brand uppercase tracking-wider text-6xl">OCTAL MESH</div>
     </section>
 
-    <LinksGrid />
+    <LinksGrid client:load />
   </section>
 </BaseLayout>

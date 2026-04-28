@@ -10,7 +10,7 @@
   "arrowParens": "always",
   "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
-  "tailwindStylesheet": "src/app/styles/index.css",
+  "tailwindStylesheet": "src/shared/styles/index.css",
   "tailwindFunctions": ["cn", "cva"],
   "importOrder": [
     "^react",

@@ -8,7 +8,7 @@ export function LinksGrid(): ReactElement {
   const cards = initCards();
 
   return (
-    <article className="flex flex-col justify-center gap-10 w-full">
+    <article className="flex w-full flex-col justify-center gap-10">
       {socialCategories.map((category) => (
         <LinkCategory
           key={category.id}
@@ -30,7 +30,7 @@ function initCards() {
     const category: string = properties.category || "";
     const cards = cardMap.get(category) || [];
 
-    cards.push(<LinkCard properties={properties} />);
+    cards.push(<LinkCard key={properties.linkKey} properties={properties} />);
     cardMap.set(category, cards);
   });
 

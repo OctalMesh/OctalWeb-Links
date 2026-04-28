@@ -20,7 +20,7 @@ export function GridBackground({
   className,
   children,
   cellSize = 40,
-  strokeColor = "rgba(255, 255, 255, 0.05)",
+  strokeColor = "var(--fx-grid-stroke)",
   strokeWidth = 1,
   factor = 0.02,
   transition = { stiffness: 400, damping: 40 },

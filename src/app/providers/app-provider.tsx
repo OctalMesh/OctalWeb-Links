@@ -13,14 +13,12 @@ type AppProviderProps = {
 
 export function AppProvider({ children, language = "en" }: AppProviderProps) {
   return (
-    <>
-      <div className="fixed w-full h-screen bg-[radial-gradient(ellipse_at_bottom,#262626_0%,#000_100%)]" />
-      <ThemeProvider>
-        <VisualEffectsProvider>
-          <main className="relative z-10">{children}</main>
-          <Footer language={language} />
-        </VisualEffectsProvider>
-      </ThemeProvider>
-    </>
+    <ThemeProvider>
+      <div className="fixed h-screen w-full bg-[radial-gradient(ellipse_at_bottom,var(--fx-bg-start)_0%,var(--fx-bg-end)_100%)]" />
+      <VisualEffectsProvider>
+        <main className="relative z-10">{children}</main>
+        <Footer language={language} />
+      </VisualEffectsProvider>
+    </ThemeProvider>
   );
 }

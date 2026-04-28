@@ -21,9 +21,9 @@ export function LinkCategory({
 }): ReactElement {
   return (
     <div className={className} id={id}>
-      {props.title && <h1 className={`${styles.scrollAnimated} text-2xl font-bold mb-2`}>{props.title}</h1>}
-      <p className={`${styles.scrollAnimated} text-lg text-neutral-500 mb-8`}>{props.subtitle}</p>
-      <div className="flex flex-wrap gap-4 w-full">{children}</div>
+      {props.title && <h2 className={`${styles.scrollAnimated} mb-2 text-2xl font-bold`}>{props.title}</h2>}
+      {props.subtitle && <p className={`${styles.scrollAnimated} mb-8 text-lg text-neutral-500`}>{props.subtitle}</p>}
+      <div className="flex w-full flex-wrap gap-4">{children}</div>
     </div>
   );
 }

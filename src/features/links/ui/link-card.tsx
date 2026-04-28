@@ -46,8 +46,8 @@ export function LinkCard({ properties }: { properties: LinkCardProps }): ReactEl
           "w-full h-full min-h-24 sm:min-h-64",
           "flex flex-col justify-center items-center",
           "rounded-[2.5rem] border",
-          "backdrop-blur-sm bg-neutral-200/2 border-white/5",
-          "hover:border-white/15 hover:bg-white/5",
+          "backdrop-blur-sm bg-(--fx-card-bg) border-(--fx-card-border)",
+          "hover:bg-(--fx-card-bg-hover) hover:border-(--fx-card-border-hover)",
           "hover:scale-[1.01]",
           "transition-all duration-500",
         ])}
@@ -67,16 +67,17 @@ export function LinkCard({ properties }: { properties: LinkCardProps }): ReactEl
         ) : null}
 
         {properties.title ? (
-          <h1
+          <h3
             className={clsx(
               "z-10 text-sm font-light font-mono tracking-[0.2em]",
-              "text-zinc-200/90 group-hover:text-white transition-colors",
+              "transition-colors",
               "sm:absolute sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:text-center",
               "max-sm:ml-20 max-sm:content-center",
             )}
+            style={{ color: "var(--fx-card-text)" }}
           >
             {properties.title}
-          </h1>
+          </h3>
         ) : null}
       </div>
     </a>

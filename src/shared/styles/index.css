@@ -71,11 +71,13 @@
     border-radius: 8px;
     background-clip: content-box;
     /* noinspection CssUnresolvedCustomProperty */
-    background-color: hsl(var(--app-content1) / var(--app-content1-opacity, var(--tw-bg-opacity))); /* Generated color */
+    background-color: hsl(
+      var(--app-content1) / var(--app-content1-opacity, var(--tw-bg-opacity))
+    ); /* Generated color */
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background font-sans text-foreground antialiased;
     text-rendering: optimizeLegibility;
   }
 

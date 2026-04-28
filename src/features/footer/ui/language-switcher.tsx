@@ -15,10 +15,10 @@ export function LanguageSwitcher({ language, onChange, labels }: LanguageSwitche
         <button
           key={lang}
           onClick={() => onChange(lang)}
-          className={`px-3 py-1 rounded-md text-sm transition-all duration-200 ${
+          className={`rounded-md px-3 py-1 text-sm transition-all duration-200 ${
             language === lang
-              ? "bg-accent text-accent-foreground font-medium"
-              : "text-muted-foreground hover:text-foreground hover:bg-accent/20"
+              ? "bg-accent font-medium text-accent-foreground"
+              : "text-muted-foreground hover:bg-accent/20 hover:text-foreground"
           }`}
           title={label}
         >

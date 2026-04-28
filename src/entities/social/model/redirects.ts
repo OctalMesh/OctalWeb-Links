@@ -7,7 +7,7 @@ export const redirects: Record<string, RedirectLink> = {
     description: "Contact directly via email.",
   },
   github: {
-    href: "https://git.octalmesh.com",
+    href: "https://github.com/OctalMesh/",
     title: "GitHub",
     description: "Visit GitHub organization.",
   },

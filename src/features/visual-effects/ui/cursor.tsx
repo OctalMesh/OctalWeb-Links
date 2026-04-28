@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { clsx } from "clsx";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "motion/react";
 
 export const CustomCursor = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -56,7 +56,7 @@ export const CustomCursor = () => {
   return (
     <motion.div
       className={clsx(
-        "fixed top-0 left-0 z-100 pointer-events-none mix-blend-difference",
+        "pointer-events-none fixed top-0 left-0 z-100 mix-blend-difference",
         "flex items-center justify-center rounded-full bg-white",
         "transition-none",
       )}
