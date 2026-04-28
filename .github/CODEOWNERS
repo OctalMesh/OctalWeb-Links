@@ -12,6 +12,9 @@
 # Default code owners for all files
 * @OctalMesh/development
 
+# GitHub configuration files
+/.github/ @OctalMesh/core
+
 # Policies, contribution, and licensing
 CODE_OF_CONDUCT*.md @OctalMesh/core
 CONTRIBUTING*.md    @OctalMesh/core

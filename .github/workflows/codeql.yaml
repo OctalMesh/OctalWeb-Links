@@ -1,0 +1,82 @@
+name: "CodeQL"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["dev"]
+  pull_request:
+    branches: ["dev"]
+  schedule:
+    - cron: "41 15 * * 1"
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  # Check if the commit message contains skip tags
+  check:
+    name: "Skip Check"
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+
+    steps:
+      - id: skip_check
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message || github.event.pull_request.title }}
+        run: |
+          if [[ "$COMMIT_MSG" == *"[ci-skip]"* ]] || \
+             [[ "$COMMIT_MSG" == *"[ql-skip]"* ]]; then
+            echo "should_skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_skip=false" >> $GITHUB_OUTPUT
+          fi
+
+  # Perform CodeQL analysis
+  analyze:
+    name: "Analyze (${{ matrix.language }})"
+    needs: check
+    if: needs.check.outputs.should_skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      actions: read
+      contents: read
+      packages: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: "javascript-typescript"
+            build-mode: "none"
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Initialize CodeQL"
+        uses: github/codeql-action/init@v4
+        with:
+          config-file: "./.github/codeql/codeql-config.yaml"
+          languages: "${{ matrix.language }}"
+          build-mode: "${{ matrix.build-mode }}"
+
+      - name: "Perform CodeQL Analysis"
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
