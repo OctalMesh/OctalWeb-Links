@@ -62,6 +62,7 @@ function ThemeTogglerButton({
   const isMounted = useIsMounted();
   const [transitioningTheme, setTransitioningTheme] = React.useState<ThemeSelection | null>(null);
   const effectiveTheme = (transitioningTheme ?? theme ?? "system") as ThemeSelection;
+  const ariaLabel = (props["aria-label"] as string | undefined) ?? "Toggle color theme";
 
   React.useMemo(() => {
     if (!isMounted) return "light";
@@ -110,9 +111,10 @@ function ThemeTogglerButton({
     return (
       <button
         data-slot="theme-toggler-button"
+        type="button"
         className={cn(buttonVariants({ variant, size, className }))}
         disabled
-        aria-hidden="true"
+        aria-label={ariaLabel}
         {...props}
       >
         <IconDeviceDesktop />
@@ -124,11 +126,13 @@ function ThemeTogglerButton({
     <>
       <button
         data-slot="theme-toggler-button"
+        type="button"
         className={cn(buttonVariants({ variant, size, className }))}
         onClick={(e) => {
           onClick?.(e);
           void handleToggle();
         }}
+        aria-label={ariaLabel}
         {...props}
       >
         {getIcon(effectiveTheme)}

@@ -1,0 +1,51 @@
+---
+import { siteConfig } from "src/shared/config/site";
+
+type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  type?: "website" | "article";
+  twitterCard?: "summary" | "summary_large_image";
+  jsonLd?: JsonLd;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  canonical = siteConfig.canonical,
+  image = siteConfig.image,
+  type = "website",
+  twitterCard = "summary_large_image",
+  jsonLd,
+} = Astro.props as Props;
+
+const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+const jsonLdPayload = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+---
+
+<!-- Basic Meta Tags -->
+<title>{seoTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={siteConfig.author} />
+<meta name="keywords" content="OctalMesh, OctalLinks, OctalSocials, Links, Socials" />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:title" content={seoTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:title" content={seoTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+
+{jsonLdPayload.map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}

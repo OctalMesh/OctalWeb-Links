@@ -1,58 +1,51 @@
 ---
 import "@shared/styles/index.css";
-import { DEFAULT_LANGUAGE } from "@features/i18n";
-import { siteConfig } from "@shared/config/site";
 import { AppProvider } from "../providers";
+import { siteConfig } from "@shared/config/site";
+import HeadAssets from "@shared/ui/head-assets.astro";
+import SEO from "@shared/ui/seo.astro";
+import { DEFAULT_LANGUAGE } from "@features/i18n/model/types";
+import { VisualEffectsProvider } from "@features/visual-effects/providers/visual-effects-provider";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: "website" | "article";
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
-  title = siteConfig.name,
+  title,
   description = siteConfig.description,
+  image = siteConfig.image,
+  type = "website",
+  jsonLd,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={DEFAULT_LANGUAGE} class="no-js">
+  <!--suppress HtmlRequiredTitleElement / Loaded in SEO component-->
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
-    <meta name="author" content={siteConfig.author} />
-    <meta name="keywords" content="OctalMesh, OctalLinks, OctalSocials, Links, Socials" />
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href={siteConfig.canonical} />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={siteConfig.name} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={siteConfig.canonical} />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <SEO title={title} description={description} image={image} type={type} canonical={Astro.url.href} jsonLd={jsonLd} />
+    <HeadAssets />
 
     <script is:inline>
       document.documentElement.classList.replace("no-js", "js-enabled");
     </script>
   </head>
   <body class="flex flex-col font-sans antialiased">
-    <AppProvider client:idle>
-      <slot />
-    </AppProvider>
+    <div class="fixed h-screen w-full bg-[radial-gradient(ellipse_at_bottom,var(--fx-bg-start)_0%,var(--fx-bg-end)_100%)]" />
+
+    <VisualEffectsProvider client:idle>
+      <AppProvider client:idle>
+        <main class="relative z-10"><slot /></main>
+      </AppProvider>
+    </VisualEffectsProvider>
 
     <noscript>
       <div class="fixed top-0 left-0 w-full bg-red-500/10 text-red-500 text-[10px] text-center z-100 backdrop-blur-md py-1 font-mono uppercase tracking-widest">

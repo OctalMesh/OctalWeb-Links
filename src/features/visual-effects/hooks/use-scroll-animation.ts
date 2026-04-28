@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 
-import styles from "@shared/styles/modules/scroll-animated.module.css";
-
 /**
  * Function to animate the elements when they appear.
  *
@@ -10,8 +8,8 @@ import styles from "@shared/styles/modules/scroll-animated.module.css";
 const appearFunction = (entries: IntersectionObserverEntry[]) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      entry.target.classList.add(styles.animate);
-      entry.target.classList.remove(styles.fadeOut);
+      entry.target.classList.add("animate");
+      entry.target.classList.remove("fadeOut");
     }
   });
 };
@@ -24,8 +22,8 @@ const appearFunction = (entries: IntersectionObserverEntry[]) => {
 const disappearFunction = (entries: IntersectionObserverEntry[]) => {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) {
-      entry.target.classList.remove(styles.animate);
-      entry.target.classList.add(styles.fadeOut);
+      entry.target.classList.remove("animate");
+      entry.target.classList.add("fadeOut");
     }
   });
 };
@@ -37,7 +35,7 @@ const disappearFunction = (entries: IntersectionObserverEntry[]) => {
 export default function useScrollAnimation(): void {
   useEffect(() => {
     /* Get all elements with the `scrollAnimated` class */
-    const elements = document.querySelectorAll(`.${styles.scrollAnimated}`);
+    const elements = document.querySelectorAll(".scrollAnimated");
 
     /* Create an observer for the appear and disappear functions */
     const observerAppear = new IntersectionObserver(appearFunction, {

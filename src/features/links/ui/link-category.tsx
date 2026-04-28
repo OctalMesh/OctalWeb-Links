@@ -3,8 +3,6 @@ import type { ReactElement, ReactNode } from "react";
 import { getContent, useLinkLanguage } from "@features/links/model";
 import type { LinkCategoryProps } from "@features/links/model";
 
-import styles from "@shared/styles/modules/scroll-animated.module.css";
-
 export function LinkCategory({
   props,
   id,
@@ -17,12 +15,15 @@ export function LinkCategory({
   children: ReactNode;
 }): ReactElement {
   const language = useLinkLanguage();
+  const titleId = id ? `${id}-title` : undefined;
 
   return (
-    <div className={className} id={id}>
-      <h2 className={`${styles.scrollAnimated} mb-2 text-2xl font-bold`}>{getContent(props.title, language)}</h2>
-      <p className={`${styles.scrollAnimated} mb-8 text-lg text-neutral-500`}>{getContent(props.subtitle, language)}</p>
-      <div className="flex w-full flex-wrap gap-4">{children}</div>
-    </div>
+    <section aria-labelledby={titleId} className={className} id={id}>
+      <h2 id={titleId} className="scrollAnimated mb-2 text-2xl font-bold">
+        {getContent(props.title, language)}
+      </h2>
+      <p className="scrollAnimated mb-8 text-lg text-neutral-500">{getContent(props.subtitle, language)}</p>
+      <ul className="flex w-full flex-wrap justify-center gap-4">{children}</ul>
+    </section>
   );
 }

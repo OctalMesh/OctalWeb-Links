@@ -3,14 +3,10 @@
 import * as React from "react";
 
 import { LanguageSwitcher } from "@features/footer";
-import {
-  DEFAULT_LANGUAGE,
-  LANGUAGE_STORAGE_KEY,
-  type Language,
-  getI18nConfig,
-  getTranslation,
-  resolvePreferredLanguage,
-} from "@features/i18n";
+import { getI18nConfig } from "@features/i18n/lib/i18n-config";
+import { getTranslation } from "@features/i18n/lib/translations";
+import { resolvePreferredLanguage } from "@features/i18n/lib/language";
+import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY, type Language } from "@features/i18n/model/types";
 import { ThemeTogglerButton } from "@features/theme-toggle/ui";
 
 type FooterProps = {

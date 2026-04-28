@@ -8,7 +8,7 @@ export function LinksGrid(): ReactElement {
   const cards = initCards(projectConfig.links);
 
   return (
-    <article className="flex w-full flex-col justify-center gap-10">
+    <section aria-label="OctalMesh links" className="flex w-full flex-col justify-center gap-10">
       {projectConfig.categories.map((category) => (
         <LinkCategory
           key={category.id}
@@ -19,7 +19,7 @@ export function LinksGrid(): ReactElement {
           {cards.get(category.id)}
         </LinkCategory>
       ))}
-    </article>
+    </section>
   );
 }
 

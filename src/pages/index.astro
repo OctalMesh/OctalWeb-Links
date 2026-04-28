@@ -1,13 +1,47 @@
 ---
+import { siteConfig } from "@shared/config/site";
 import { LinksGrid } from "@features/links/widgets/links-grid";
 import BaseLayout from "@app/layouts/base-layout.astro";
-import styles from "@shared/styles/modules/scroll-animated.module.css";
+import { DEFAULT_LANGUAGE } from "@features/i18n/model/types";
+import { getContent, projectConfig } from "@features/links/model";
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: siteConfig.name,
+  url: siteConfig.canonical,
+  itemListElement: projectConfig.links
+    .filter((link) => !link.disabled)
+    .sort((left, right) => left.priority - right.priority)
+    .map((link, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: getContent(link.title, DEFAULT_LANGUAGE),
+      url: new URL(`/${link.id}/`, siteConfig.canonical).href,
+    })),
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.name,
+  url: siteConfig.canonical,
+  description: siteConfig.description,
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.name,
+  url: siteConfig.canonical,
+  description: siteConfig.description,
+};
 ---
 
-<BaseLayout>
+<BaseLayout jsonLd={[organizationSchema, websiteSchema, itemListSchema]}>
   <section class="container md:pt-16 max-md:pb-28 px-6 mx-auto max-w-7xl flex flex-col items-center justify-center gap-12 py-8 md:py-10">
-    <section class={`${styles.scrollAnimated} flex flex-col max-w-lg text-center justify-center items-center content-center`}>
-      <div class="font-brand uppercase tracking-wider text-6xl">OCTAL MESH</div>
+    <section class="scrollAnimated flex flex-col max-w-lg text-center justify-center items-center content-center">
+      <h1 class="font-brand uppercase tracking-wider text-6xl">OCTAL MESH</h1>
     </section>
 
     <LinksGrid client:idle />

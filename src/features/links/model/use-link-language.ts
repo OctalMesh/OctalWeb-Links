@@ -2,7 +2,8 @@
 
 import * as React from "react";
 
-import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY, type Language, resolvePreferredLanguage } from "@features/i18n";
+import { resolvePreferredLanguage } from "@features/i18n/lib/language";
+import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY, type Language } from "@features/i18n/model/types";
 
 function readLanguage() {
   if (typeof window === "undefined") {

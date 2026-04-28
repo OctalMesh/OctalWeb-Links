@@ -1,8 +1,10 @@
 export const siteConfig = {
   name: "OctalMesh - Links",
-  description: "Official OctalMesh links hub with socials, studio channels, and support endpoints.",
+  description:
+    "OctalMesh Links is the official multilingual hub for OctalMesh social channels, contact endpoints, and community destinations, built for fast navigation, clear access, and reliable sharing.",
   canonical: "https://links.octalmesh.com",
   author: "OctalMesh",
+  image: "/og-image.png",
 };
 
 export type SiteConfig = typeof siteConfig;

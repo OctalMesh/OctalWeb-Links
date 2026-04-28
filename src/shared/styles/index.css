@@ -49,6 +49,34 @@
     text-rendering: optimizeLegibility;
   }
 
+  .scrollAnimated:not(.animate) {
+    opacity: 0;
+    transform: translateY(25px) scale(0.9);
+  }
+
+  .scrollAnimated {
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+
+  .scrollAnimated.animate {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .scrollAnimated.fadeOut {
+    opacity: 0;
+    transform: translateY(25px) scale(0.9);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scrollAnimated {
+      transform: none !important;
+      transition: opacity 0.3s ease !important;
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;

@@ -1,6 +1,8 @@
 "use client";
 
-import type { LanguageOptionItem } from "@features/i18n";
+import * as React from "react";
+
+import type { LanguageOptionItem } from "@features/i18n/model/types";
 
 import {
   Select,
@@ -19,9 +21,12 @@ type LanguageSwitcherProps = {
 };
 
 export function LanguageSwitcher({ language, onChange, options }: LanguageSwitcherProps) {
+  const selectId = React.useId();
+  const contentId = `language-select-content-${selectId}`;
+
   return (
     <Select value={language} onValueChange={(value) => onChange(value ?? language)}>
-      <SelectTrigger size="sm" className="min-w-32">
+      <SelectTrigger size="sm" className="min-w-32" aria-label="Change language" aria-controls={contentId}>
         <SelectValue>
           {(value) => {
             const selected =
@@ -31,7 +36,8 @@ export function LanguageSwitcher({ language, onChange, options }: LanguageSwitch
           }}
         </SelectValue>
       </SelectTrigger>
-      <SelectContent className="max-h-72">
+
+      <SelectContent id={contentId} className="max-h-72">
         <SelectGroup>
           <SelectLabel>Languages</SelectLabel>
           {options.map((option) => (

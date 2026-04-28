@@ -24,7 +24,7 @@ export function resolveIcon(icon: string, size = 40): ReactElement | null {
     return null;
   }
 
-  return <Icon id={icon as IconId} size={size} />;
+  return <Icon aria-hidden="true" focusable="false" id={icon as IconId} size={size} />;
 }
 
 export { iconMap };

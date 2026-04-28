@@ -1,4 +1,4 @@
-import type { Language } from "@features/i18n";
+import type { Language } from "@features/i18n/model/types";
 
 export type LocalizedContent = Record<string, string>;
 

@@ -4,7 +4,7 @@ import { type HTMLMotionProps, motion } from "motion/react";
 
 import { Slot } from "@shared/ui/primitives/animate/slot";
 
-const MotionSlot = motion(Slot);
+const MotionSlot = motion.create(Slot);
 
 export type ButtonProps = HTMLMotionProps<"button"> & {
   asChild?: boolean;

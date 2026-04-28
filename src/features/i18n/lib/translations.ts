@@ -1,5 +1,5 @@
-import { DEFAULT_LANGUAGE, type Language } from "../model/types";
-import { i18nConfig } from "./i18n-config";
+import { i18nConfig } from "@/features";
+import { DEFAULT_LANGUAGE, type Language } from "@/features";
 
 export const translations = i18nConfig.translations;
 
