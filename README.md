@@ -34,7 +34,6 @@
         <img alt="Contributors" src="https://img.shields.io/github/contributors/OctalMesh/OctalWeb-Links?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+DQogIDxwYXRoIGZpbGw9IiMzNjM2MzYiIGQ9Ik0yIDUuNWEzLjUgMy41IDAgMSAxIDUuOSAyLjU1IDUuNSA1LjUgMCAwIDEgMy4wMyA0LjA4Ljc1Ljc1IDAgMSAxLTEuNDguMjQgNCA0IDAgMCAwLTcuOSAwIC43NS43NSAwIDAgMS0xLjQ4LS4yNEE1LjUgNS41IDAgMCAxIDMuMSA4LjA1IDMuNSAzLjUgMCAwIDEgMiA1LjVaTTExIDRhMyAzIDAgMCAxIDIuMjIgNS4wMiA1LjAxIDUuMDEgMCAwIDEgMi41NiAzLjAxLjc1Ljc1IDAgMCAxLS44OC45NS43NS43NSAwIDAgMS0uNTUtLjUxIDMuNSAzLjUgMCAwIDAtMi41My0yLjM3Ljc1Ljc1IDAgMCAxLS41Ny0uNzN2LS4zNWEuNzUuNzUgMCAwIDEgLjQyLS42OEExLjUgMS41IDAgMCAwIDExIDUuNS43NS43NSAwIDAgMSAxMSA0Wm0tNS41LS41YTIgMiAwIDEgMCAwIDQgMiAyIDAgMCAwIDAtNFoiLz4NCjwvc3ZnPg==&color=fff&labelColor=eaeaea" />
       </picture>
     </a>
-    <br />
     <!-- Repo Views Badge -->
     <a rel="noopener noreferrer" href="https://hits.sh/github.com/OctalMesh/OctalWeb-Links">
       <picture>
