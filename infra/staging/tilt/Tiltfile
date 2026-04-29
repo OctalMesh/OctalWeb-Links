@@ -1,0 +1,5 @@
+version_settings(constraint='>=0.33.0')
+
+docker_compose('../docker/compose.yaml', project_name='octalweb-links-staging')
+
+dc_resource('owl-app-web', labels=['app'])
