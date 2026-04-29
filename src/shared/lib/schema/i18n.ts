@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const LanguageOptionSchema = z.object({
   code: z.string().min(1),
+  region: z.string().min(1),
   label: z.string().min(1),
 });
 

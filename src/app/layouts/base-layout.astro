@@ -12,6 +12,8 @@ interface Props {
   description?: string;
   image?: string;
   type?: "website" | "article";
+  locale?: string;
+  noindex?: boolean;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
@@ -20,18 +22,31 @@ const {
   description = siteConfig.description,
   image = siteConfig.image,
   type = "website",
+  locale = DEFAULT_LANGUAGE,
+  noindex = false,
   jsonLd,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, siteConfig.canonical).href.replace(/\/$/, "") || siteConfig.canonical;
 ---
 
 <!doctype html>
-<html lang={DEFAULT_LANGUAGE} class="no-js">
+<html lang={locale} class="no-js">
   <!--suppress HtmlRequiredTitleElement / Loaded in SEO component-->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <SEO title={title} description={description} image={image} type={type} canonical={Astro.url.href} jsonLd={jsonLd} />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      canonical={canonical}
+      locale={locale}
+      noindex={noindex}
+      jsonLd={jsonLd}
+    />
     <HeadAssets />
 
     <script is:inline>

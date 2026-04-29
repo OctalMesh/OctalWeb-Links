@@ -1,5 +1,11 @@
 ---
-import { siteConfig } from "src/shared/config/site";
+import { siteConfig } from "@shared/config/site";
+import { getI18nConfig } from "@features/i18n/lib/i18n-config";
+import { DEFAULT_LANGUAGE } from "@features/i18n/model/types";
+import HeadJsonLd from "./head-json-ld.astro";
+import HeadTwitter from "./head-twitter.astro";
+import HeadOpenGraph from "./head-open-graph.astro";
+import HeadLocale from "./head-locale.astro";
 
 type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
 
@@ -8,8 +14,13 @@ interface Props {
   description?: string;
   canonical?: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   type?: "website" | "article";
   twitterCard?: "summary" | "summary_large_image";
+  locale?: string;
+  noindex?: boolean;
+  keywords?: string[];
   jsonLd?: JsonLd;
 }
 
@@ -18,34 +29,53 @@ const {
   description = siteConfig.description,
   canonical = siteConfig.canonical,
   image = siteConfig.image,
+  imageWidth = 1200,
+  imageHeight = 630,
   type = "website",
   twitterCard = "summary_large_image",
+  locale = DEFAULT_LANGUAGE,
+  noindex = false,
+  keywords = siteConfig.keywords,
   jsonLd,
 } = Astro.props as Props;
 
+const i18n = getI18nConfig();
+const availableLangs = i18n.languages.map((l) => l.code);
+
 const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
-const jsonLdPayload = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+const absoluteImage = image.startsWith("http") ? image : `${siteConfig.canonical}${image}`;
 ---
 
-<!-- Basic Meta Tags -->
 <title>{seoTitle}</title>
 <meta name="description" content={description} />
 <meta name="author" content={siteConfig.author} />
-<meta name="keywords" content="OctalMesh, OctalLinks, OctalSocials, Links, Socials" />
+<meta name="keywords" content={keywords.join(", ")} />
+<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"} />
+<meta name="theme-color" content={siteConfig.pwa.themeColor} />
 <link rel="canonical" href={canonical} />
 
-<!-- Open Graph -->
-<meta property="og:type" content={type} />
-<meta property="og:site_name" content={siteConfig.name} />
-<meta property="og:title" content={seoTitle} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
-<meta property="og:image" content={image} />
+<HeadLocale i18n={i18n} canonical={canonical} />
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content={twitterCard} />
-<meta name="twitter:title" content={seoTitle} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={image} />
+<HeadOpenGraph
+  type={type}
+  title={seoTitle}
+  description={description}
+  canonical={canonical}
+  absoluteImage={absoluteImage}
+  imageWidth={imageWidth}
+  imageHeight={imageHeight}
+  locale={locale}
+/>
 
-{jsonLdPayload.map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+<HeadTwitter
+  card={twitterCard}
+  title={seoTitle}
+  description={description}
+  absoluteImage={absoluteImage}
+/>
+
+<HeadJsonLd
+  jsonLd={jsonLd}
+  availableLangs={availableLangs}
+  absoluteImage={absoluteImage}
+/>

@@ -3,10 +3,12 @@
   "languages": [
     {
       "code": "uk",
+      "region": "UA",
       "label": "Українська"
     },
     {
       "code": "en",
+      "region": "US",
       "label": "English"
     }
   ],
