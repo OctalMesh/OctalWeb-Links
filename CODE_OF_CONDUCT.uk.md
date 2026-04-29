@@ -1,6 +1,22 @@
 <!--suppress HtmlDeprecatedAttribute -->
 <h1 align="center">Угода учасників - Кодекс поведінки</h1>
 
+<div align="center">
+  <h6>
+    <a rel="noopener noreferrer" href="README.md">Readme</a>
+    ·
+    <a rel="noopener noreferrer" href="CONTRIBUTING.md">Внесок у проєкт</a>
+    ·
+    <a rel="noopener noreferrer" href="SECURITY.md">Політика безпеки</a>
+    ·
+    <a rel="noopener noreferrer" href="SUPPORT.md">Підтримка</a>
+    ·
+    <a rel="noopener noreferrer" href="LICENSE.md">Ліцензія</a>
+  </h6>
+</div>
+
+<h1></h1>
+
 ## Наше зобов'язання
 
 Ми, як учасники, автори та лідери, зобов'язуємося зробити участь у нашій
