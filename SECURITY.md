@@ -1,6 +1,22 @@
 <!--suppress HtmlDeprecatedAttribute -->
 <h1 align="center">Security Policy</h1>
 
+<div align="center">
+  <h6>
+    <a rel="noopener noreferrer" href="README.md">Readme</a>
+    ·
+    <a rel="noopener noreferrer" href="CODE_OF_CONDUCT.md">Code of Conduct</a>
+    ·
+    <a rel="noopener noreferrer" href="CONTRIBUTING.md">Contributing</a>
+    ·
+    <a rel="noopener noreferrer" href="SUPPORT.md">Support</a>
+    ·
+    <a rel="noopener noreferrer" href="LICENSE.md">License</a>
+  </h6>
+</div>
+
+<h1></h1>
+
 This repository is a submodule of the OctalWeb platform and follows the general
 OctalWeb security model.
 Some security aspects are handled locally, while others are coordinated
@@ -16,14 +32,16 @@ centrally at the platform level.
 If there is a conflict between this document and the platform-level `SECURITY.md`,
 the stricter policy takes precedence.
 
+> [!CAUTION]
+> **Do not open a public issue, discussion, or pull request to report a security
+> vulnerability.** Use the private channels listed below.
+
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, **do not open a public issue,
-discussion, or pull request**.
-Instead, report it privately:
-
-- Email: <security@octalmesh.com> *(preferred)*
-- Or contact a core [maintainer](https://github.com/nykonhrytsyshyn) directly
+| Channel                 | Details                                                                |
+|-------------------------|------------------------------------------------------------------------|
+| **Email** *(preferred)* | [security@octalmesh.com](mailto:security@octalmesh.com)                |
+| **Direct contact**      | Reach a core [maintainer](https://github.com/nykonhrytsyshyn) directly |
 
 ### Please include as much of the following information as possible:
 
@@ -50,11 +68,11 @@ accurate triage.
 
 ## Response Timeline
 
-We aim to follow this process:
-
-- **Acknowledgement:** within 48 hours
-- **Initial assessment:** within 5 business days
-- **Fix & disclosure:** as soon as reasonably possible
+| Stage                  | Target                         |
+|------------------------|--------------------------------|
+| **Acknowledgement**    | Within 48 hours                |
+| **Initial assessment** | Within 5 business days         |
+| **Fix & disclosure**   | As soon as reasonably possible |
 
 Timelines may vary depending on severity and complexity.
 
@@ -68,7 +86,9 @@ This policy applies to:
 
 Third-party services and dependencies follow their own security policies.
 
-#
+<h1></h1>
 
-<h6 align="center">Security research helps keep OctalWeb reliable and boring -
-exactly how security should be</h6>
+<h6 align="center">
+Security research helps keep Commodore reliable and boring - exactly how
+security should be
+</h6>
