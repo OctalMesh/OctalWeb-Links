@@ -1,5 +1,5 @@
 <!--suppress HtmlDeprecatedAttribute -->
-<h1 align="center">Contributing to OctalWeb</h1>
+<h1 align="center">Contributing to OctalWeb-Links</h1>
 
 <div align="center">
   <h6>
@@ -21,7 +21,7 @@ Thank you for your interest in **OctalWeb**!
 
 OctalWeb is the official OctalMesh company website. This repository is
 maintained and developed by the OctalMesh team. We appreciate your feedback and
-bug reports—they help us keep the site reliable, performant, and accessible.
+bug reports they help us keep the site reliable, performant, and accessible.
 
 ## Before You Start
 

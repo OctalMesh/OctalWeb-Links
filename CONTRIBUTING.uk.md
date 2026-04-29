@@ -1,5 +1,5 @@
 <!--suppress HtmlDeprecatedAttribute -->
-<h1 align="center">Внесок у OctalWeb</h1>
+<h1 align="center">Внесок у OctalWeb-Links</h1>
 
 <div align="center">
   <h6>
