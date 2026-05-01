@@ -1,18 +1,15 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "ignoreDeprecations": "5.0",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@app/*": ["src/app/*"],
-      "@pages/*": ["src/pages/*"],
-      "@widgets/*": ["src/widgets/*"],
-      "@features/*": ["src/features/*"],
-      "@entities/*": ["src/entities/*"],
-      "@shared/*": ["src/shared/*"]
+      "@app/*":      [ "./src/app/*" ],
+      "@pages/*":    [ "./src/pages/*" ],
+      "@widgets/*":  [ "./src/widgets/*" ],
+      "@features/*": [ "./src/features/*" ],
+      "@entities/*": [ "./src/entities/*" ],
+      "@shared/*":   [ "./src/shared/*" ]
     },
-    "types": ["astro/client"],
+    "types": [ "astro/client" ],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "allowJs": true,
@@ -22,6 +19,6 @@
     "noUnusedParameters": true,
     "skipLibCheck": true
   },
-  "include": [".astro/types.d.ts", "src/**/*", "*.mts"],
-  "exclude": ["node_modules", "dist"]
+  "include": [ ".astro/types.d.ts", "src/**/*", "*.mts" ],
+  "exclude": [ "node_modules", "dist" ]
 }

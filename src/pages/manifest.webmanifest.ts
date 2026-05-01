@@ -1,4 +1,4 @@
-import { siteConfig } from "@shared/config/site";
+import { siteConfig } from "@shared/config";
 
 export const prerender = true;
 

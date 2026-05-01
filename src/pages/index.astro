@@ -1,9 +1,9 @@
 ---
-import { siteConfig } from "@shared/config/site";
-import { LinksGrid } from "@features/links/widgets/links-grid";
+import { siteConfig } from "@shared/config";
+import { LinksGrid } from "@widgets/links";
 import BaseLayout from "@app/layouts/base-layout.astro";
-import { DEFAULT_LANGUAGE } from "@features/i18n/model/types";
-import { getContent, projectConfig } from "@features/links/model";
+import { DEFAULT_LANGUAGE } from "@features/i18n";
+import { getContent, projectConfig } from "@widgets/links";
 
 const itemListSchema = {
   "@context": "https://schema.org",

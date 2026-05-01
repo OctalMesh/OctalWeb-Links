@@ -6,28 +6,19 @@ import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card
 import {
   AnimatePresence,
   type HTMLMotionProps,
-  type MotionValue,
   type SpringOptions,
   motion,
   useMotionValue,
   useSpring,
 } from "motion/react";
 
-import { useControlledState } from "@shared/hooks/use-controlled-state";
-import { getStrictContext } from "@shared/lib/get-strict-context";
+import { useControlledState } from "@shared/lib/use-controlled-state";
 
-type PreviewCardContextType = {
-  isOpen: boolean;
-  setIsOpen: PreviewCardProps["onOpenChange"];
-  x: MotionValue<number>;
-  y: MotionValue<number>;
-  followCursor?: boolean | "x" | "y";
-  followCursorSpringOptions?: SpringOptions;
-};
+import { PreviewCardProvider, usePreviewCard } from "./preview-card.context";
 
-const [PreviewCardProvider, usePreviewCard] = getStrictContext<PreviewCardContextType>("PreviewCardContext");
-
-type PreviewCardProps = React.ComponentProps<typeof PreviewCardPrimitive.Root> & {
+type PreviewCardProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Root
+> & {
   followCursor?: boolean | "x" | "y";
   followCursorSpringOptions?: SpringOptions;
 };
@@ -40,7 +31,9 @@ function PreviewCard({
   const [isOpen, setIsOpen] = useControlledState({
     value: props?.open,
     defaultValue: props?.defaultOpen,
-    onChange: props?.onOpenChange,
+    onChange: (next) => {
+      props?.onOpenChange?.(next, undefined as never);
+    },
   });
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -49,24 +42,37 @@ function PreviewCard({
     <PreviewCardProvider
       value={{
         isOpen,
-        setIsOpen,
+        setIsOpen: (next) => {
+          setIsOpen(typeof next === "function" ? next(isOpen) : next);
+        },
         x,
         y,
         followCursor,
         followCursorSpringOptions,
       }}
     >
-      <PreviewCardPrimitive.Root data-slot="preview-card" {...props} onOpenChange={setIsOpen} />
+      <PreviewCardPrimitive.Root
+        data-slot="preview-card"
+        {...props}
+        onOpenChange={setIsOpen}
+      />
     </PreviewCardProvider>
   );
 }
 
-type PreviewCardTriggerProps = React.ComponentProps<typeof PreviewCardPrimitive.Trigger>;
+type PreviewCardTriggerProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Trigger
+>;
 
-function PreviewCardTrigger({ onMouseMove, ...props }: PreviewCardTriggerProps) {
+function PreviewCardTrigger({
+  onMouseMove,
+  ...props
+}: PreviewCardTriggerProps) {
   const { x, y, followCursor } = usePreviewCard();
 
-  const handleMouseMove = (event: Parameters<NonNullable<PreviewCardTriggerProps["onMouseMove"]>>[0]) => {
+  const handleMouseMove = (
+    event: Parameters<NonNullable<PreviewCardTriggerProps["onMouseMove"]>>[0],
+  ) => {
     onMouseMove?.(event);
 
     const target = event.currentTarget.getBoundingClientRect();
@@ -84,28 +90,53 @@ function PreviewCardTrigger({ onMouseMove, ...props }: PreviewCardTriggerProps) 
     }
   };
 
-  return <PreviewCardPrimitive.Trigger data-slot="preview-card-trigger" onMouseMove={handleMouseMove} {...props} />;
+  return (
+    <PreviewCardPrimitive.Trigger
+      data-slot="preview-card-trigger"
+      onMouseMove={handleMouseMove}
+      {...props}
+    />
+  );
 }
 
-type PreviewCardPortalProps = Omit<React.ComponentProps<typeof PreviewCardPrimitive.Portal>, "keepMounted">;
+type PreviewCardPortalProps = Omit<
+  React.ComponentProps<typeof PreviewCardPrimitive.Portal>,
+  "keepMounted"
+>;
 
 function PreviewCardPortal(props: PreviewCardPortalProps) {
   const { isOpen } = usePreviewCard();
 
   return (
     <AnimatePresence>
-      {isOpen && <PreviewCardPrimitive.Portal keepMounted data-slot="preview-card-portal" {...props} />}
+      {isOpen && (
+        <PreviewCardPrimitive.Portal
+          keepMounted
+          data-slot="preview-card-portal"
+          {...props}
+        />
+      )}
     </AnimatePresence>
   );
 }
 
-type PreviewCardPositionerProps = React.ComponentProps<typeof PreviewCardPrimitive.Positioner>;
+type PreviewCardPositionerProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Positioner
+>;
 
 function PreviewCardPositioner(props: PreviewCardPositionerProps) {
-  return <PreviewCardPrimitive.Positioner data-slot="preview-card-positioner" {...props} />;
+  return (
+    <PreviewCardPrimitive.Positioner
+      data-slot="preview-card-positioner"
+      {...props}
+    />
+  );
 }
 
-type PreviewCardPopupProps = Omit<React.ComponentProps<typeof PreviewCardPrimitive.Popup>, "render"> &
+type PreviewCardPopupProps = Omit<
+  React.ComponentProps<typeof PreviewCardPrimitive.Popup>,
+  "render"
+> &
   HTMLMotionProps<"div">;
 
 function PreviewCardPopup({
@@ -128,8 +159,14 @@ function PreviewCardPopup({
           exit={{ opacity: 0, scale: 0.5 }}
           transition={transition}
           style={{
-            x: followCursor === "x" || followCursor === true ? translateX : undefined,
-            y: followCursor === "y" || followCursor === true ? translateY : undefined,
+            x:
+              followCursor === "x" || followCursor === true
+                ? translateX
+                : undefined,
+            y:
+              followCursor === "y" || followCursor === true
+                ? translateY
+                : undefined,
             ...style,
           }}
           {...props}
@@ -139,16 +176,27 @@ function PreviewCardPopup({
   );
 }
 
-type PreviewCardBackdropProps = React.ComponentProps<typeof PreviewCardPrimitive.Backdrop>;
+type PreviewCardBackdropProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Backdrop
+>;
 
 function PreviewCardBackdrop(props: PreviewCardBackdropProps) {
-  return <PreviewCardPrimitive.Backdrop data-slot="preview-card-backdrop" {...props} />;
+  return (
+    <PreviewCardPrimitive.Backdrop
+      data-slot="preview-card-backdrop"
+      {...props}
+    />
+  );
 }
 
-type PreviewCardArrowProps = React.ComponentProps<typeof PreviewCardPrimitive.Arrow>;
+type PreviewCardArrowProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Arrow
+>;
 
 function PreviewCardArrow(props: PreviewCardArrowProps) {
-  return <PreviewCardPrimitive.Arrow data-slot="preview-card-arrow" {...props} />;
+  return (
+    <PreviewCardPrimitive.Arrow data-slot="preview-card-arrow" {...props} />
+  );
 }
 
 export {
@@ -159,7 +207,6 @@ export {
   PreviewCardPopup,
   PreviewCardBackdrop,
   PreviewCardArrow,
-  usePreviewCard,
   type PreviewCardProps,
   type PreviewCardTriggerProps,
   type PreviewCardPortalProps,
@@ -167,5 +214,4 @@ export {
   type PreviewCardPopupProps,
   type PreviewCardBackdropProps,
   type PreviewCardArrowProps,
-  type PreviewCardContextType,
 };

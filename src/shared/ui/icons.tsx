@@ -1,5 +1,7 @@
 import { type ReactElement, type SVGProps, createElement } from "react";
 
+import { iconMap } from "./icons.constants";
+
 export type IconProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
@@ -157,30 +159,32 @@ export function DiscordIcon(props: IconProps) {
 
 //</editor-fold>
 
-export const iconMap = new Map<IconId, (props: IconProps) => ReactElement>([
-  ["mail", MailIcon],
-  ["github", GitHubIcon],
-  ["telegram", TelegramIcon],
-  ["youtube", YouTubeIcon],
-  ["twitch", TwitchIcon],
-  ["instagram", InstagramIcon],
-  ["tiktok", TikTokIcon],
-  ["x", XIcon],
-  ["reddit", RedditIcon],
-  ["linkedin", LinkedInIcon],
-  ["patreon", PatreonIcon],
-  ["discord", DiscordIcon],
-]);
-
-export function BaseIcon({ size = 24, width, height, children, ...props }: IconProps): ReactElement {
+export function BaseIcon({
+  size = 24,
+  width,
+  height,
+  children,
+  ...props
+}: IconProps): ReactElement {
   return (
-    <svg height={height || size} viewBox={props.viewBox || "0 0 24 24"} width={width || size} {...props}>
+    <svg
+      height={height || size}
+      viewBox={props.viewBox || "0 0 24 24"}
+      width={width || size}
+      {...props}
+    >
       {children}
     </svg>
   );
 }
 
-export function Icon({ id, size = 24, width, height, ...props }: IconProps & { id: IconId }): ReactElement {
+export function Icon({
+  id,
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconProps & { id: IconId }): ReactElement {
   const icon = iconMap.get(id);
 
   if (!icon) return <div />;

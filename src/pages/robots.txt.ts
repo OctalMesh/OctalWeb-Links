@@ -1,10 +1,12 @@
-import { siteConfig } from "@shared/config/site";
+import { siteConfig } from "@shared/config";
 
 export const prerender = true;
 
 export async function GET() {
   const { robots } = siteConfig;
-  const disallowRules = robots.disallow.map((path) => `Disallow: ${path}`).join("\n");
+  const disallowRules = robots.disallow
+    .map((path) => `Disallow: ${path}`)
+    .join("\n");
   const contentSignal = [
     `ai-train=${robots.contentSignals.aiTrain ? "yes" : "no"}`,
     `search=${robots.contentSignals.search ? "yes" : "no"}`,

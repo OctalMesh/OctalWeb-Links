@@ -12,8 +12,19 @@ export type ButtonProps = HTMLMotionProps<"button"> & {
   tapScale?: number;
 };
 
-export function Button({ hoverScale = 1.05, tapScale = 0.95, asChild = false, ...props }: ButtonProps) {
+export function Button({
+  hoverScale = 1.05,
+  tapScale = 0.95,
+  asChild = false,
+  ...props
+}: ButtonProps) {
   const Component = asChild ? MotionSlot : motion.button;
 
-  return <Component whileTap={{ scale: tapScale }} whileHover={{ scale: hoverScale }} {...(props as any)} />;
+  return (
+    <Component
+      whileTap={{ scale: tapScale }}
+      whileHover={{ scale: hoverScale }}
+      {...(props as any)}
+    />
+  );
 }

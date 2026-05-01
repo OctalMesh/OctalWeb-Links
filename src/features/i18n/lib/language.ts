@@ -1,7 +1,5 @@
-import { type Language, isLanguage } from "../model/types";
-import { i18nConfig } from "./i18n-config";
-
-export const DEFAULT_LANGUAGE_FROM_CONFIG: Language = i18nConfig.defaultLanguage;
+import { DEFAULT_LANGUAGE, type Language, isLanguage } from "../model/types";
+import { getI18nConfig } from "./i18n-config";
 
 function normalizeLanguageTag(tag: string) {
   return tag.trim().toLowerCase().replaceAll("_", "-");
@@ -9,7 +7,9 @@ function normalizeLanguageTag(tag: string) {
 
 function matchSupportedLanguage(tag: string): Language | undefined {
   const normalized = normalizeLanguageTag(tag);
-  const exactMatch = i18nConfig.languages.find((language) => language.code === normalized);
+  const exactMatch = getI18nConfig().languages.find(
+    (language) => language.code === normalized,
+  );
 
   if (exactMatch) {
     return exactMatch.code;
@@ -19,7 +19,9 @@ function matchSupportedLanguage(tag: string): Language | undefined {
   return isLanguage(primaryTag) ? primaryTag : undefined;
 }
 
-export function getBrowserPreferredLanguage(preferredLanguages: readonly string[] = []): Language {
+export function getBrowserPreferredLanguage(
+  preferredLanguages: readonly string[] = [],
+): Language {
   for (const languageTag of preferredLanguages) {
     const matchedLanguage = matchSupportedLanguage(languageTag);
     if (matchedLanguage) {
@@ -27,7 +29,7 @@ export function getBrowserPreferredLanguage(preferredLanguages: readonly string[
     }
   }
 
-  return DEFAULT_LANGUAGE_FROM_CONFIG;
+  return DEFAULT_LANGUAGE;
 }
 
 export function resolvePreferredLanguage(

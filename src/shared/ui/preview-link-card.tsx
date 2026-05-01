@@ -27,7 +27,8 @@ function PreviewLinkCardTrigger(props: PreviewLinkCardTriggerProps) {
   return <PreviewLinkCardTriggerPrimitive {...props} />;
 }
 
-type PreviewLinkCardPanelProps = PreviewLinkCardPositionerPrimitiveProps & PreviewLinkCardPopupPrimitiveProps;
+type PreviewLinkCardPanelProps = PreviewLinkCardPositionerPrimitiveProps &
+  PreviewLinkCardPopupPrimitiveProps;
 
 function PreviewLinkCardPanel({
   className,
@@ -39,9 +40,17 @@ function PreviewLinkCardPanel({
 }: PreviewLinkCardPanelProps) {
   return (
     <PreviewLinkCardPortalPrimitive>
-      <PreviewLinkCardPositionerPrimitive align={align} sideOffset={sideOffset} className="z-50" {...props}>
+      <PreviewLinkCardPositionerPrimitive
+        align={align}
+        sideOffset={sideOffset}
+        className="z-50"
+        {...props}
+      >
         <PreviewLinkCardPopupPrimitive
-          className={cn("origin-(--transform-origin) overflow-hidden rounded-md shadow-md outline-hidden", className)}
+          className={cn(
+            "origin-(--transform-origin) overflow-hidden rounded-md shadow-md outline-hidden",
+            className,
+          )}
           style={style}
         >
           {children}

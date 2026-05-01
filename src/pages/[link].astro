@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "@app/layouts/base-layout.astro";
-import { DEFAULT_LANGUAGE } from "@features/i18n/model/types";
-import { getContent, projectConfig } from "@features/links/model";
-import { siteConfig } from "@shared/config/site";
+import { DEFAULT_LANGUAGE } from "@features/i18n";
+import { getContent, projectConfig } from "@widgets/links";
+import { siteConfig } from "@shared/config";
 
 export function getStaticPaths() {
   return projectConfig.links.map((redirect) => ({

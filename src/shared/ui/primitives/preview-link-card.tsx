@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-import { getStrictContext } from "@shared/lib/get-strict-context";
 import {
   PreviewCardArrow as PreviewCardArrowPrimitive,
   type PreviewCardArrowProps as PreviewCardArrowPropsPrimitive,
@@ -20,15 +19,10 @@ import {
   type PreviewCardTriggerProps as PreviewCardTriggerPropsPrimitive,
 } from "@shared/ui/primitives/preview-card";
 
-type PreviewLinkCardContextType = {
-  href: string;
-  src?: string;
-  width?: number;
-  height?: number;
-};
-
-const [PreviewLinkCardProvider, usePreviewLinkCard] =
-  getStrictContext<PreviewLinkCardContextType>("PreviewLinkCardContext");
+import {
+  PreviewLinkCardProvider,
+  usePreviewLinkCard,
+} from "./preview-link-card.context";
 
 type PreviewLinkCardProps = PreviewCardPropsPrimitive & {
   href: string;
@@ -80,9 +74,15 @@ function PreviewLinkCard({
   );
 }
 
-type PreviewLinkCardTriggerProps = PreviewCardTriggerPropsPrimitive & React.ComponentProps<"a">;
+type PreviewLinkCardTriggerProps = PreviewCardTriggerPropsPrimitive &
+  React.ComponentProps<"a">;
 
-function PreviewLinkCardTrigger({ children, href: hrefProp, render, ...props }: PreviewLinkCardTriggerProps) {
+function PreviewLinkCardTrigger({
+  children,
+  href: hrefProp,
+  render,
+  ...props
+}: PreviewLinkCardTriggerProps) {
   const { href } = usePreviewLinkCard();
 
   return (
@@ -97,7 +97,12 @@ function PreviewLinkCardTrigger({ children, href: hrefProp, render, ...props }: 
 type PreviewLinkCardPortalProps = PreviewCardPortalPropsPrimitive;
 
 function PreviewLinkCardPortal(props: PreviewLinkCardPortalProps) {
-  return <PreviewCardPortalPrimitive data-slot="preview-link-card-portal" {...props} />;
+  return (
+    <PreviewCardPortalPrimitive
+      data-slot="preview-link-card-portal"
+      {...props}
+    />
+  );
 }
 
 type PreviewLinkCardPositionerProps = PreviewCardPositionerPropsPrimitive;
@@ -119,7 +124,9 @@ function PreviewLinkCardPositioner({
   );
 }
 
-function buildQueryString(params: Record<string, string | number | boolean | undefined | null>) {
+function buildQueryString(
+  params: Record<string, string | number | boolean | undefined | null>,
+) {
   const sp = new URLSearchParams();
   for (const [k, v] of Object.entries(params)) {
     if (v === undefined || v === null) continue;
@@ -128,7 +135,8 @@ function buildQueryString(params: Record<string, string | number | boolean | und
   return sp.toString();
 }
 
-type PreviewLinkCardPopupProps = PreviewCardPopupPropsPrimitive & React.ComponentProps<"a">;
+type PreviewLinkCardPopupProps = PreviewCardPopupPropsPrimitive &
+  React.ComponentProps<"a">;
 
 function PreviewLinkCardPopup({
   transition = { type: "spring", stiffness: 300, damping: 25 },
@@ -140,7 +148,10 @@ function PreviewLinkCardPopup({
   const { href } = usePreviewLinkCard();
 
   return (
-    <PreviewCardPopupPrimitive data-slot="preview-link-card-popup" transition={transition}>
+    <PreviewCardPopupPrimitive
+      data-slot="preview-link-card-popup"
+      transition={transition}
+    >
       <a
         data-slot="preview-link-card-popup-link"
         style={{
@@ -156,9 +167,15 @@ function PreviewLinkCardPopup({
   );
 }
 
-type PreviewLinkCardImageProps = Omit<React.ComponentProps<"img">, "src" | "width" | "height">;
+type PreviewLinkCardImageProps = Omit<
+  React.ComponentProps<"img">,
+  "src" | "width" | "height"
+>;
 
-function PreviewLinkCardImage({ alt = "preview image", ...props }: PreviewLinkCardImageProps) {
+function PreviewLinkCardImage({
+  alt = "preview image",
+  ...props
+}: PreviewLinkCardImageProps) {
   const { src, width, height } = usePreviewLinkCard();
 
   return <img src={src} width={width} height={height} alt={alt} {...props} />;
@@ -167,13 +184,20 @@ function PreviewLinkCardImage({ alt = "preview image", ...props }: PreviewLinkCa
 type PreviewLinkCardBackdropProps = PreviewCardBackdropPropsPrimitive;
 
 function PreviewLinkCardBackdrop(props: PreviewLinkCardBackdropProps) {
-  return <PreviewCardBackdropPrimitive data-slot="preview-link-card-backdrop" {...props} />;
+  return (
+    <PreviewCardBackdropPrimitive
+      data-slot="preview-link-card-backdrop"
+      {...props}
+    />
+  );
 }
 
 type PreviewLinkCardArrowProps = PreviewCardArrowPropsPrimitive;
 
 function PreviewLinkCardArrow(props: PreviewLinkCardArrowProps) {
-  return <PreviewCardArrowPrimitive data-slot="preview-link-card-arrow" {...props} />;
+  return (
+    <PreviewCardArrowPrimitive data-slot="preview-link-card-arrow" {...props} />
+  );
 }
 
 export {
@@ -185,7 +209,6 @@ export {
   PreviewLinkCardImage,
   PreviewLinkCardBackdrop,
   PreviewLinkCardArrow,
-  usePreviewLinkCard,
   type PreviewLinkCardProps,
   type PreviewLinkCardTriggerProps,
   type PreviewLinkCardPortalProps,
@@ -194,5 +217,4 @@ export {
   type PreviewLinkCardImageProps,
   type PreviewLinkCardBackdropProps,
   type PreviewLinkCardArrowProps,
-  type PreviewLinkCardContextType,
 };

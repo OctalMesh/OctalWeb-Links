@@ -1,9 +1,17 @@
 import React from "react";
 
-import { CustomCursor, GridBackground, StarsBackground, TransitionProvider } from "@features/visual-effects";
-import useScrollAnimation from "@features/visual-effects/hooks/use-scroll-animation";
+import {
+  TransitionProvider,
+  useScrollAnimation,
+} from "@features/visual-effects";
 
-export function VisualEffectsProvider({ children }: { children: React.ReactNode }) {
+import { CustomCursor, GridBackground, StarsBackground } from "@shared/ui";
+
+export function VisualEffectsProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   useScrollAnimation();
 
   return (

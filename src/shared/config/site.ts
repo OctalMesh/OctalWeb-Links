@@ -56,7 +56,14 @@ export const siteConfig = {
       search: true,
       aiInput: true,
     },
-    disallow: ["/_astro/", "/assets/", "/api/", "/email", "/manager", "/telegram_manager"],
+    disallow: [
+      "/_astro/",
+      "/assets/",
+      "/api/",
+      "/email",
+      "/manager",
+      "/telegram_manager",
+    ],
   },
 
   /* Security (RFC 9116) */
