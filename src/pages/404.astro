@@ -123,6 +123,7 @@ const translations = {
 		};
 
 		const i18nData = sharedI18nData.translations as TranslationMap;
+		const fallbackLanguage = Object.keys(i18nData)[0] ?? "uk";
 		const LINKS = ((sharedLinksData?.links ?? []) as LinkRecord[]).filter((link) => !link.disabled);
 
 		function normalizeLanguageTag(tag: string) {
@@ -136,8 +137,8 @@ const translations = {
 				return normalized;
 			}
 
-			const primaryTag = normalized.split("-")[0];
-			return i18nData[primaryTag] ? primaryTag : null;
+			const primaryTag = normalized.split("-")[0] ?? "";
+			return primaryTag && i18nData[primaryTag] ? primaryTag : null;
 		}
 
 		function getActiveLanguage() {
@@ -154,11 +155,11 @@ const translations = {
 				}
 			}
 
-			return Object.keys(i18nData)[0];
+			return fallbackLanguage;
 		}
 
 		function translate(language: string) {
-			const localizedStrings = i18nData[language] ?? i18nData[Object.keys(i18nData)[0]];
+			const localizedStrings = i18nData[language] ?? i18nData[fallbackLanguage] ?? {};
 
 			document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((element) => {
 				const key = element.dataset.i18n;
@@ -222,7 +223,13 @@ const translations = {
 						}
 
 						const idx = Math.floor(Math.random() * LINKS.length);
-						const href = LINKS[idx].href;
+						const randomLink = LINKS[idx];
+						if (!randomLink) {
+							writeLine("No links available.");
+							break;
+						}
+
+						const href = randomLink.href;
 						writeLine(`Opening random link: ${href}`);
 
 						try {
