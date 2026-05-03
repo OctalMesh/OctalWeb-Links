@@ -79,6 +79,7 @@ jobs:
         with:
           go-version-file: cli/go.mod
           cache: true
+          cache-dependency-path: cli/go.sum
 
       - name: "Initialize CodeQL"
         uses: github/codeql-action/init@v4
