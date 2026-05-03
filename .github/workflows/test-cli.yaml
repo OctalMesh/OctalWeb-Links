@@ -8,8 +8,6 @@ on:
       - "cli/**"
   pull_request:
     branches: ["dev"]
-    paths:
-      - "cli/**"
 
 permissions:
   contents: read
