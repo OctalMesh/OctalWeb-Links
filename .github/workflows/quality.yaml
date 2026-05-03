@@ -60,6 +60,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
+    strategy:
+      matrix:
+        include:
+          - language: "javascript-typescript"
+
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
