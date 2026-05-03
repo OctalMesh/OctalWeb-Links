@@ -53,6 +53,8 @@ jobs:
         include:
           - language: "javascript-typescript"
             build-mode: "none"
+          - language: "go"
+            build-mode: "manual"
 
     steps:
       - name: "Checkout repository"
@@ -61,20 +63,48 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: "Setup Node.js"
+        if: matrix.language == 'javascript-typescript'
         uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
 
-      - name: "Install dependencies"
+      - name: "Install Node.js dependencies"
+        if: matrix.language == 'javascript-typescript'
         run: npm ci
+
+      - name: "Set up Go"
+        if: matrix.language == 'go'
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: cli/go.mod
+          cache: true
 
       - name: "Initialize CodeQL"
         uses: github/codeql-action/init@v4
         with:
-          config-file: "./.github/codeql/codeql-config.yaml"
+          config-file: "./.github/codeql/codeql-config${{ matrix.language == 'go' && '-go' || '' }}.yaml"
           languages: "${{ matrix.language }}"
           build-mode: "${{ matrix.build-mode }}"
+
+      - name: "Setup proxy for registries"
+        if: matrix.language == 'go'
+        uses: github/codeql-action/start-proxy@v4
+
+      - name: "Configure"
+        if: matrix.language == 'go'
+        uses: github/codeql-action/resolve-environment@v4
+        with:
+          language: "${{ matrix.language }}"
+
+      - name: "Build CLI"
+        if: matrix.language == 'go'
+        working-directory: cli
+        run: |
+          go mod download
+          go mod verify
+          go build ./...
+          go vet ./...
 
       - name: "Perform CodeQL Analysis"
         uses: github/codeql-action/analyze@v4

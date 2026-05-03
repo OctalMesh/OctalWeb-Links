@@ -1,0 +1,38 @@
+name: "CodeQL Configuration (Go)"
+
+paths:
+  - "cli/**"
+
+paths-ignore:
+  # Dependencies & build output
+
+  - "cli/vendor/**"
+
+  # Generated files
+
+  - "cli/**/*.pb.go"
+  - "cli/**/*.gen.go"
+
+  # Test files
+
+  - "cli/**/testdata/**"
+  - "cli/**/*_test.go"
+  - "cli/**/test_*.go"
+  - "cli/**/mock_*.go"
+
+  # Config & tooling
+
+  - "cli/scripts/**"
+  - "cli/go.sum"
+  - "cli/go.mod"
+
+queries:
+  - uses: "security-and-quality"
+
+query-filters:
+  - exclude:
+      id: go/unused-parameter
+
+  - exclude:
+      id: go/cyclomatic-complexity
+      threshold: 20

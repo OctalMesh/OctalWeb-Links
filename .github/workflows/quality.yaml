@@ -4,8 +4,30 @@ on:
   workflow_dispatch:
   push:
     branches: ["dev"]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "package.json"
+      - "package-lock.json"
+      - "astro.config.mts"
+      - "tsconfig.json"
+      - "tsconfig.node.json"
+      - "eslint.config.mts"
+      - ".prettierrc"
+      - ".prettierignore"
   pull_request:
     branches: ["dev"]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "package.json"
+      - "package-lock.json"
+      - "astro.config.mts"
+      - "tsconfig.json"
+      - "tsconfig.node.json"
+      - "eslint.config.mts"
+      - ".prettierrc"
+      - ".prettierignore"
 
 permissions:
   contents: read
@@ -32,7 +54,7 @@ jobs:
 
   # Perform quality analysis
   quality:
-    name: "Quality"
+    name: "Analyze (${{ matrix.language }})"
     needs: check
     if: needs.check.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
