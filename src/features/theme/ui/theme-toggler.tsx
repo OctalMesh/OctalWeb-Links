@@ -87,7 +87,11 @@ export function ThemeTogglerButton({
   }, [isMounted, effectiveTheme]);
 
   const handleToggle = React.useCallback(async () => {
-    const fallbackModes: readonly ThemeSelection[] = ["light", "dark", "system"];
+    const fallbackModes: readonly ThemeSelection[] = [
+      "light",
+      "dark",
+      "system",
+    ];
     const availableModes = modes.length > 0 ? modes : fallbackModes;
     const currentIndex = availableModes.indexOf(effectiveTheme);
     const nextTheme =
