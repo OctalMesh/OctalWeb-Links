@@ -11,7 +11,7 @@ export const iconButtonVariants = cva(
         destructive:
           "bg-destructive hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white shadow-xs",
         outline:
-          "dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-button shadow-xs hover:bg-button-hover hover:text-accent-foreground",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs",
         ghost:
@@ -23,6 +23,9 @@ export const iconButtonVariants = cva(
         xs: "size-7 rounded-md [&_svg:not([class*='size-'])]:size-3.5",
         sm: "size-8 rounded-md",
         lg: "size-10 rounded-md",
+        xl: "size-11 rounded-lg [&_svg:not([class*='size-'])]:size-4",
+        xxl: "size-12 rounded-xl [&_svg:not([class*='size-'])]:size-5",
+        xxxl: "size-13 rounded-xl [&_svg:not([class*='size-'])]:size-5",
       },
     },
     defaultVariants: {

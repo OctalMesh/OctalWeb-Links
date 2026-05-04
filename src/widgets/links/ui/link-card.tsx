@@ -8,6 +8,7 @@ import {
   resolveIcon,
   useLinkLanguage,
 } from "@widgets/links";
+import { LinkDialog } from "@widgets/links/ui/link-dialog";
 
 export function LinkCard({
   properties,
@@ -29,7 +30,7 @@ export function LinkCard({
       className={clsx(
         "scrollAnimated",
         "flex-1 min-w-full sm:min-w-[18rem] md:min-w-88",
-        "list-none",
+        "list-none relative group",
       )}
     >
       <a
@@ -59,7 +60,7 @@ export function LinkCard({
               className={clsx([
                 "z-10 flex items-center justify-center",
                 "px-6 sm:px-0",
-                "max-sm:absolute max-sm:left-6 max-sm:top-1/2 max-sm:-translate-y-1/2",
+                "max-sm:absolute max-sm:left-2.5 max-sm:top-1/2 max-sm:-translate-y-1/2",
               ])}
             >
               <div className="opacity-80 group-hover:opacity-100 transition-opacity">
@@ -70,17 +71,35 @@ export function LinkCard({
 
           <h3
             className={clsx(
-              "z-10 text-sm font-light font-mono tracking-[0.2em]",
+              "z-10 text-sm text-fx-card-text font-light font-mono tracking-[0.2em]",
               "transition-colors",
               "sm:absolute sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:text-center",
-              "max-sm:ml-20 max-sm:content-center",
+              "max-sm:content-center",
             )}
-            style={{ color: "var(--fx-card-text)" }}
           >
             {title}
           </h3>
         </div>
       </a>
+
+      <div
+        className={clsx([
+          "z-20 flex items-center justify-center",
+          "px-6 sm:px-0",
+          "sm:absolute sm:top-6 sm:right-6",
+          "max-sm:absolute max-sm:right-0 max-sm:top-1/2 max-sm:-translate-y-1/2",
+          "transition-opacity duration-500",
+
+          /* For devices with cursor */
+          "[@media(hover:hover)]:opacity-0 [@media(hover:hover)]:pointer-events-none",
+          "[@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:pointer-events-auto",
+
+          /* For devices without cursor (e.g., touchscreens) */
+          "[@media(hover:none)]:opacity-100 [@media(hover:none)]:pointer-events-auto",
+        ])}
+      >
+        <LinkDialog properties={properties} />
+      </div>
     </li>
   );
 }

@@ -28,6 +28,8 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-button: var(--button);
+  --color-button-hover: var(--button-hover);
 
   --color-fx-bg-start: var(--fx-bg-start);
   --color-fx-bg-end: var(--fx-bg-end);
@@ -39,6 +41,8 @@
   --color-fx-card-border: var(--fx-card-border);
   --color-fx-card-border-hover: var(--fx-card-border-hover);
   --color-fx-card-text: var(--fx-card-text);
+  --color-fx-dialog-bg: var(--fx-dialog-bg);
+  --color-fx-dialog-border: var(--fx-dialog-border);
 
   --radius-sm: calc(var(--radius) - 0.25rem);
   --radius-md: var(--radius);
@@ -68,10 +72,12 @@
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.6 0.18 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 0.1);
   --border-strong: oklch(1 0 0 / 25%);
   --input: oklch(1 0 0 / 10%);
   --ring: oklch(1 0 0 / 20%);
+  --button: oklch(0.285 0 0);
+  --button-hover: oklch(0.325 0 0);
 
   --fx-bg-start: oklch(0.269 0 0);
   --fx-bg-end: oklch(0.115 0 0);
@@ -83,6 +89,8 @@
   --fx-card-border: oklch(1 0 0 / 5%);
   --fx-card-border-hover: oklch(1 0 0 / 15%);
   --fx-card-text: oklch(0.9 0 0 / 90%);
+  --fx-dialog-bg: oklch(0.317 0.002 247.896 / 0.5);
+  --fx-dialog-border: oklch(1 0 0 / 5%);
 }
 
 :root.light {
@@ -106,6 +114,8 @@
   --border-strong: oklch(0 0 0 / 25%);
   --input: oklch(0 0 0 / 8%);
   --ring: oklch(0 0 0 / 15%);
+  --button: oklch(0.95 0 0);
+  --button-hover: oklch(0.9 0 0);
 
   --fx-bg-start: oklch(0.95 0 0);
   --fx-bg-end: oklch(0.9 0 0);
@@ -117,4 +127,6 @@
   --fx-card-border: oklch(0 0 0 / 8%);
   --fx-card-border-hover: oklch(0 0 0 / 18%);
   --fx-card-text: oklch(0.25 0 0 / 85%);
+  --fx-dialog-bg: oklch(1 0 0 / 75%);
+  --fx-dialog-border: oklch(0 0 0 / 8%);
 }
