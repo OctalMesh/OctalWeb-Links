@@ -5,7 +5,7 @@ import {
   useScrollAnimation,
 } from "@features/visual-effects";
 
-import { CustomCursor, GridBackground, StarsBackground } from "@shared/ui";
+import { BackgroundGrid, BackgroundStars, Cursor } from "@shared/ui";
 
 export function VisualEffectsProvider({
   children,
@@ -16,11 +16,11 @@ export function VisualEffectsProvider({
 
   return (
     <TransitionProvider>
-      <StarsBackground className="w-full h-auto min-h-dvh">
-        <GridBackground className="h-screen bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--fx-grid-vignette)_100%)]" />
+      <BackgroundStars className="w-full h-auto min-h-dvh">
+        <BackgroundGrid className="h-screen bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--fx-grid-vignette)_100%)]" />
         {children}
-      </StarsBackground>
-      <CustomCursor />
+      </BackgroundStars>
+      <Cursor />
     </TransitionProvider>
   );
 }

@@ -1,9 +1,11 @@
-export { CustomCursor } from "./cursor";
-
-export { GridBackground, type GridBackgroundProps } from "./background/grid-bg";
-export {
-  StarsBackground,
-  StarLayer,
-  type StarsBackgroundProps,
-  type StarLayerProps,
-} from "./background/stars-bg";
+export * from "./background";
+export * from "./button";
+export * from "./cursor";
+export * from "./dialog";
+export * from "./effects";
+export * from "./head";
+export * from "./icon";
+export * from "./preview";
+export * from "./scroll";
+export * from "./select";
+export * from "./slot";

@@ -1,14 +1,14 @@
 import { type ReactElement } from "react";
 
-import clsx from "clsx";
-
 import {
   type LinkCardProps,
   getContent,
-  resolveIcon,
   useLinkLanguage,
 } from "@widgets/links";
 import { LinkDialog } from "@widgets/links/ui/link-dialog";
+
+import { cn } from "@shared/lib";
+import { resolveIcon } from "@shared/ui/icon";
 
 export function LinkCard({
   properties,
@@ -27,7 +27,7 @@ export function LinkCard({
 
   return (
     <li
-      className={clsx(
+      className={cn(
         "scrollAnimated",
         "flex-1 min-w-full sm:min-w-[18rem] md:min-w-88",
         "list-none relative group",
@@ -35,7 +35,7 @@ export function LinkCard({
     >
       <a
         aria-label={ariaLabel}
-        className={clsx(
+        className={cn(
           "group relative inline-flex items-center tap-highlight-transparent",
           "text-primary no-underline w-full h-full",
           "transition-all duration-300",
@@ -45,7 +45,7 @@ export function LinkCard({
         target="_blank"
       >
         <div
-          className={clsx([
+          className={cn([
             "w-full h-full min-h-24 sm:min-h-64",
             "flex flex-col justify-center items-center",
             "rounded-[2.5rem] border",
@@ -57,7 +57,7 @@ export function LinkCard({
         >
           {properties.icon ? (
             <div
-              className={clsx([
+              className={cn([
                 "z-10 flex items-center justify-center",
                 "px-6 sm:px-0",
                 "max-sm:absolute max-sm:left-2.5 max-sm:top-1/2 max-sm:-translate-y-1/2",
@@ -70,7 +70,7 @@ export function LinkCard({
           ) : null}
 
           <h3
-            className={clsx(
+            className={cn(
               "z-10 text-sm text-fx-card-text font-light font-mono tracking-[0.2em]",
               "transition-colors",
               "sm:absolute sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:text-center",
@@ -83,7 +83,7 @@ export function LinkCard({
       </a>
 
       <div
-        className={clsx([
+        className={cn([
           "z-20 flex items-center justify-center",
           "px-6 sm:px-0",
           "sm:absolute sm:top-6 sm:right-6",

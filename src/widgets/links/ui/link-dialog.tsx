@@ -5,20 +5,24 @@ import {
   IconBrandFacebook,
   IconBrandLinkedin,
   IconBrandMessenger,
+  IconBrandReddit,
+  IconBrandTelegram,
+  IconBrandThreads,
   IconBrandWhatsapp,
   IconBrandX,
   IconCheck,
   IconDotsVertical,
   IconLink,
+  IconMail,
+  IconMessageCircle,
   IconShare,
 } from "@tabler/icons-react";
 
-import { type LinkCardProps } from "@widgets/links";
-import { useLinkLanguage } from "@widgets/links";
-import { resolveIcon } from "@widgets/links";
+import { type LinkCardProps, useLinkLanguage } from "@widgets/links";
 
 import { getTranslation } from "@features/i18n";
 
+import { IconButton } from "@shared/ui/button";
 import {
   Dialog,
   DialogFooter,
@@ -27,11 +31,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@shared/ui/dialog";
-import { IconButton } from "@shared/ui/icon-button";
-import {
-  PreviewLinkCard,
-  PreviewLinkCardImage,
-} from "@shared/ui/preview-link-card";
+import { resolveIcon } from "@shared/ui/icon";
+import { PreviewLinkCard, PreviewLinkCardImage } from "@shared/ui/preview";
 import { ScrollArea, ScrollBar } from "@shared/ui/scroll";
 
 export function LinkDialog({
@@ -46,6 +47,7 @@ export function LinkDialog({
   );
 
   const [copied, setCopied] = React.useState(false);
+  const ignoreNextShareClickRef = React.useRef(false);
 
   const altText =
     typeof properties.title === "string"
@@ -129,34 +131,38 @@ export function LinkDialog({
       }
 
       event.preventDefault();
+      ignoreNextShareClickRef.current = true;
       void onNativeShare();
     },
     [onNativeShare],
   );
 
+  const onNativeShareClick = React.useCallback(() => {
+    if (ignoreNextShareClickRef.current) {
+      ignoreNextShareClickRef.current = false;
+      return;
+    }
+
+    void onNativeShare();
+  }, [onNativeShare]);
+
   const shareItems = [
     {
-      key: "copy",
-      icon: IconLink,
-      label: "share.copy",
-      onClick: onCopy,
-    },
-    {
-      key: "x",
-      icon: IconBrandX,
-      label: "share.x",
+      key: "telegram",
+      icon: IconBrandTelegram,
+      label: "share.telegram",
       onClick: () =>
         open(
-          `https://x.com/intent/tweet?url=${encodeURIComponent(properties.href)}`,
+          `https://t.me/share/url?url=${encodeURIComponent(properties.href)}&text=${encodeURIComponent(altText)}`,
         ),
     },
     {
-      key: "facebook",
-      icon: IconBrandFacebook,
-      label: "share.facebook",
+      key: "viber",
+      icon: IconMessageCircle,
+      label: "share.viber",
       onClick: () =>
         open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(properties.href)}`,
+          `viber://forward?text=${encodeURIComponent(`${altText} ${properties.href}`)}`,
         ),
     },
     {
@@ -169,15 +175,6 @@ export function LinkDialog({
         ),
     },
     {
-      key: "linkedin",
-      icon: IconBrandLinkedin,
-      label: "share.linkedin",
-      onClick: () =>
-        open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(properties.href)}`,
-        ),
-    },
-    {
       key: "messenger",
       icon: IconBrandMessenger,
       label: "share.messenger",
@@ -187,11 +184,58 @@ export function LinkDialog({
         ),
     },
     {
-      key: "more",
-      icon: IconShare,
-      label: "share.more",
-      onClick: onNativeShare,
-      onPointerDown: onNativeSharePointerDown,
+      key: "x",
+      icon: IconBrandX,
+      label: "share.x",
+      onClick: () =>
+        open(
+          `https://x.com/intent/tweet?url=${encodeURIComponent(properties.href)}`,
+        ),
+    },
+    {
+      key: "threads",
+      icon: IconBrandThreads,
+      label: "share.threads",
+      onClick: () =>
+        open(
+          `https://www.threads.net/intent/post?text=${encodeURIComponent(`${altText} ${properties.href}`)}`,
+        ),
+    },
+    {
+      key: "reddit",
+      icon: IconBrandReddit,
+      label: "share.reddit",
+      onClick: () =>
+        open(
+          `https://www.reddit.com/submit?url=${encodeURIComponent(properties.href)}&title=${encodeURIComponent(altText)}`,
+        ),
+    },
+    {
+      key: "facebook",
+      icon: IconBrandFacebook,
+      label: "share.facebook",
+      onClick: () =>
+        open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(properties.href)}`,
+        ),
+    },
+    {
+      key: "linkedin",
+      icon: IconBrandLinkedin,
+      label: "share.linkedin",
+      onClick: () =>
+        open(
+          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(properties.href)}`,
+        ),
+    },
+    {
+      key: "email",
+      icon: IconMail,
+      label: "share.email",
+      onClick: () =>
+        open(
+          `mailto:?subject=${encodeURIComponent(altText)}&body=${encodeURIComponent(properties.href)}`,
+        ),
     },
   ];
 
@@ -222,7 +266,7 @@ export function LinkDialog({
           </PreviewLinkCard>
         </div>
 
-        <DialogFooter
+        <div
           className="sm:justify-start px-0! overflow-hidden"
           style={{
             maskImage:
@@ -241,12 +285,11 @@ export function LinkDialog({
                     <IconButton
                       type="button"
                       onClick={item.onClick}
-                      onPointerDown={item.onPointerDown}
                       aria-label={t(item.label)}
                       variant="outline"
                       className="size-15 rounded-3xl [&_svg:not([class*='size-'])]:size-6"
                     >
-                      {item.key === "copy" && copied ? <IconCheck /> : <Icon />}
+                      <Icon />
                     </IconButton>
                   </div>
                 );
@@ -254,6 +297,34 @@ export function LinkDialog({
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
+        </div>
+
+        <DialogFooter className="">
+          <div className="grid grid-cols-2 gap-3 pb-3">
+            <IconButton
+              type="button"
+              onClick={onCopy}
+              aria-label={t("share.copy")}
+              variant="outline"
+              size={"xxl"}
+              className="z-1000 w-full rounded-3xl px-4 py-4 justify-center gap-2 text-sm"
+            >
+              {copied ? <IconCheck /> : <IconLink />}
+              <span>{t("share.copy")}</span>
+            </IconButton>
+            <IconButton
+              type="button"
+              onClick={onNativeShareClick}
+              onPointerDown={onNativeSharePointerDown}
+              aria-label={t("share.more")}
+              variant="outline"
+              size={"xxl"}
+              className="w-full rounded-3xl px-4 py-4 justify-center gap-2 text-sm"
+            >
+              <IconShare />
+              <span>{t("share.more")}</span>
+            </IconButton>
+          </div>
         </DialogFooter>
       </DialogPopup>
     </Dialog>

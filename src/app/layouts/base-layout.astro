@@ -2,8 +2,7 @@
 import "../styles/index.css";
 import { AppProvider } from "@app/providers";
 import { siteConfig } from "@shared/config";
-import HeadAssets from "@shared/ui/head-assets.astro";
-import SEO from "@shared/ui/seo.astro";
+import { HeadAssets, HeadSeo } from "@shared/ui/head";
 import { DEFAULT_LANGUAGE } from "@features/i18n";
 
 interface Props {
@@ -36,7 +35,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.canonical).href.replace
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <SEO
+    <HeadSeo
       title={title}
       description={description}
       image={image}

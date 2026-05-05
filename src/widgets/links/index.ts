@@ -9,5 +9,4 @@ export type {
 
 export { LinkCard } from "./ui/link-card";
 export { LinkCategory } from "./ui/link-category";
-export { iconMap, resolveIcon } from "./ui/icon-resolver";
 export { LinksGrid } from "./ui/links-grid";
