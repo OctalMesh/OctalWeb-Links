@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from "@shared/config";
-import { getI18nConfig } from "@shared/lib/i18n";
+import { getI18nConfig } from "@shared/i18n";
 
 interface Props {
   type: string;
@@ -17,13 +17,13 @@ const { type, title, description, canonical, absoluteImage, imageWidth, imageHei
 const siteName = siteConfig.name;
 const i18n = getI18nConfig();
 const regionMap = Object.fromEntries(
-  i18n.languages.map((l) => [l.code, l.region || l.code.toUpperCase()])
+  ((i18n.languages as unknown) as Array<any>).map((l: any) => [l.code, l.region || l.code.toUpperCase()])
 );
 const formatOg = (code: string) => `${code}_${regionMap[code] || code.toUpperCase()}`;
 const ogLocale = formatOg(locale);
-const alternateLocales = i18n.languages
-  .filter((l) => l.code !== locale)
-  .map((l) => formatOg(l.code));
+const alternateLocales = ((i18n.languages as unknown) as Array<any>)
+  .filter((l: any) => l.code !== locale)
+  .map((l: any) => formatOg(l.code));
 ---
 
 <meta property="og:type" content={type} />

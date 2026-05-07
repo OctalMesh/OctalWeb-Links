@@ -9,7 +9,6 @@ export const LanguageOptionSchema = z.object({
 export const I18nConfigSchema = z.object({
   defaultLanguage: z.string().min(1),
   languages: z.array(LanguageOptionSchema).min(1),
-  translations: z.record(z.string(), z.record(z.string(), z.string())),
 });
 
 export type LanguageOption = z.infer<typeof LanguageOptionSchema>;

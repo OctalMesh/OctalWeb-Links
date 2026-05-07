@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import type { Language, LanguageOptionItem } from "@shared/i18n";
 import {
   Select,
   SelectContent,
@@ -12,12 +13,10 @@ import {
   SelectValue,
 } from "@shared/ui/select";
 
-import type { LanguageOptionItem } from "../model/types";
-
-type LanguageSwitcherProps = {
-  language: string;
-  onChange: (language: string) => void;
-  options: LanguageOptionItem[];
+export type LanguageSwitcherProps = {
+  language: Language;
+  onChange: (language: Language) => void;
+  options: readonly LanguageOptionItem[];
 };
 
 export function LanguageSwitcher(props: LanguageSwitcherProps) {

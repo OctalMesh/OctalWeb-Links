@@ -1,0 +1,11 @@
+---
+import BaseLayout from "@app/layouts/base-layout.astro";
+import { siteConfig, linksData } from "@shared/config";
+
+import NotFound from "./_ui/not-found";
+const pathname = Astro.url.pathname;
+---
+
+<BaseLayout title={`404 | ${siteConfig.name}`} noindex>
+  <NotFound client:load links={linksData.links} path={pathname} />
+</BaseLayout>

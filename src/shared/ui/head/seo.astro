@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from "@shared/config";
-import { getI18nConfig, DEFAULT_LANGUAGE } from "@shared/lib/i18n";
+import { getI18nConfig, DEFAULT_LANGUAGE } from "@shared/i18n";
 import JsonLd from "./json-ld.astro";
 import Twitter from "./twitter.astro";
 import OpenGraph from "./open-graph.astro";
@@ -39,7 +39,7 @@ const {
 } = Astro.props as Props;
 
 const i18n = getI18nConfig();
-const availableLangs = i18n.languages.map((l) => l.code);
+const availableLangs = ((i18n.languages as unknown) as Array<any>).map((l: any) => l.code);
 
 const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
 const absoluteImage = image.startsWith("http") ? image : `${siteConfig.canonical}${image}`;
@@ -53,7 +53,7 @@ const absoluteImage = image.startsWith("http") ? image : `${siteConfig.canonical
 <meta name="theme-color" content={siteConfig.pwa.themeColor} />
 <link rel="canonical" href={canonical} />
 
-<Locale i18n={i18n} canonical={canonical} />
+<Locale i18n={i18n as any} canonical={canonical} />
 
 <OpenGraph
   type={type}

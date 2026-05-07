@@ -1,74 +1,17 @@
 "use client";
 
-import * as React from "react";
-
-import {
-  DEFAULT_LANGUAGE,
-  LANGUAGE_STORAGE_KEY,
-  type Language,
-  LanguageSwitcher,
-  getI18nConfig,
-  getTranslation,
-  resolvePreferredLanguage,
-} from "@features/i18n";
+import { LanguageSwitcher, useI18n } from "@features/i18n";
 import { ThemeTogglerButton } from "@features/theme";
 
-type FooterProps = {
-  language?: Language;
-};
-
-function subscribeToLanguageChanges(onStoreChange: () => void) {
-  if (typeof window === "undefined") {
-    return () => undefined;
-  }
-
-  const observer = new MutationObserver(onStoreChange);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["lang"],
-  });
-
-  window.addEventListener("storage", onStoreChange);
-
-  return () => {
-    observer.disconnect();
-    window.removeEventListener("storage", onStoreChange);
-  };
-}
-
-function getBrowserLanguageSnapshot() {
-  if (typeof window === "undefined") {
-    return DEFAULT_LANGUAGE;
-  }
-
-  const documentLanguage = document.documentElement.lang || DEFAULT_LANGUAGE;
-
-  return resolvePreferredLanguage(
-    window.localStorage.getItem(LANGUAGE_STORAGE_KEY),
-    [documentLanguage, ...window.navigator.languages],
-  );
-}
+import { type Language } from "@shared/i18n";
+import { getI18nConfig } from "@shared/i18n";
 
 export function Footer({
-  language: initialLanguage = DEFAULT_LANGUAGE,
-}: FooterProps) {
-  const language = React.useSyncExternalStore(
-    subscribeToLanguageChanges,
-    getBrowserLanguageSnapshot,
-    () => initialLanguage,
-  );
+  initialLanguage,
+}: { initialLanguage?: Language } = {}) {
+  const { language, setLanguage, t } = useI18n(initialLanguage);
   const year = new Date().getFullYear();
   const i18nConfig = getI18nConfig();
-  const t = (key: string) => getTranslation(key, language);
-
-  const updateLanguage = React.useCallback((nextLanguage: string) => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
-    document.documentElement.lang = nextLanguage;
-  }, []);
 
   return (
     <footer className="relative z-20 pb-10">
@@ -84,10 +27,10 @@ export function Footer({
           {/* Left: Copyright Info */}
           <div className="flex flex-col gap-1 text-sm">
             <p className="text-sm text-foreground/90">
-              {t("footer.copyright")} {year} {t("footer.company")}
+              {t("common.footer.copyright")} {year} {t("common.footer.company")}
             </p>
             <p className="text-xs text-muted-foreground/70">
-              {t("footer.all_rights")}
+              {t("common.footer.all_rights")}
             </p>
           </div>
 
@@ -99,7 +42,7 @@ export function Footer({
             {/* Theme Switcher */}
             <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-muted-foreground">
-                {t("footer.theme")}
+                {t("common.footer.theme")}
               </span>
               <ThemeTogglerButton
                 size="sm"
@@ -111,11 +54,11 @@ export function Footer({
             {/* Language Switcher */}
             <div className="flex items-center gap-2">
               <span className="text-xs font-medium text-muted-foreground">
-                {t("footer.language")}
+                {t("common.footer.language")}
               </span>
               <LanguageSwitcher
                 language={language}
-                onChange={updateLanguage}
+                onChange={setLanguage}
                 options={i18nConfig.languages}
               />
             </div>

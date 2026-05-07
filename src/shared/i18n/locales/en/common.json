@@ -1,0 +1,24 @@
+{
+  "footer": {
+    "theme": "Theme",
+    "language": "Language",
+    "copyright": "©",
+    "company": "OctalMesh",
+    "all_rights": "All rights reserved"
+  },
+  "share": {
+    "title": "Share link",
+    "copy": "Copy",
+    "telegram": "Telegram",
+    "viber": "Viber",
+    "email": "Email",
+    "x": "X",
+    "threads": "Threads",
+    "reddit": "Reddit",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "messenger": "Messenger",
+    "more": "More"
+  }
+}

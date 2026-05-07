@@ -1,10 +1,10 @@
+"use client";
+
 import type { ReactElement, ReactNode } from "react";
 
-import {
-  type LinkCategoryProps,
-  getContent,
-  useLinkLanguage,
-} from "@widgets/links";
+import { type LinkCategoryProps, getContent } from "@widgets/links";
+
+import { useI18n } from "@features/i18n";
 
 export function LinkCategory({
   props,
@@ -17,7 +17,7 @@ export function LinkCategory({
   className?: string | undefined;
   children: ReactNode;
 }): ReactElement {
-  const language = useLinkLanguage();
+  const { language } = useI18n();
   const titleId = id ? `${id}-title` : undefined;
 
   return (

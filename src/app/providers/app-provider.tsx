@@ -2,24 +2,23 @@ import React from "react";
 
 import { Footer } from "@widgets/footer";
 
-import { DEFAULT_LANGUAGE, type Language } from "@features/i18n";
 import { ThemeProvider } from "@features/theme";
 import { VisualEffectsProvider } from "@features/visual-effects";
 
-type AppProviderProps = {
-  children: React.ReactNode;
-  language?: Language;
-};
+import { type Language } from "@shared/i18n";
 
 export function AppProvider({
   children,
-  language = DEFAULT_LANGUAGE,
-}: AppProviderProps) {
+  initialLanguage,
+}: {
+  children: React.ReactNode;
+  initialLanguage?: Language;
+}) {
   return (
     <ThemeProvider>
       <VisualEffectsProvider>
         {children}
-        <Footer language={language} />
+        <Footer initialLanguage={initialLanguage} />
       </VisualEffectsProvider>
     </ThemeProvider>
   );

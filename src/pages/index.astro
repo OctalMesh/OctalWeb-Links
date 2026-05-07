@@ -1,9 +1,8 @@
 ---
 import { siteConfig } from "@shared/config";
-import { LinksGrid } from "@widgets/links";
 import BaseLayout from "@app/layouts/base-layout.astro";
-import { DEFAULT_LANGUAGE } from "@features/i18n";
-import { getContent, projectConfig } from "@widgets/links";
+import { DEFAULT_LANGUAGE } from "@shared/i18n";
+import { getContent, projectConfig, LinksGrid } from "@widgets/links";
 
 const itemListSchema = {
   "@context": "https://schema.org",
@@ -44,6 +43,6 @@ const organizationSchema = {
       <h1 class="font-brand uppercase tracking-wider text-6xl">OCTAL MESH</h1>
     </section>
 
-    <LinksGrid client:idle />
+    <LinksGrid client:load />
   </section>
 </BaseLayout>

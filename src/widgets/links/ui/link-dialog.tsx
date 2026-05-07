@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactElement } from "react";
 import * as React from "react";
 
@@ -18,9 +20,9 @@ import {
   IconShare,
 } from "@tabler/icons-react";
 
-import { type LinkCardProps, useLinkLanguage } from "@widgets/links";
+import { type LinkCardProps } from "@widgets/links";
 
-import { getTranslation } from "@features/i18n";
+import { useT } from "@features/i18n";
 
 import { IconButton } from "@shared/ui/button";
 import {
@@ -40,11 +42,7 @@ export function LinkDialog({
 }: {
   properties: LinkCardProps;
 }): ReactElement | null {
-  const language = useLinkLanguage();
-  const t = React.useCallback(
-    (k: string) => getTranslation(k, language),
-    [language],
-  );
+  const t = useT();
 
   const [copied, setCopied] = React.useState(false);
   const ignoreNextShareClickRef = React.useRef(false);
@@ -150,7 +148,7 @@ export function LinkDialog({
     {
       key: "telegram",
       icon: IconBrandTelegram,
-      label: "share.telegram",
+      label: "common.share.telegram",
       onClick: () =>
         open(
           `https://t.me/share/url?url=${encodeURIComponent(properties.href)}&text=${encodeURIComponent(altText)}`,
@@ -159,7 +157,7 @@ export function LinkDialog({
     {
       key: "viber",
       icon: IconMessageCircle,
-      label: "share.viber",
+      label: "common.share.viber",
       onClick: () =>
         open(
           `viber://forward?text=${encodeURIComponent(`${altText} ${properties.href}`)}`,
@@ -168,7 +166,7 @@ export function LinkDialog({
     {
       key: "whatsapp",
       icon: IconBrandWhatsapp,
-      label: "share.whatsapp",
+      label: "common.share.whatsapp",
       onClick: () =>
         open(
           `https://api.whatsapp.com/send?text=${encodeURIComponent(properties.href)}`,
@@ -177,7 +175,7 @@ export function LinkDialog({
     {
       key: "messenger",
       icon: IconBrandMessenger,
-      label: "share.messenger",
+      label: "common.share.messenger",
       onClick: () =>
         open(
           `https://www.messenger.com/share?link=${encodeURIComponent(properties.href)}`,
@@ -186,7 +184,7 @@ export function LinkDialog({
     {
       key: "x",
       icon: IconBrandX,
-      label: "share.x",
+      label: "common.share.x",
       onClick: () =>
         open(
           `https://x.com/intent/tweet?url=${encodeURIComponent(properties.href)}`,
@@ -195,7 +193,7 @@ export function LinkDialog({
     {
       key: "threads",
       icon: IconBrandThreads,
-      label: "share.threads",
+      label: "common.share.threads",
       onClick: () =>
         open(
           `https://www.threads.net/intent/post?text=${encodeURIComponent(`${altText} ${properties.href}`)}`,
@@ -204,7 +202,7 @@ export function LinkDialog({
     {
       key: "reddit",
       icon: IconBrandReddit,
-      label: "share.reddit",
+      label: "common.share.reddit",
       onClick: () =>
         open(
           `https://www.reddit.com/submit?url=${encodeURIComponent(properties.href)}&title=${encodeURIComponent(altText)}`,
@@ -213,7 +211,7 @@ export function LinkDialog({
     {
       key: "facebook",
       icon: IconBrandFacebook,
-      label: "share.facebook",
+      label: "common.share.facebook",
       onClick: () =>
         open(
           `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(properties.href)}`,
@@ -222,7 +220,7 @@ export function LinkDialog({
     {
       key: "linkedin",
       icon: IconBrandLinkedin,
-      label: "share.linkedin",
+      label: "common.share.linkedin",
       onClick: () =>
         open(
           `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(properties.href)}`,
@@ -231,7 +229,7 @@ export function LinkDialog({
     {
       key: "email",
       icon: IconMail,
-      label: "share.email",
+      label: "common.share.email",
       onClick: () =>
         open(
           `mailto:?subject=${encodeURIComponent(altText)}&body=${encodeURIComponent(properties.href)}`,
@@ -251,7 +249,9 @@ export function LinkDialog({
 
       <DialogPopup>
         <DialogHeader>
-          <DialogTitle className="text-center">{t("share.title")}</DialogTitle>
+          <DialogTitle className="text-center">
+            {t("common.share.title")}
+          </DialogTitle>
         </DialogHeader>
 
         <div className="pt-2 grid gap-4">
@@ -304,25 +304,25 @@ export function LinkDialog({
             <IconButton
               type="button"
               onClick={onCopy}
-              aria-label={t("share.copy")}
+              aria-label={t("common.share.copy")}
               variant="outline"
               size={"xxl"}
               className="z-1000 w-full rounded-3xl px-4 py-4 justify-center gap-2 text-sm"
             >
               {copied ? <IconCheck /> : <IconLink />}
-              <span>{t("share.copy")}</span>
+              <span>{t("common.share.copy")}</span>
             </IconButton>
             <IconButton
               type="button"
               onClick={onNativeShareClick}
               onPointerDown={onNativeSharePointerDown}
-              aria-label={t("share.more")}
+              aria-label={t("common.share.more")}
               variant="outline"
               size={"xxl"}
               className="w-full rounded-3xl px-4 py-4 justify-center gap-2 text-sm"
             >
               <IconShare />
-              <span>{t("share.more")}</span>
+              <span>{t("common.share.more")}</span>
             </IconButton>
           </div>
         </DialogFooter>

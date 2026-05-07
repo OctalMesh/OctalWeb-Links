@@ -1,11 +1,11 @@
+"use client";
+
 import { type ReactElement } from "react";
 
-import {
-  type LinkCardProps,
-  getContent,
-  useLinkLanguage,
-} from "@widgets/links";
+import { type LinkCardProps, getContent } from "@widgets/links";
 import { LinkDialog } from "@widgets/links/ui/link-dialog";
+
+import { useI18n } from "@features/i18n";
 
 import { cn } from "@shared/lib";
 import { resolveIcon } from "@shared/ui/icon";
@@ -15,7 +15,7 @@ export function LinkCard({
 }: {
   properties: LinkCardProps;
 }): ReactElement | null {
-  const language = useLinkLanguage();
+  const { language } = useI18n();
 
   if (properties.disabled) {
     return null;
