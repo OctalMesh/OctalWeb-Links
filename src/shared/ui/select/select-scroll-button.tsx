@@ -5,7 +5,7 @@ import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 export function SelectScrollUpButton({
   className,

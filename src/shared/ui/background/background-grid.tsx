@@ -9,7 +9,7 @@ import {
   useSpring,
 } from "motion/react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 export type BackgroundGridProps = React.ComponentProps<"div"> & {
   cellSize?: number;

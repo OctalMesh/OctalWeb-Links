@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { isMotionComponent } from "motion/react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 export type AnyProps = Record<string, unknown>;
 

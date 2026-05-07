@@ -3,7 +3,7 @@
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { IconChevronDown } from "@tabler/icons-react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 export function SelectTrigger({
   className,

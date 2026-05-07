@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import { getStrictContext } from "@shared/lib/get-strict-context";
+import { getStrictContext } from "@shared/lib";
 
 export type PreviewLinkCardContextType = {
   href: string;

@@ -2,8 +2,8 @@ import {
   DEFAULT_LANGUAGE,
   type Language,
   SUPPORTED_LANGUAGES,
-} from "@shared/i18n/config";
-import { isLanguage } from "@shared/i18n/lib/is-language";
+  isLanguage,
+} from "@shared/i18n";
 
 import { normalizeLanguageTag } from "./normalize-language-tag";
 

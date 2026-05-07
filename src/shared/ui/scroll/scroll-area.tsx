@@ -5,7 +5,7 @@ import * as React from "react";
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 import { IconButton } from "@shared/ui/button";
 
 import { ScrollBar } from "./scroll-bar";

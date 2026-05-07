@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { TransitionContext } from "@features/visual-effects/lib/transition-context-values";
+import { TransitionContext } from "@features/visual-effects";
 
 export function useTransition() {
   const context = useContext(TransitionContext);

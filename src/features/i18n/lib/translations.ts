@@ -1,9 +1,9 @@
 import {
   DEFAULT_LANGUAGE,
+  LOCALES_BY_LANGUAGE,
   type Language,
   SUPPORTED_LANGUAGES,
-} from "@shared/i18n/config";
-import { LOCALES_BY_LANGUAGE } from "@shared/i18n/locales";
+} from "@shared/i18n";
 
 type FlatTranslations = Record<string, string>;
 

@@ -1,5 +1,6 @@
 import { getStrictContext } from "@shared/lib";
-import type { DialogProps } from "@shared/ui/index";
+
+import type { DialogProps } from "./dialog";
 
 export type DialogContextType = {
   isOpen: boolean;

@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
-import { DEFAULT_LANGUAGE, type Language } from "@shared/i18n/config";
+import { DEFAULT_LANGUAGE, type Language } from "@shared/i18n";
 
 import { readStoredLanguage, subscribeToLanguageChanges } from "../lib";
 

@@ -5,7 +5,7 @@ import * as React from "react";
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 import { type SpringOptions, useMotionValue } from "motion/react";
 
-import { useControlledState } from "@shared/lib/use-controlled-state";
+import { useControlledState } from "@shared/lib";
 
 import { PreviewCardProvider } from "./preview-card.context";
 

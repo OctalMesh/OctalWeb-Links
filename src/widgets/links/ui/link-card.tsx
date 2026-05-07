@@ -3,12 +3,13 @@
 import { type ReactElement } from "react";
 
 import { type LinkCardProps, getContent } from "@widgets/links";
-import { LinkDialog } from "@widgets/links/ui/link-dialog";
 
 import { useI18n } from "@features/i18n";
 
 import { cn } from "@shared/lib";
 import { resolveIcon } from "@shared/ui/icon";
+
+import { LinkDialog } from "./link-dialog";
 
 export function LinkCard({
   properties,

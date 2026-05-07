@@ -2,7 +2,7 @@
 
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 export function SelectGroup({
   className,

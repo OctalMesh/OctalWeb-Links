@@ -5,11 +5,11 @@ import { IconX } from "@tabler/icons-react";
 import { type HTMLMotionProps, motion } from "motion/react";
 
 import { cn } from "@shared/lib";
-import { DialogPortal } from "@shared/ui/dialog/dialog-portal";
 
 import { IconButton } from "../button/icon-button";
 import { DialogBackdrop } from "./dialog-backdrop";
 import { DialogClose } from "./dialog-close";
+import { DialogPortal } from "./dialog-portal";
 
 export type DialogFlipDirection = "top" | "bottom" | "left" | "right";
 

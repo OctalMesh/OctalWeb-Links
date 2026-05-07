@@ -3,7 +3,7 @@
 import { type VariantProps } from "class-variance-authority";
 import { type HTMLMotionProps, motion } from "motion/react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 import { Slot } from "@shared/ui/slot";
 
 import { buttonVariants } from "./button.styles";

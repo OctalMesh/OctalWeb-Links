@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { type VariantProps } from "class-variance-authority";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 import { Particles, ParticlesEffect } from "@shared/ui/effects";
 
 import { ButtonPrimitive, type ButtonPrimitiveProps } from "./button";

@@ -3,8 +3,7 @@
 import { LanguageSwitcher, useI18n } from "@features/i18n";
 import { ThemeTogglerButton } from "@features/theme";
 
-import { type Language } from "@shared/i18n";
-import { getI18nConfig } from "@shared/i18n";
+import { type Language, getI18nConfig } from "@shared/i18n";
 
 export function Footer({
   initialLanguage,

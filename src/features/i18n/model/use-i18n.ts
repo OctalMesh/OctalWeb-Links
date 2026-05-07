@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { DEFAULT_LANGUAGE, type Language } from "@shared/i18n/config";
+import { DEFAULT_LANGUAGE, type Language } from "@shared/i18n";
 
 import { type InterpolationParams, writeStoredLanguage } from "../lib";
 import { t } from "../lib/translations";

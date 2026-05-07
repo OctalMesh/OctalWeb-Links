@@ -11,7 +11,7 @@ import {
   useSpring,
 } from "motion/react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 const subscribe = () => () => {};
 const getClientSnapshot = () => true;

@@ -8,7 +8,7 @@ import { type VariantProps } from "class-variance-authority";
 
 import { getSystemTheme, useTheme } from "@features/theme";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 import { iconButtonVariants as buttonVariants } from "../../../shared/ui/button/icon-button.styles";
 

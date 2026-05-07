@@ -4,11 +4,8 @@ import * as React from "react";
 
 import { AnimatePresence, type HTMLMotionProps, motion } from "motion/react";
 
-import { getStrictContext } from "@shared/lib/get-strict-context";
-import {
-  type UseIsInViewOptions,
-  useIsInView,
-} from "@shared/lib/use-is-in-view";
+import { getStrictContext } from "@shared/lib";
+import { type UseIsInViewOptions, useIsInView } from "@shared/lib";
 
 import { Slot, type WithAsChild } from "../slot";
 
