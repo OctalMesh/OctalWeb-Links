@@ -20,7 +20,7 @@ max_line_length = 120
 ij_visual_guides = 80, 120
 
 
-[*.{js,ts,jsx,tsx,mjs,cjs}]
+[*.{js,ts,jsx,tsx,mjs,cjs,mts,cts}]
 
 # Quotes & Semicolons
 
