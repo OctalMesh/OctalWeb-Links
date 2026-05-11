@@ -1,6 +1,4 @@
 import jsModule from "@eslint/js";
-import fsModule from "node:fs";
-import pathModule from "node:path";
 import type { Rule } from "eslint";
 import eslintConfigPrettierModule from "eslint-config-prettier";
 import astroModule from "eslint-plugin-astro";
@@ -9,6 +7,8 @@ import reactRefreshModule from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
 import type { ImportDeclaration } from "estree";
 import globalsModule from "globals";
+import fsModule from "node:fs";
+import pathModule from "node:path";
 import tseslint from "typescript-eslint";
 
 //<editor-fold desc="Custom Plugins" defaultstate="collapsed">
@@ -30,7 +30,12 @@ const IMPORT_PATTERN =
 const INDEX_PATTERN = /^index(\.(ts|tsx|js|jsx))?$/;
 const CROSS_SLICE_EXEMPT_LAYERS = new Set<Layer>(["shared", "app"]);
 const PUBLIC_API_INDEX_ENTRY_LAYERS = new Set<Layer>(["app", "shared"]);
-const RESOLVABLE_INDEX_FILES = ["index.ts", "index.tsx", "index.js", "index.jsx"];
+const RESOLVABLE_INDEX_FILES = [
+  "index.ts",
+  "index.tsx",
+  "index.js",
+  "index.jsx",
+];
 
 function hasPublicDirectoryIndex(
   importPath: string,
@@ -51,9 +56,17 @@ function hasPublicDirectoryIndex(
   }
 
   const relativeLayerPath = importPath.slice(layerPrefix.length);
-  const targetDirectory = pathModule.join(projectRoot, "src", layer, relativeLayerPath);
+  const targetDirectory = pathModule.join(
+    projectRoot,
+    "src",
+    layer,
+    relativeLayerPath,
+  );
 
-  if (!fsModule.existsSync(targetDirectory) || !fsModule.statSync(targetDirectory).isDirectory()) {
+  if (
+    !fsModule.existsSync(targetDirectory) ||
+    !fsModule.statSync(targetDirectory).isDirectory()
+  ) {
     return false;
   }
 
