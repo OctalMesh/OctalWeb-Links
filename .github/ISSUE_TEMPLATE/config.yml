@@ -1,0 +1,18 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name:  "Issue with design system"
+    about: "Please open issues relating to design in 'OctalMesh/OctalDesign'"
+    url:   "https://github.com/OctalMesh/OctalDesign/issues/new/choose"
+
+  - name:  "Issue with font"
+    about: "Please open issues relating to font in 'OctalMesh/OctalFont'"
+    url:   "https://github.com/OctalMesh/OctalFont/issues/new/choose"
+
+  - name:  "🌐 Website"
+    about: "Check out our official website"
+    url:   "https://octalmesh.com/"
+
+  - name:  "📣 Socials"
+    about: "Join us on social media platforms"
+    url:   "https://links.octalmesh.com/"

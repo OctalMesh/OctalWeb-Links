@@ -1,0 +1,108 @@
+"use client";
+
+import * as React from "react";
+
+import { isMotionComponent } from "motion/react";
+
+import { cn } from "@shared/lib";
+
+export type AnyProps = Record<string, unknown>;
+
+export type DOMMotionProps<T extends HTMLElement = HTMLElement> = {
+  className?: string;
+  style?: React.CSSProperties;
+  ref?: React.Ref<T>;
+  [key: string]: unknown;
+};
+
+export type WithAsChild<Base extends object> =
+  | (Base & { asChild: true; children: React.ReactElement })
+  | (Base & { asChild?: false | undefined });
+
+export type SlotProps<T extends HTMLElement = HTMLElement> = {
+  children?: any;
+} & DOMMotionProps<T>;
+
+function mergeRefs<T>(
+  ...refs: (React.Ref<T> | undefined)[]
+): React.RefCallback<T> {
+  return (node) => {
+    refs.forEach((ref) => {
+      if (!ref) return;
+      if (typeof ref === "function") {
+        ref(node);
+      } else {
+        (ref as React.RefObject<T | null>).current = node;
+      }
+    });
+  };
+}
+
+function mergeProps<T extends HTMLElement>(
+  childProps: AnyProps,
+  slotProps: DOMMotionProps<T>,
+): AnyProps {
+  const merged: AnyProps = { ...childProps, ...slotProps };
+
+  if (childProps.className || slotProps.className) {
+    merged.className = cn(
+      childProps.className as string,
+      slotProps.className as string,
+    );
+  }
+
+  if (childProps.style || slotProps.style) {
+    merged.style = {
+      ...(childProps.style as React.CSSProperties),
+      ...(slotProps.style as React.CSSProperties),
+    };
+  }
+
+  return merged;
+}
+
+export function Slot<T extends HTMLElement = HTMLElement>({
+  children,
+  ref,
+  ...props
+}: SlotProps<T>) {
+  if (!React.isValidElement(children)) return null;
+
+  const element = children as React.ReactElement<
+    AnyProps & { ref?: React.Ref<T> }
+  >;
+
+  const isAlreadyMotion =
+    typeof children.type === "object" &&
+    children.type !== null &&
+    isMotionComponent(children.type);
+
+  const { ref: childRef, ...childProps } = element.props as AnyProps;
+
+  const mergedProps = mergeProps(childProps, props);
+
+  if (!isAlreadyMotion) {
+    // Motion props are meaningful only for motion components.
+    delete mergedProps.animate;
+    delete mergedProps.initial;
+    delete mergedProps.exit;
+    delete mergedProps.variants;
+    delete mergedProps.transition;
+    delete mergedProps.whileHover;
+    delete mergedProps.whileTap;
+    delete mergedProps.whileInView;
+    delete mergedProps.whileDrag;
+    delete mergedProps.layout;
+    delete mergedProps.layoutId;
+    delete mergedProps.drag;
+    delete mergedProps.dragConstraints;
+    delete mergedProps.dragElastic;
+    delete mergedProps.dragMomentum;
+    delete mergedProps.dragTransition;
+  }
+
+  return React.cloneElement(element, {
+    ...mergedProps,
+    ref: mergeRefs(childRef as React.Ref<T>, ref),
+  });
+}

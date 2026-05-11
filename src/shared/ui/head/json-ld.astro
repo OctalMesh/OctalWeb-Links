@@ -1,0 +1,68 @@
+---
+import { siteConfig } from "@shared/config";
+
+type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
+
+interface Props {
+  jsonLd?: JsonLd;
+  availableLangs: string[];
+  absoluteImage: string;
+}
+
+const { jsonLd, availableLangs, absoluteImage } = Astro.props;
+
+const largestIcon = siteConfig.pwa.icons.reduce((a, b) => {
+  const aSize = parseInt(a.sizes.split("x")[0] ?? "0");
+  const bSize = parseInt(b.sizes.split("x")[0] ?? "0");
+  return bSize > aSize ? b : a;
+});
+
+const defaultJsonLd: Record<string, unknown>[] = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    alternateName: siteConfig.shortName,
+    url: siteConfig.canonical,
+    description: siteConfig.description,
+    inLanguage: availableLangs,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.author,
+      url: siteConfig.canonical,
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteConfig.canonical}/?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.author,
+    url: siteConfig.canonical,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteConfig.canonical}${largestIcon.src}`,
+      width: parseInt(largestIcon.sizes.split("x")[0] ?? "512"),
+      height: parseInt(largestIcon.sizes.split("x")[1] ?? "512"),
+    },
+    image: absoluteImage,
+    sameAs: siteConfig.sameAs,
+  },
+];
+
+const jsonLdPayload = Array.isArray(jsonLd)
+  ? jsonLd
+  : jsonLd
+    ? [jsonLd]
+    : defaultJsonLd;
+---
+
+{jsonLdPayload.map((schema) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

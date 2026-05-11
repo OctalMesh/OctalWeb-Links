@@ -1,0 +1,110 @@
+# Automatically detect text files
+* text=auto eol=lf encoding=UTF-8
+
+# Common configuration and markup files
+*.xml        text eol=lf encoding=UTF-8
+*.properties text eol=lf encoding=UTF-8
+*.json       text eol=lf encoding=UTF-8
+*.yml        text eol=lf encoding=UTF-8
+*.yaml       text eol=lf encoding=UTF-8
+*.md         text eol=lf encoding=UTF-8
+*.gradle     text eol=lf encoding=UTF-8
+*.gradle.kts text eol=lf encoding=UTF-8
+
+# TypeScript & JavaScript
+*.ts  text eol=lf encoding=UTF-8
+*.tsx text eol=lf encoding=UTF-8
+*.mts text eol=lf encoding=UTF-8
+*.cts text eol=lf encoding=UTF-8
+*.js  text eol=lf encoding=UTF-8
+*.jsx text eol=lf encoding=UTF-8
+*.mjs text eol=lf encoding=UTF-8
+*.cjs text eol=lf encoding=UTF-8
+
+# Go source files
+*.go   text eol=lf encoding=UTF-8
+go.mod text eol=lf encoding=UTF-8
+go.sum text eol=lf encoding=UTF-8 -diff
+
+# HTML / CSS
+*.html text eol=lf encoding=UTF-8
+*.css  text eol=lf encoding=UTF-8
+*.scss text eol=lf encoding=UTF-8
+
+# Shell scripts
+*.bash text eol=lf
+*.fish text eol=lf
+*.ksh  text eol=lf
+*.sh   text eol=lf
+*.zsh  text eol=lf
+
+# Windows scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Packaged files
+*.7z    binary
+*.bz    binary
+*.bz2   binary
+*.bzip2 binary
+*.ear   binary
+*.gz    binary
+*.lz    binary
+*.lzma  binary
+*.rar   binary
+*.tar   binary
+*.taz   binary
+*.tbz   binary
+*.tbz2  binary
+*.tgz   binary
+*.tlz   binary
+*.txz   binary
+*.war   binary
+*.xz    binary
+*.Z     binary
+*.zip   binary
+*.zst   binary
+
+# Image files
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.gif  binary
+*.tif  binary
+*.tiff binary
+*.ico  binary
+*.eps  binary
+*.svg  text
+
+# Design files
+*.ai  binary
+*.psd binary
+
+# Video files
+*.webm binary
+*.mp4  binary
+*.avi  binary
+*.mov  binary
+*.mkv  binary
+
+# Audio files
+*.mp3  binary
+*.wav  binary
+*.flac binary
+*.ogg  binary
+
+# Font files
+*.eot   binary
+*.otf   binary
+*.ttf   binary
+*.woff  binary
+*.woff2 binary
+
+# Excluded files from git archive exports
+.editorconfig  export-ignore
+.gitattributes export-ignore
+.gitignore     export-ignore
+.gitkeep       export-ignore
+.gitmodules    export-ignore

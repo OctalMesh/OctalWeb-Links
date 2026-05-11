@@ -1,0 +1,15 @@
+role:   squadron
+id:     links
+binary: owl
+
+reactor:
+  provider: tilt
+  network:  octalnet-links
+  context:  ./
+
+  blueprints:
+    - env:  dev
+      path: ./infra/dev/tilt/Tiltfile
+
+    - env:  staging
+      path: ./infra/staging/tilt/Tiltfile

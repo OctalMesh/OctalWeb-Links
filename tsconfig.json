@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "astro/tsconfigs/strict",
+
+  "compilerOptions": {
+    /* Path Aliases */
+    "paths": {
+      "@app/*":      [ "./src/app/*" ],
+      "@pages/*":    [ "./src/pages/*" ],
+      "@widgets/*":  [ "./src/widgets/*" ],
+      "@features/*": [ "./src/features/*" ],
+      "@entities/*": [ "./src/entities/*" ],
+      "@shared/*":   [ "./src/shared/*" ]
+    },
+
+    /* Environment */
+    "target": "es2025",
+    "types": [ "astro/client", "node" ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "allowJs": false,
+
+    /* Module Resolution */
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": false,
+    "erasableSyntaxOnly": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Emit */
+    "noEmit": true,
+    "skipLibCheck": true,
+
+    /* Strict Type Checking */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
+  },
+
+  "include": [ "./.astro/types.d.ts", "./src/**/*" ],
+  "exclude": [ "./node_modules", "./dist" ]
+}

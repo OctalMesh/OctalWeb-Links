@@ -1,0 +1,23 @@
+{
+  "404": {
+    "badge": "Lost in the mesh",
+    "error_label": "Error 404",
+    "title": "Page not found",
+    "description": "This address does not seem to exist. Return to the OctalMesh Links home page and continue from there.",
+    "primary_action": "Return to home",
+    "secondary_action": "Take me somewhere random",
+    "console_title": "Console",
+    "console_subtitle": "Feel like a real developer of this website",
+    "console_path": "path: /unknown",
+    "console_path_template": "path: {path}",
+    "console_status": "status: disconnected",
+    "console_hint": "go back to the link hub and continue from there.",
+    "console_help": "Available commands: help, status, home, random\nTry: \"status\" to inspect this page, or \"home\" to go back.",
+    "console_opening_home": "Opening homepage...",
+    "console_no_links": "No links available.",
+    "console_unknown_command": "Unknown command: {cmd}",
+    "console_opening_random": "Opening random link: {href}",
+    "quick_exit_title": "Message",
+    "quick_exit_body": "Holy moly, how did you even get here? Use the home button to return to the main links grid and continue your journey from there."
+  }
+}

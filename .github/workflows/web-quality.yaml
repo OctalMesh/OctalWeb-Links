@@ -1,0 +1,79 @@
+name: "Web: Quality"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["dev"]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "package.json"
+      - "package-lock.json"
+      - "astro.config.mts"
+      - "tsconfig.json"
+      - "tsconfig.node.json"
+      - "eslint.config.mts"
+      - ".prettierrc"
+      - ".prettierignore"
+  pull_request:
+    branches: ["dev"]
+
+permissions:
+  contents: read
+
+jobs:
+  # Check if the commit message contains skip tags
+  check:
+    name: "Skip Check"
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+
+    steps:
+      - id: skip_check
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message || github.event.pull_request.title }}
+        run: |
+          if [[ "$COMMIT_MSG" == *"[ci-skip]"* ]] || \
+             [[ "$COMMIT_MSG" == *"[lint-skip]"* ]]; then
+            echo "should_skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_skip=false" >> $GITHUB_OUTPUT
+          fi
+
+  # Perform quality analysis
+  quality:
+    name: "Analyze (${{ matrix.language }})"
+    needs: check
+    if: needs.check.outputs.should_skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    strategy:
+      matrix:
+        include:
+          - language: "javascript-typescript"
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Check formatting"
+        run: npm run format:check
+
+      - name: "Run Astro check"
+        run: npm run check
+
+      - name: "Run ESLint"
+        run: npm run lint

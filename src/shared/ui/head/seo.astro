@@ -1,0 +1,80 @@
+---
+import { siteConfig } from "@shared/config";
+import { getI18nConfig, DEFAULT_LANGUAGE } from "@shared/i18n";
+import JsonLd from "./json-ld.astro";
+import Twitter from "./twitter.astro";
+import OpenGraph from "./open-graph.astro";
+import Locale from "./locale.astro";
+
+type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  type?: "website" | "article";
+  twitterCard?: "summary" | "summary_large_image";
+  locale?: string;
+  noindex?: boolean;
+  keywords?: string[];
+  jsonLd?: JsonLd;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  canonical = siteConfig.canonical,
+  image = siteConfig.image,
+  imageWidth = 1200,
+  imageHeight = 630,
+  type = "website",
+  twitterCard = "summary_large_image",
+  locale = DEFAULT_LANGUAGE,
+  noindex = false,
+  keywords = siteConfig.keywords,
+  jsonLd,
+} = Astro.props as Props;
+
+const i18n = getI18nConfig();
+const availableLangs = ((i18n.languages as unknown) as Array<any>).map((l: any) => l.code);
+
+const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+const absoluteImage = image.startsWith("http") ? image : `${siteConfig.canonical}${image}`;
+---
+
+<title>{seoTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={siteConfig.author} />
+<meta name="keywords" content={keywords.join(", ")} />
+<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"} />
+<meta name="theme-color" content={siteConfig.pwa.themeColor} />
+<link rel="canonical" href={canonical} />
+
+<Locale i18n={i18n as any} canonical={canonical} />
+
+<OpenGraph
+  type={type}
+  title={seoTitle}
+  description={description}
+  canonical={canonical}
+  absoluteImage={absoluteImage}
+  imageWidth={imageWidth}
+  imageHeight={imageHeight}
+  locale={locale}
+/>
+
+<Twitter
+  card={twitterCard}
+  title={seoTitle}
+  description={description}
+  absoluteImage={absoluteImage}
+/>
+
+<JsonLd
+  jsonLd={jsonLd}
+  availableLangs={availableLangs}
+  absoluteImage={absoluteImage}
+/>

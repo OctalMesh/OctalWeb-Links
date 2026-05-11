@@ -1,0 +1,45 @@
+---
+import { siteConfig } from "@shared/config";
+import { getI18nConfig } from "@shared/i18n";
+
+interface Props {
+  type: string;
+  title: string;
+  description: string;
+  canonical: string;
+  absoluteImage: string;
+  imageWidth: number;
+  imageHeight: number;
+  locale: string;
+}
+
+const { type, title, description, canonical, absoluteImage, imageWidth, imageHeight, locale } = Astro.props;
+const siteName = siteConfig.name;
+const i18n = getI18nConfig();
+const regionMap = Object.fromEntries(
+  ((i18n.languages as unknown) as Array<any>).map((l: any) => [l.code, l.region || l.code.toUpperCase()])
+);
+const formatOg = (code: string) => `${code}_${regionMap[code] || code.toUpperCase()}`;
+const ogLocale = formatOg(locale);
+const alternateLocales = ((i18n.languages as unknown) as Array<any>)
+  .filter((l: any) => l.code !== locale)
+  .map((l: any) => formatOg(l.code));
+---
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+
+<meta property="og:image" content={absoluteImage} />
+<meta property="og:image:secure_url" content={absoluteImage} />
+<meta property="og:image:width" content={String(imageWidth)} />
+<meta property="og:image:height" content={String(imageHeight)} />
+<meta property="og:image:alt" content={title} />
+<meta property="og:image:type" content="image/png" />
+
+<meta property="og:locale" content={ogLocale} />
+{alternateLocales.map((l) =>
+  <meta property="og:locale:alternate" content={l} />
+)}
