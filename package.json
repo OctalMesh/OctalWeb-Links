@@ -27,10 +27,10 @@
     "tree:export": "npm run tree --silent > .project-structure.txt"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.5",
+    "@astrojs/react": "^5.0.6",
     "@base-ui/react": "^1.5.0",
     "@tabler/icons-react": "^3.44.0",
-    "astro": "^6.3.7",
+    "astro": "^6.4.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "motion": "^12.40.0",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.7.3",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/vite": "^4.3.0",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
