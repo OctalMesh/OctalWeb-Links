@@ -56,7 +56,7 @@
     "eslint-plugin-astro": "^2.1.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
-    "globals": "^17.6.0",
+    "globals": "^17.7.0",
     "jiti": "^2.7.0",
     "npm-check-updates": "^22.2.7",
     "prettier": "^3.9.1",
