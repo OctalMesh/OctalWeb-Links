@@ -20,7 +20,7 @@ export const siteConfig = {
     "https://youtube.com/@octalmesh",
     "https://instagram.com/octalmesh",
     "https://linkedin.com/company/octalmesh",
-    "https://reddit.com/r/octalmesh/",
+    "https://reddit.com/r/OctalMesh/",
     "https://tiktok.com/@octalmesh",
     "https://patreon.com/c/octalmesh",
   ],
