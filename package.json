@@ -59,7 +59,7 @@
     "globals": "^17.7.0",
     "jiti": "^2.7.0",
     "npm-check-updates": "^22.2.9",
-    "prettier": "^3.9.1",
+    "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "shadcn": "^4.11.0",
     "tailwindcss": "^4.3.0",
