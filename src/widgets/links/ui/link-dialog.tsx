@@ -151,7 +151,7 @@ export function LinkDialog({
       label: "common.share.telegram",
       onClick: () =>
         open(
-          `https://t.me/share/url?url=${encodeURIComponent(properties.href)}&text=${encodeURIComponent(altText)}`,
+          `https://telegram.me/share/url?url=${encodeURIComponent(properties.href)}&text=${encodeURIComponent(altText)}`,
         ),
     },
     {

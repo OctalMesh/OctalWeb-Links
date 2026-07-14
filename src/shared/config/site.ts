@@ -16,7 +16,7 @@ export const siteConfig = {
   sameAs: [
     "https://github.com/OctalMesh/",
     "https://x.com/octalmesh",
-    "https://t.me/octalmesh",
+    "https://telegram.me/octalmesh",
     "https://youtube.com/@octalmesh",
     "https://instagram.com/octalmesh",
     "https://linkedin.com/company/octalmesh",
