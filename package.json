@@ -60,7 +60,7 @@
     "jiti": "^2.7.0",
     "npm-check-updates": "^22.2.9",
     "prettier": "^3.9.5",
-    "prettier-plugin-tailwindcss": "^0.8.0",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "shadcn": "^4.13.0",
     "tailwindcss": "^4.3.0",
     "tailwindcss-animate": "^1.0.7",
