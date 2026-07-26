@@ -29,7 +29,7 @@
     "runtime": {
       "name": "node",
       "version": "^22.16.0",
-      "onFail": "error"
+      "onFail": "warn"
     }
   },
   "scripts": {

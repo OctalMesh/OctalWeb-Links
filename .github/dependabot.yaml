@@ -23,9 +23,11 @@ updates:
       day: "monday"
       time: "06:00"
 
+    # Reviewers for the pull requests
     reviewers:
       - "OctalMesh/development"
 
+    # Labels for the pull requests
     labels:
       - "Dependencies"
 
@@ -116,9 +118,11 @@ updates:
       day: "monday"
       time: "06:00"
 
+    # Reviewers for the pull requests
     reviewers:
       - "OctalMesh/development"
 
+    # Labels for the pull requests
     labels:
       - "Dependencies"
 
@@ -134,9 +138,11 @@ updates:
       day: "monday"
       time: "06:00"
 
+    # Reviewers for the pull requests
     reviewers:
       - "OctalMesh/development"
 
+    # Labels for the pull requests
     labels:
       - "Dependencies"
 
