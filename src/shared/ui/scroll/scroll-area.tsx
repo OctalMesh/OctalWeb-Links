@@ -12,12 +12,14 @@ import { ScrollBar } from "./scroll-bar";
 
 export interface ScrollAreaProps extends ScrollAreaPrimitive.Root.Props {
   withArrows?: boolean;
+  showBar?: boolean;
 }
 
 export function ScrollArea({
   className,
   children,
   withArrows = false,
+  showBar = true,
   ...props
 }: ScrollAreaProps) {
   const viewportRef = React.useRef<HTMLDivElement>(null);
@@ -124,9 +126,14 @@ export function ScrollArea({
       >
         {children}
       </ScrollAreaPrimitive.Viewport>
-      <ScrollBar orientation="horizontal" />
-      <ScrollBar orientation="vertical" />
-      <ScrollAreaPrimitive.Corner />
+
+      {showBar && (
+        <>
+          <ScrollBar orientation="horizontal" />
+          <ScrollBar orientation="vertical" />
+          <ScrollAreaPrimitive.Corner />
+        </>
+      )}
     </ScrollAreaPrimitive.Root>
   );
 }
