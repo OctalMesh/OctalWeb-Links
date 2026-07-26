@@ -20,7 +20,7 @@ export function DialogBackdrop({
     <DialogPrimitive.Backdrop
       data-slot="dialog-backdrop"
       className={cn(
-        "fixed inset-0 z-50 bg-black/25 backdrop-blur-sm transition-all duration-1000",
+        "fixed inset-0 z-50 bg-black/25 backdrop-blur-sm",
         className,
       )}
       render={

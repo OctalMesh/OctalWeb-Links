@@ -1,3 +1,16 @@
+# ============================================================================ #
+#                               Go Lint Workflow                               #
+# ============================================================================ #
+# Runs golangci-lint analysis on every push to dev and on every pull request   #
+# targeting dev that includes changes to the CLI source code.                  #
+#                                                                              #
+# Skip tags (anywhere in commit message or PR title):                          #
+#   [ci-skip]   - skips all workflows                                          #
+#   [lint-skip] - skips this workflow only                                     #
+#                                                                              #
+# Note: skip tags are ignored for scheduled runs.                              #
+# ============================================================================ #
+
 name: "CLI: Lint"
 
 on:
@@ -18,19 +31,20 @@ jobs:
     name: "Skip Check"
     runs-on: ubuntu-latest
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.belay.outputs.issued }}
 
     steps:
-      - id: skip_check
-        env:
-          COMMIT_MSG: ${{ github.event.head_commit.message || github.event.pull_request.title }}
-        run: |
-          if [[ "$COMMIT_MSG" == *"[ci-skip]"* ]] || \
-             [[ "$COMMIT_MSG" == *"[lint-skip]"* ]]; then
-            echo "should_skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_skip=false" >> $GITHUB_OUTPUT
-          fi
+      - name: "Setup: Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 1
+
+      - name: "Run: Check skip tags"
+        id: belay
+        uses: OctalMesh/belay-action@v1
+        with:
+          signal_tags: "[ci-skip],[lint-skip]"
 
   # Perform golangci-lint analysis
   lint:
@@ -41,18 +55,18 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: "Checkout repository"
+      - name: "Setup: Checkout repository"
         uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - name: "Set up Go"
+      - name: "Setup: Go"
         uses: actions/setup-go@v7
         with:
           go-version-file: cli/go.mod
           cache: true
           cache-dependency-path: cli/go.sum
 
-      - name: "Run golangci-lint"
+      - name: "Run: GolangCI Lint"
         working-directory: cli
         run: go tool golangci-lint run ./...

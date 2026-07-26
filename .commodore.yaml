@@ -1,12 +1,30 @@
+# ============================================================================ #
+#                             Squadron Commander                               #
+# ============================================================================ #
+# Role: squadron | The recursive orchestrator node.                            #
+# Manages tactical groups and inter-unit synchronization.                      #
+#                                                                              #
+# See: https://git.octalmesh.com/Commodore                                     #
+# ============================================================================ #
+
 role:   squadron
 id:     links
 binary: owl
+
+# ============================================================================ #
+#                            Reactor Configuration                             #
+# ============================================================================ #
+# Defines the reactor provider and its configuration for live updates,         #
+# orchestration, and environment management across the squadron.               #
+# ============================================================================ #
 
 reactor:
   provider: tilt
   network:  octalnet-links
   context:  ./
 
+  # Define the reactor configuration, such as the path to the Tiltfile and any
+  # additional settings needed for the reactor to function properly.
   blueprints:
     - env:  dev
       path: ./infra/dev/tilt/Tiltfile

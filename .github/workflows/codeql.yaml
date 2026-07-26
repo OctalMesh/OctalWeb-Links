@@ -1,3 +1,16 @@
+# ============================================================================ #
+#                                CodeQL Workflow                               #
+# ============================================================================ #
+# Runs GitHub CodeQL security and quality analysis on every push to dev, on    #
+# every pull request targeting dev, and on a weekly schedule.                  #
+#                                                                              #
+# Skip tags (anywhere in commit message or PR title):                          #
+#   [ci-skip] - skips all workflows                                            #
+#   [ql-skip] - skips this workflow only                                       #
+#                                                                              #
+# Note: skip tags are ignored for scheduled runs.                              #
+# ============================================================================ #
+
 name: "CodeQL"
 
 on:
@@ -7,7 +20,8 @@ on:
   pull_request:
     branches: ["dev"]
   schedule:
-    - cron: "41 15 * * 1"
+    # Runs every Monday at 6:00 AM UTC
+    - cron: "0 6 * * 1"
 
 permissions:
   contents: read
@@ -19,19 +33,22 @@ jobs:
     name: "Skip Check"
     runs-on: ubuntu-latest
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.belay.outputs.issued }}
 
     steps:
-      - id: skip_check
-        env:
-          COMMIT_MSG: ${{ github.event.head_commit.message || github.event.pull_request.title }}
-        run: |
-          if [[ "$COMMIT_MSG" == *"[ci-skip]"* ]] || \
-             [[ "$COMMIT_MSG" == *"[ql-skip]"* ]]; then
-            echo "should_skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_skip=false" >> $GITHUB_OUTPUT
-          fi
+      - name: "Setup: Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 1
+
+      - name: "Run: Check skip tags"
+        id: belay
+        # Scheduled runs: always execute regardless of skip tags
+        if: github.event_name != 'schedule'
+        uses: OctalMesh/belay-action@v1
+        with:
+          signal_tags: "[ci-skip],[ql-skip]"
 
   # Perform CodeQL analysis
   analyze:
@@ -57,48 +74,52 @@ jobs:
             build-mode: "manual"
 
     steps:
-      - name: "Checkout repository"
+      - name: "Setup: Checkout repository"
         uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - name: "Setup Node.js"
+      - name: "Setup: pnpm"
+        if: matrix.language == 'javascript-typescript'
+        uses: pnpm/action-setup@v6
+
+      - name: "Setup: Node.js"
         if: matrix.language == 'javascript-typescript'
         uses: actions/setup-node@v7
         with:
           node-version: 22
-          cache: npm
+          cache: "pnpm"
 
-      - name: "Install Node.js dependencies"
+      - name: "Setup: Install Node.js dependencies"
         if: matrix.language == 'javascript-typescript'
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
-      - name: "Set up Go"
+      - name: "Setup: Go"
         if: matrix.language == 'go'
-        uses: actions/setup-go@v7
+        uses: actions/setup-go@v6
         with:
           go-version-file: cli/go.mod
           cache: true
           cache-dependency-path: cli/go.sum
 
-      - name: "Initialize CodeQL"
+      - name: "Setup: Initialize CodeQL"
         uses: github/codeql-action/init@v4
         with:
           config-file: "./.github/codeql/codeql-config${{ matrix.language == 'go' && '-go' || '' }}.yaml"
           languages: "${{ matrix.language }}"
           build-mode: "${{ matrix.build-mode }}"
 
-      - name: "Setup proxy for registries"
+      - name: "Setup: Setup proxy for registries"
         if: matrix.language == 'go'
         uses: github/codeql-action/start-proxy@v4
 
-      - name: "Configure"
+      - name: "Setup: Configure environment for Go"
         if: matrix.language == 'go'
         uses: github/codeql-action/resolve-environment@v4
         with:
           language: "${{ matrix.language }}"
 
-      - name: "Build CLI"
+      - name: "Setup: Build CLI"
         if: matrix.language == 'go'
         working-directory: cli
         run: |
@@ -107,7 +128,7 @@ jobs:
           go build ./...
           go vet ./...
 
-      - name: "Perform CodeQL Analysis"
+      - name: "Run: Perform CodeQL Analysis"
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{ matrix.language }}"
