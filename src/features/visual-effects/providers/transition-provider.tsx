@@ -11,5 +11,3 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     </TransitionContext.Provider>
   );
 }
-
-export default TransitionProvider;

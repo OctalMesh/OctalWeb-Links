@@ -30,5 +30,5 @@
     "noUncheckedIndexedAccess": true,
   },
 
-  "include": [ "./astro.config.mts", "./eslint.config.mts" ]
+  "include": [ "./astro.config.ts", "./eslint.config.ts" ]
 }

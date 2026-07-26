@@ -35,7 +35,7 @@ import {
 } from "@shared/ui/dialog";
 import { resolveIcon } from "@shared/ui/icon";
 import { PreviewLinkCard, PreviewLinkCardImage } from "@shared/ui/preview";
-import { ScrollArea, ScrollBar } from "@shared/ui/scroll";
+import { ScrollArea } from "@shared/ui/scroll";
 
 export function LinkDialog({
   properties,
@@ -275,7 +275,11 @@ export function LinkDialog({
               "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
           }}
         >
-          <ScrollArea withArrows className="w-full whitespace-nowrap">
+          <ScrollArea
+            withArrows
+            showBar={false}
+            className="w-full whitespace-nowrap"
+          >
             <div className="flex w-full min-w-max justify-between space-x-3 py-2 px-3">
               {shareItems.map((item) => {
                 const Icon = item.icon;
@@ -295,7 +299,6 @@ export function LinkDialog({
                 );
               })}
             </div>
-            <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
 

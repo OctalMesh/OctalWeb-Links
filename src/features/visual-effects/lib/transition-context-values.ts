@@ -8,5 +8,3 @@ export type TransitionContextState = {
 export const TransitionContext = createContext<TransitionContextState | null>(
   null,
 );
-
-export default TransitionContext;

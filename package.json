@@ -1,8 +1,25 @@
 {
-  "name": "octal-links",
-  "version": "26.7.1",
+  "name": "octalweb-links",
+  "version": "26.7.2",
+  "description": "The OctalMesh hub for socials and contacts",
+  "author": "OctalMesh <contact@octalmesh.com> (https://octalmesh.com)",
+  "license": "MIT",
+  "homepage": "https://links.octalmesh.com",
   "type": "module",
   "private": true,
+  "keywords": [
+    "octalmesh",
+    "octalweb",
+    "links"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OctalMesh/OctalWeb-Links.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OctalMesh/OctalWeb-Links/issues",
+    "email": "security@octalmesh.com"
+  },
   "packageManager": "pnpm@11.17.0",
   "engines": {
     "node": ">=22.16.0",
@@ -32,7 +49,7 @@
     "deps:doctor": "ncu --doctor -u",
     "deps:peer": "ncu --peer",
     "tree": "treee -I \"node_modules|.git|.idea|target|build|dist|dev-dist|bin|.project-structure.txt\" -a --dirs-first",
-    "tree:export": "pnpm tree --silent > .project-structure.txt"
+    "tree:export": "pnpm run tree --silent > .project-structure.txt"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.1",
@@ -42,7 +59,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "motion": "^12.42.2",
-    "next-themes": "^0.4.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwind-merge": "^3.6.0",
@@ -73,7 +89,6 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "shadcn": "^4.15.0",
     "tailwindcss": "^4.3.3",
-    "tailwindcss-animate": "^1.0.7",
     "tree-node-cli": "^3.0.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.65.0"
