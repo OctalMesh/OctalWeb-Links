@@ -1,5 +1,5 @@
 ---
-import "../styles/index.css";
+import "@shared/assets/styles";
 import { AppProvider } from "@app/providers";
 import { siteConfig } from "@shared/config";
 import { HeadAssets, HeadSeo } from "@shared/ui/head";
@@ -55,7 +55,9 @@ const canonical = new URL(Astro.url.pathname, siteConfig.canonical).href.replace
     <div class="fixed h-screen w-full bg-[radial-gradient(ellipse_at_bottom,var(--fx-bg-start)_0%,var(--fx-bg-end)_100%)]" />
 
     <AppProvider client:load initialLanguage={locale}>
-      <main class="relative z-10"><slot /></main>
+      <main class="relative z-10">
+        <slot />
+      </main>
     </AppProvider>
 
     <noscript>

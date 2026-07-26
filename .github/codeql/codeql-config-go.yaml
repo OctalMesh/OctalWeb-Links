@@ -1,3 +1,11 @@
+# ============================================================================ #
+#                     CodeQL Configuration for Go (Golang)                     #
+# ============================================================================ #
+# This file defines the CodeQL analysis configuration for this project. It     #
+# specifies which paths to exclude from analysis, which query suites to run,   #
+# and which rules to suppress to reduce noise.                                 #
+# ============================================================================ #
+
 name: "CodeQL Configuration (Go)"
 
 paths:

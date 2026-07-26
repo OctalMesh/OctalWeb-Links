@@ -3,6 +3,12 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
+/**
+ * Astro configuration
+ *
+ * @see {@link https://docs.astro.build/en/reference/configuration-reference/
+ *      Astro documentation}
+ */
 export default defineConfig({
   site: "https://links.octalmesh.com",
   output: "static",
