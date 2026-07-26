@@ -17,10 +17,11 @@ updates:
     target-branch: "dev"
     open-pull-requests-limit: 5
 
-    # Runs every Monday
+    # Runs every Monday at 6:00 AM UTC
     schedule:
       interval: "weekly"
       day: "monday"
+      time: "06:00"
 
     reviewers:
       - "OctalMesh/development"
@@ -109,10 +110,11 @@ updates:
     target-branch: "dev"
     open-pull-requests-limit: 5
 
-    # Runs every Monday
+    # Runs every Monday at 6:00 AM UTC
     schedule:
       interval: "weekly"
       day: "monday"
+      time: "06:00"
 
     reviewers:
       - "OctalMesh/development"
@@ -126,10 +128,11 @@ updates:
     target-branch: "dev"
     open-pull-requests-limit: 5
 
-    # Runs every Monday
+    # Runs every Monday at 6:00 AM UTC
     schedule:
       interval: "weekly"
       day: "monday"
+      time: "06:00"
 
     reviewers:
       - "OctalMesh/development"
