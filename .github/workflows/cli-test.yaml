@@ -1,3 +1,17 @@
+# ============================================================================ #
+#                               Go Test Workflow                               #
+# ============================================================================ #
+# Runs Go tests on every push to dev and on every pull request targeting dev   #
+# that includes changes to the CLI source code.                                #
+#                                                                              #
+# Skip tags (anywhere in commit message or PR title):                          #
+#   [ci-skip]      - skips all workflows                                       #
+#   [test-skip]    - skips all test workflows                                  #
+#   [go-test-skip] - skips this workflow only                                  #
+#                                                                              #
+# Note: skip tags are ignored for scheduled runs.                              #
+# ============================================================================ #
+
 name: "CLI: Test"
 
 on:
@@ -18,19 +32,20 @@ jobs:
     name: "Skip Check"
     runs-on: ubuntu-latest
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.belay.outputs.issued }}
 
     steps:
-      - id: skip_check
-        env:
-          COMMIT_MSG: ${{ github.event.head_commit.message || github.event.pull_request.title }}
-        run: |
-          if [[ "$COMMIT_MSG" == *"[ci-skip]"* ]] || \
-             [[ "$COMMIT_MSG" == *"[test-skip]"* ]]; then
-            echo "should_skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_skip=false" >> $GITHUB_OUTPUT
-          fi
+      - name: "Setup: Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 1
+
+      - name: "Run: Check skip tags"
+        id: belay
+        uses: OctalMesh/belay-action@v1
+        with:
+          signal_tags: "[ci-skip],[test-skip],[go-test-skip]"
 
   # Perform Go tests
   test:
@@ -46,34 +61,34 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      - name: "Checkout repository"
-        uses: actions/checkout@v6
+      - name: "Setup: Checkout repository"
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - name: "Set up Go"
-        uses: actions/setup-go@v6
+      - name: "Setup: Go"
+        uses: actions/setup-go@v7
         with:
           go-version-file: cli/go.mod
           cache: true
           cache-dependency-path: cli/go.sum
 
-      - name: "Download dependencies"
+      - name: "Setup: Download dependencies"
         working-directory: cli
         run: |
           go mod download
           go mod verify
 
-      - name: "Build"
+      - name: "Setup: Build"
         working-directory: cli
         run: go build -v ./...
 
-      - name: "Run tests"
+      - name: "Run: Run tests"
         working-directory: cli
         shell: bash
         run: go test -v -coverprofile=coverage-${{ matrix.os }}.out ./...
 
-      - name: "Upload coverage"
+      - name: "Run: Upload coverage"
         uses: actions/upload-artifact@v7
         with:
           name: coverage-${{ matrix.os }}

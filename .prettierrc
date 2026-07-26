@@ -13,9 +13,10 @@
     "prettier-plugin-tailwindcss",
     "@trivago/prettier-plugin-sort-imports"
   ],
-  "tailwindStylesheet": "./src/app/styles/index.css",
+  "tailwindStylesheet": "./src/shared/assets/styles/globals.css",
   "tailwindFunctions": ["cn", "cva"],
   "importOrder": [
+    "^node:",
     "^react",
     "^vite",
     "<THIRD_PARTY_MODULES>",

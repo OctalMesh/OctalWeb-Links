@@ -58,7 +58,7 @@
       "id": "telegram",
       "icon": "telegram",
       "categoryId": "socials",
-      "href": "https://t.me/octalmesh",
+      "href": "https://telegram.me/octalmesh",
       "title": {
         "en": "Telegram",
         "uk": "Telegram"
@@ -103,7 +103,7 @@
       "id": "reddit",
       "icon": "reddit",
       "categoryId": "socials",
-      "href": "https://reddit.com/r/octalmesh/",
+      "href": "https://reddit.com/r/OctalMesh/",
       "title": {
         "en": "Reddit",
         "uk": "Reddit"
@@ -163,7 +163,7 @@
       "id": "telegram_manager",
       "icon": "telegram",
       "categoryId": "contact",
-      "href": "https://t.me/octalmesh_manager",
+      "href": "https://telegram.me/octalmesh_manager",
       "title": {
         "en": "Telegram",
         "uk": "Telegram"
@@ -178,7 +178,7 @@
       "id": "manager",
       "icon": "telegram",
       "categoryId": "contact",
-      "href": "https://t.me/octalmesh_manager",
+      "href": "https://telegram.me/octalmesh_manager",
       "title": {
         "en": "Manager",
         "uk": "Менеджер"

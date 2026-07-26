@@ -1,3 +1,16 @@
+# ============================================================================ #
+#                               Quality Workflow                               #
+# ============================================================================ #
+# Runs Prettier formatting check and ESLint static analysis on every push to   #
+# dev and on every pull request targeting dev.                                 #
+#                                                                              #
+# Skip tags (anywhere in commit message or PR title):                          #
+#   [ci-skip]      - skips all workflows                                       #
+#   [quality-skip] - skips this workflow only                                  #
+#                                                                              #
+# Note: skip tags are ignored for scheduled runs.                              #
+# ============================================================================ #
+
 name: "Web: Quality"
 
 on:
@@ -8,11 +21,9 @@ on:
       - "src/**"
       - "public/**"
       - "package.json"
-      - "package-lock.json"
-      - "astro.config.mts"
-      - "tsconfig.json"
-      - "tsconfig.node.json"
-      - "eslint.config.mts"
+      - "pnpm-lock.yaml"
+      - "tsconfig*.json"
+      - "*.config.*"
       - ".prettierrc"
       - ".prettierignore"
   pull_request:
@@ -27,53 +38,52 @@ jobs:
     name: "Skip Check"
     runs-on: ubuntu-latest
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.belay.outputs.issued }}
 
     steps:
-      - id: skip_check
-        env:
-          COMMIT_MSG: ${{ github.event.head_commit.message || github.event.pull_request.title }}
-        run: |
-          if [[ "$COMMIT_MSG" == *"[ci-skip]"* ]] || \
-             [[ "$COMMIT_MSG" == *"[lint-skip]"* ]]; then
-            echo "should_skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_skip=false" >> $GITHUB_OUTPUT
-          fi
+      - name: "Setup: Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 1
+
+      - name: "Run: Check skip tags"
+        id: belay
+        uses: OctalMesh/belay-action@v1
+        with:
+          signal_tags: "[ci-skip],[quality-skip]"
 
   # Perform quality analysis
   quality:
-    name: "Analyze (${{ matrix.language }})"
+    name: "Analyze"
     needs: check
     if: needs.check.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
-    strategy:
-      matrix:
-        include:
-          - language: "javascript-typescript"
-
     steps:
-      - name: "Checkout repository"
-        uses: actions/checkout@v6
+      - name: "Setup: Checkout repository"
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - name: "Setup Node.js"
+      - name: "Setup: pnpm"
+        uses: pnpm/action-setup@v6
+
+      - name: "Setup: Node.js"
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: npm
+          cache: "pnpm"
 
-      - name: "Install dependencies"
-        run: npm ci
+      - name: "Setup: Install dependencies"
+        run: pnpm install --frozen-lockfile
 
-      - name: "Check formatting"
-        run: npm run format:check
+      - name: "Run: Prettier check"
+        run: pnpm format:check
 
-      - name: "Run Astro check"
-        run: npm run check
+      - name: "Run: Astro check"
+        run: pnpm check
 
-      - name: "Run ESLint"
-        run: npm run lint
+      - name: "Run: ESLint check"
+        run: pnpm lint

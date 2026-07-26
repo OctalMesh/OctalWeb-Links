@@ -1,3 +1,11 @@
+# ============================================================================ #
+#               CodeQL Configuration for JavaScript/TypeScript                 #
+# ============================================================================ #
+# This file defines the CodeQL analysis configuration for this project. It     #
+# specifies which paths to exclude from analysis, which query suites to run,   #
+# and which rules to suppress to reduce noise.                                 #
+# ============================================================================ #
+
 name: "CodeQL Configuration (JS/TS)"
 
 paths-ignore:
@@ -14,10 +22,8 @@ paths-ignore:
 
   # Config & tooling
 
-  - "*.config.*"
-  - "*.config.ts"
-  - "*.config.js"
-  - "*.config.mjs"
+  - "*.config.{ts,js,mts,mjs,cts,cjs}"
+  - "*.setup.{ts,js,mts,mjs,cts,cjs}"
 
   # Test files
 
@@ -26,6 +32,12 @@ paths-ignore:
   - "**/__mocks__/**"
   - "**/*.test.{ts,tsx,js,jsx}"
   - "**/*.spec.{ts,tsx,js,jsx}"
+  - "**/vitest.setup.*"
+  - "**/vitest.config.*"
+
+  # Type declarations
+
+  - "**/*.d.ts"
 
 queries:
   - uses: "security-and-quality"

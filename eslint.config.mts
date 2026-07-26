@@ -1,3 +1,6 @@
+import fsModule from "node:fs";
+import pathModule from "node:path";
+
 import jsModule from "@eslint/js";
 import type { Rule } from "eslint";
 import eslintConfigPrettierModule from "eslint-config-prettier";
@@ -7,8 +10,6 @@ import reactRefreshModule from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
 import type { ImportDeclaration } from "estree";
 import globalsModule from "globals";
-import fsModule from "node:fs";
-import pathModule from "node:path";
 import tseslint from "typescript-eslint";
 
 //<editor-fold desc="Custom Plugins" defaultstate="collapsed">
@@ -166,6 +167,12 @@ const fsdPlugin = {
 };
 //</editor-fold>
 
+/**
+ * ESLint configuration
+ *
+ * @see {@link https://eslint.org/docs/latest/use/configure/configuration-files
+ *      ESLint documentation}
+ */
 export default defineConfig([
   globalIgnores(["dist", ".astro", "node_modules"]),
 
