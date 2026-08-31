@@ -73,7 +73,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/estree": "^1.0.9",
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.4.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "eslint": "^10.8.1",
