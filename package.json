@@ -48,7 +48,7 @@
   "dependencies": {
     "@astrojs/react": "^7.0.1",
     "@base-ui/react": "^1.9.0",
-    "@tabler/icons-react": "^3.46.0",
+    "@tabler/icons-react": "^3.49.0",
     "astro": "^7.3.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
