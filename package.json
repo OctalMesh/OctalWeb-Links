@@ -46,10 +46,10 @@
     "tree:export": "pnpm run tree --silent > .project-structure.txt"
   },
   "dependencies": {
-    "@astrojs/react": "^7.0.1",
+    "@astrojs/react": "^7.1.1",
     "@base-ui/react": "^1.9.0",
     "@tabler/icons-react": "^3.49.0",
-    "astro": "^7.3.8",
+    "astro": "^7.4.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "motion": "^14.6.0",
@@ -60,7 +60,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@astrojs/sitemap": "^3.7.4",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/typography": "^0.5.20",
